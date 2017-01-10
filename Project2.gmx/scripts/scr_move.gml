@@ -28,6 +28,7 @@ if (hspd > 0) {
     }
 }
 if (!pathfree_x) {
+    // Something is in the character's path so move 1 pixel at a time
     while (!place_meeting(x+/*(16*sign(hspd))+*/sign(hspd), y, obj_solid)) {
         x += sign(hspd);
     }
@@ -39,14 +40,26 @@ if (!pathfree_x) {
 // Check if there is a vertical collision
 var movedis_y = sign(vspd);
 var pathfree_y = true;
-while (movedis_y <= vspd && vspd != 0) {
-    if (place_meeting(x, y+(16*sign(vspd))+movedis_y, obj_solid)) {
-        pathfree_y = false;
+if (vspd > 0) {
+    // Character is moving down
+    while (movedis_y <= vspd) {
+        if (place_meeting(x, y+/*(16*sign(vspd))+*/movedis_y, obj_solid)) {
+            pathfree_y = false;
+        }
+        movedis_y += sign(vspd);
     }
-    movedis_y += sign(vspd);
+} else {
+    // Character is moving up or stopped
+    while (movedis_y >= vspd && vspd != 0) {
+        if (place_meeting(x, y+/*(16*sign(vspd))+*/movedis_y, obj_solid)) {
+            pathfree_y = false;
+        }
+        movedis_y += sign(vspd);
+    }
 }
 if (!pathfree_y) {
-    while (!place_meeting(x, y+(16*sign(vspd))+sign(vspd), obj_solid)) {
+    // Something is in the character's path so move 1 pixel at a time
+    while (!place_meeting(x, y+/*(16*sign(vspd))+*/sign(vspd), obj_solid)) {
         y += sign(vspd);
     }
     vspd = 0;

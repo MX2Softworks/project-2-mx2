@@ -30,6 +30,7 @@
 maxspd = 8;
 hspd = 0;
 vspd = 0;
+acc = 2;
 grav = 1.5;
 state = scr_player_move_state;
 
