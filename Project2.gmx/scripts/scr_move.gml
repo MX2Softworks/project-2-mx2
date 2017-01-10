@@ -10,14 +10,25 @@ var collision_object = argument0;
 // Check if there is a horizontal collision
 var movedis_x = sign(hspd);
 var pathfree_x = true;
-while (movedis_x <= hspd && hspd != 0) {
-    if (place_meeting(x+(16*sign(hspd))+movedis_x, y, obj_solid)) {
-        pathfree_x = false;
+if (hspd > 0) {
+    // Character is moving right
+    while (movedis_x <= hspd) {
+        if (place_meeting(x+/*(16*sign(hspd))+*/movedis_x, y, obj_solid)) {
+            pathfree_x = false;
+        }
+        movedis_x += sign(hspd);
     }
-    movedis_x += sign(hspd);
+} else {
+    // Character is moving left or stopped
+    while (movedis_x >= hspd && hspd != 0) {
+        if (place_meeting(x+/*(16*sign(hspd))+*/movedis_x, y, obj_solid)) {
+            pathfree_x = false;
+        }
+        movedis_x += sign(hspd);
+    }
 }
 if (!pathfree_x) {
-    while (!place_meeting(x+(16*sign(hspd))+sign(hspd), y, obj_solid)) {
+    while (!place_meeting(x+/*(16*sign(hspd))+*/sign(hspd), y, obj_solid)) {
         x += sign(hspd);
     }
     hspd = 0;
