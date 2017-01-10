@@ -32,6 +32,7 @@
   <objects name="objects">
     <objects name="Player">
       <object>objects\obj_player</object>
+      <object>objects\obj_debugtext</object>
     </objects>
     <objects name="Level">
       <object>objects\obj_solid</object>
