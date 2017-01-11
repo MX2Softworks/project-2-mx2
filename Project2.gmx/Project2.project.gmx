@@ -18,7 +18,9 @@
       <sprite>sprites\spr_saw_test_1</sprite>
     </sprites>
   </sprites>
-  <backgrounds name="background"/>
+  <backgrounds name="background">
+    <background>background\bg_test_forest</background>
+  </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
     <scripts name="Helper Scripts">

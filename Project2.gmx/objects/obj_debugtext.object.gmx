@@ -8,6 +8,36 @@
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
+    <event eventtype="0" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Initialize the debugger object
+
+fps_avg1 = 0;
+fps_total1 = 0;
+frames1 = 0;
+fps_avg2 = 0;
+fps_total2 = 0;
+frames2 = 0;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="8" enumb="64">
       <action>
         <libid>1</libid>
@@ -25,16 +55,39 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_halign(fa_left); 
+            <string>/// Draw debug text to screen
+
+draw_set_halign(fa_left); 
 draw_set_valign(fa_left);
-draw_set_color(c_white); 
+draw_set_color(c_red); 
 
-draw_text(10, 12, "direction: "+string_format(obj_player.direction_horizontal, 1, 0)+","+string_format(obj_player.direction_vertical, 1, 0));
-draw_text(10, 36, "hspeed: "+string_format(obj_player.hspd, 2, 2));
-draw_text(10, 48, "vspeed: "+string_format(obj_player.vspd, 2, 2));
+// Calculations to display a more stable fps
+    frames1 += 1;
+    fps_total1 += round(fps_real);
+    fps_avg1 = fps_total1 div frames1;
+    // Reset if a second passed
+    if (frames1 == 30) {
+        frames1 = 0;
+        fps_total1 = 0;
+        frames2 += 1;
+        fps_total2 += fps_avg1;
+        fps_avg2 = fps_total2 div frames2;
+        // Reset if a minute has passed to avoid out of bounds
+        if (frames2 == 60) {
+            frames2 = 0;
+            fps_total2 = 0;
+        }
+    }
+    
 
-draw_text(10, 72, "xcoor: "+string_format(obj_player.x, 2, 2));
-draw_text(10, 84, "ycoor: "+string_format(obj_player.y, 2, 2));
+draw_text(10, 12, "fps: "+string_format(fps_avg2, 2, 2));
+
+draw_text(10, 36, "direction: "+string_format(obj_player.direction_horizontal, 1, 0)+","+string_format(obj_player.direction_vertical, 1, 0));
+draw_text(10, 60, "hspeed: "+string_format(obj_player.hspd, 2, 2));
+draw_text(10, 72, "vspeed: "+string_format(obj_player.vspd, 2, 2));
+
+draw_text(10, 96, "xcoor: "+string_format(obj_player.x, 2, 2));
+draw_text(10, 108, "ycoor: "+string_format(obj_player.y, 2, 2));
 </string>
           </argument>
         </arguments>
