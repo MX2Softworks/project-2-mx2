@@ -91,7 +91,11 @@ script_execute(state);
             <string>/// Move to the next room if 'N' is pressed
 
 if (keyboard_check(ord("N")) == true) {
-    room_goto_next();
+    if (room = room_last) {
+        room_goto(rm_one);
+    } else {
+        room_goto_next();
+    }
 }
 </string>
           </argument>

@@ -28,7 +28,7 @@
     if(vspd < 15){ vspd += grav * (jumppeak*8 + 1); }
     
     //Jump only if on a solid object. 
-    if(place_meeting(x, y+1, obj_solid)) vspd = up * -jumpheight * 100; 
+    if(place_meeting(x, y+1, obj_solid)) vspd = up * -jumpheight; 
     
     //Fast fall
     if(down) vspd += 12; 
@@ -43,10 +43,6 @@
     }
     
 // Deal with decimals using remainders
-
-    hspd *= (delta_time/100000) * 5.5;
-    vspd *= (delta_time/100000) * 5.5;
-
     xrem += hspd mod 1;
     yrem += vspd mod 1;
     hspd = hspd div 1;

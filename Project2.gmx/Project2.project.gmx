@@ -18,7 +18,9 @@
       <sprite>sprites\spr_saw_test_1</sprite>
     </sprites>
   </sprites>
-  <backgrounds name="background"/>
+  <backgrounds name="background">
+    <background>background\bg_test_forest</background>
+  </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
     <scripts name="Helper Scripts">
@@ -27,6 +29,10 @@
     </scripts>
     <scripts name="Player States">
       <script>scripts\scr_player_move_state.gml</script>
+    </scripts>
+    <scripts name="Saw States">
+      <script>scripts\scr_saw_move_right_state.gml</script>
+      <script>scripts\scr_saw_move_left_state.gml</script>
     </scripts>
   </scripts>
   <objects name="objects">
