@@ -6,4 +6,4 @@ sprint = keyboard_check(vk_shift);
 up = keyboard_check_pressed(vk_up)     || keyboard_check_pressed(ord("W")) || keyboard_check_pressed(vk_space); 
 down = keyboard_check_pressed(vk_down) || keyboard_check_pressed(ord("S"));
 up_held = keyboard_check(vk_up)        || keyboard_check(ord("W"))         || keyboard_check(vk_space); 
-down_held = keyboard_check(vk_down)    || keyboard_check(ord("D"));
+down_held = keyboard_check(vk_down)    || keyboard_check(ord("S"));

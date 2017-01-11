@@ -33,7 +33,8 @@ draw_text(10, 12, "direction: "+string_format(obj_player.direction_horizontal, 1
 draw_text(10, 36, "hspeed: "+string_format(obj_player.hspd, 2, 2));
 draw_text(10, 48, "vspeed: "+string_format(obj_player.vspd, 2, 2));
 
-
+draw_text(10, 72, "xcoor: "+string_format(obj_player.x, 2, 2));
+draw_text(10, 84, "ycoor: "+string_format(obj_player.y, 2, 2));
 </string>
           </argument>
         </arguments>
