@@ -28,6 +28,10 @@
     <scripts name="Player States">
       <script>scripts\scr_player_move_state.gml</script>
     </scripts>
+    <scripts name="Saw States">
+      <script>scripts\scr_saw_move_right_state.gml</script>
+      <script>scripts\scr_saw_move_left_state.gml</script>
+    </scripts>
   </scripts>
   <objects name="objects">
     <objects name="Player">
