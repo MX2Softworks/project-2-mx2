@@ -41,6 +41,21 @@
     if (hspd != 0) {
         image_xscale = sign(hspd);
     }
+    
+// Deal with decimals using remainders
+    xrem += hspd mod 1;
+    yrem += vspd mod 1;
+    hspd = hspd div 1;
+    vspd = vspd div 1;
+    
+    if (abs(xrem) >= 1) {
+        hspd += sign(xrem);
+        xrem += -sign(xrem);
+    }
+    if (abs(yrem) >= 1) {
+        vspd += sign(yrem);
+        yrem += -sign(yrem);
+    }
 
 scr_move(obj_solid);
 

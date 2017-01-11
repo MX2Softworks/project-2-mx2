@@ -33,6 +33,8 @@ jumpheight = 8;
 jumppeak = 0;  
 hspd = 0;
 vspd = 0;
+xrem = 0;
+yrem = 0;
 acc = .5;
 grav = .30;
 state = scr_player_move_state;
@@ -64,6 +66,33 @@ scr_get_input();
 
 scr_get_input();
 script_execute(state);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="4" ename="obj_next_room">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Move to the next room if 'N' is pressed
+
+if (keyboard_check(ord("N")) == true) {
+    room_goto_next();
+}
 </string>
           </argument>
         </arguments>
