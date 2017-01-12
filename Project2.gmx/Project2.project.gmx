@@ -10,6 +10,7 @@
       <sprite>sprites\spr_player_idle</sprite>
       <sprite>sprites\spr_fahad_player_test_1</sprite>
       <sprite>sprites\spr_teddick_player_test_1</sprite>
+      <sprite>sprites\sprite6</sprite>
     </sprites>
     <sprites name="Level">
       <sprite>sprites\spr_solid</sprite>
