@@ -89,6 +89,8 @@ script_execute(state);
             <string>///Idle Animation if speed is 0
 if(hspd == 0) sprite_index = spr_player_idle; 
 else sprite_index = spr_fahad_player_test_1; 
+
+image_speed = .13*abs(hspd)/4; 
 </string>
           </argument>
         </arguments>
