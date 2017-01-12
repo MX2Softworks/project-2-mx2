@@ -7,11 +7,13 @@
 //Horizontal Movement
     //We check to see if we are attempting to change direction, or if we stop giving input. If so, slow down. 
     if(direction_horizontal == 0 || (hspd > 0 && direction_horizontal == -1) || (hspd < 0 && direction_horizontal == 1)){ 
-        hspd = max(abs(hspd) - (acc*1.5), 0) * sign(hspd); 
+        //hspd = max(abs(hspd) - (acc*1.5), 0) * sign(hspd); 
+        hspd = max((abs(hspd) - (acc*global.delta)), 0) * sign(hspd);
     }
     //Otherwise, apply acceleration as normal. 
     else{
-        hspd = min(abs(hspd)+(acc*(1+(sprint/2.0))), maxspd*(1+(sprint/2.0))) * direction_horizontal; 
+        //hspd = min(abs(hspd)+(acc*(1+(sprint/2.0))), maxspd*(1+(sprint/2.0))) * direction_horizontal;
+        hspd = min(abs(hspd)+(acc*global.delta), 12) * direction_horizontal; 
     } 
 
 //Vertical Movement
@@ -43,7 +45,7 @@
     }
     
 // Deal with decimals using remainders
-    xrem += hspd mod 1;
+    /*xrem += hspd mod 1;
     yrem += vspd mod 1;
     hspd = hspd div 1;
     vspd = vspd div 1;
@@ -55,7 +57,7 @@
     if (abs(yrem) >= 1) {
         vspd += sign(yrem);
         yrem += -sign(yrem);
-    }
+    }*/
 
 scr_move(obj_solid);
 

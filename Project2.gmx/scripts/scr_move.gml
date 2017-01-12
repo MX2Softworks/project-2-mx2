@@ -9,24 +9,24 @@ var collision_object = argument0;
 // Check if there is a horizontal collision
 var movedis_x = sign(hspd);
 var pathfree_x = true;
-if(hspd !=0){
+/*if(hspd !=0){
     while(abs(movedis_x) <= abs(hspd)){
         if(place_meeting(x+movedis_x, y, obj_solid)){
             pathfree_x = false; 
         }
         movedis_x += sign(hspd); 
     }
-}
-if (!pathfree_x) {
+}*/
+/*if (!pathfree_x) {
     // Something is in the character's path so move 1 pixel at a time
     while (!place_meeting(x+sign(hspd), y, obj_solid)) {
         x += sign(hspd);
     }
     hspd = 0;
 } 
-else {
-    x += hspd;
-}
+else {*/
+    x += hspd * global.delta;
+//}
 
 // Check if there is a vertical collision
 var movedis_y = sign(vspd);
@@ -46,5 +46,5 @@ if (!pathfree_y) {
     }
     vspd = 0;
 } else {
-    y += vspd;
+    y += vspd * global.delta;
 }
