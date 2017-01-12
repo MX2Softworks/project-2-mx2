@@ -4,7 +4,12 @@
     <Config>Configs\Default</Config>
   </Configs>
   <NewExtensions/>
-  <sounds name="sound"/>
+  <sounds name="sound">
+    <sound>sound\snd_soundtrack</sound>
+    <sound>sound\snd_collision</sound>
+    <sound>sound\snd_jump_0</sound>
+    <sound>sound\snd_gong</sound>
+  </sounds>
   <sprites name="sprites">
     <sprites name="Player">
       <sprite>sprites\spr_player_idle</sprite>
@@ -53,6 +58,7 @@
     </objects>
   </objects>
   <rooms name="rooms">
+    <room>rooms\rm_initialize</room>
     <room>rooms\rm_one</room>
     <room>rooms\rm_two</room>
   </rooms>
