@@ -41,7 +41,7 @@ if(vspd != 0){
 }
 if (!pathfree_y) {
     // Something is in the character's path so move 1 pixel at a time
-    while (!place_meeting(x, y+/*(16*sign(vspd))+*/sign(vspd), obj_solid)) {
+    while (!place_meeting(x, y+sign(vspd), obj_solid)) {
         y += sign(vspd);
     }
     vspd = 0;
