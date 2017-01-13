@@ -91,11 +91,11 @@ script_execute(state);
 //Horizontal animations if no vertical speed. 
     
     //Switches to idle if hspd and vspd are 0 and we aren't finishing the falling animation.
-    if(hspd == 0 &amp;&amp; vspd == 0 &amp;&amp; sprite_index != spr_player_fall){ 
+    if(hspd == 0 &amp;&amp; vspd == 0 &amp;&amp; sprite_index != spr_player_fall &amp;&amp; sprite_index != spr_player_slide){ 
         sprite_index = spr_player_idle; 
     }
     //Switches to running if we have any hspd but aren't jumping/falling.
-    else if( hspd != 0 &amp;&amp; vspd == 0){
+    else if( hspd != 0 &amp;&amp; vspd == 0 &amp;&amp; sprite_index != spr_player_slide){
         sprite_index = spr_fahad_player_test_1;     
         image_speed = .13*abs(hspd)/4 * (delta_time)/(1/60*1000000); //animation speed is a factor of our speed. 
     }
@@ -112,7 +112,7 @@ script_execute(state);
         image_speed = 0; 
         image_index = 2; 
     }
-    //Switches to the falling animation if we are moving downwards and haven't already switched. 
+    //Switches to the falling animation if the player is moving downwards and hasn't already switched. 
     else if(vspd &gt; 0 &amp;&amp; sprite_index != spr_player_fall){
         sprite_index = spr_player_fall;
         image_speed = 0; 
@@ -126,6 +126,36 @@ script_execute(state);
     else if(floor(vspd) == 0 &amp;&amp; sprite_index == spr_player_fall &amp;&amp; image_index &gt; image_number-1){
         sprite_index = spr_player_idle; 
     }
+    
+//Sliding Animations
+    
+    //Switches to the sliding animation if the player presses down and hasn't already been switched. 
+    if(down &amp;&amp; place_meeting(x, y+16, obj_solid) &amp;&amp; sprite_index != spr_player_slide){
+        sprite_index = spr_player_slide;
+        image_speed = (delta_time)/(1/15*1000000);
+    }
+    //Stops the sliding animation on the slide 
+    else if(sprite_index == spr_player_slide &amp;&amp; image_index &gt; 3 &amp;&amp; image_index &lt; 4)
+    {
+        image_index = 3; 
+        image_speed = 0; 
+    }
+    //Reverses the sliding animation if the player lets go of the down key. 
+    else if(!down &amp;&amp; !down_held &amp;&amp; hspd == 0 &amp;&amp; sprite_index == spr_player_slide &amp;&amp; image_index &lt;= (image_number/2)){
+        image_index = image_number-1 - image_index; 
+        image_speed = (delta_time)/(1/15*1000000);
+    }
+    //Switches to the idle animation if the down key is not being pressed and the sliding animation has finished.
+    else if(!down &amp;&amp; !down_held &amp;&amp; sprite_index == spr_player_slide &amp;&amp; image_index &gt; image_number-1){
+        sprite_index = spr_player_idle;  
+    }
+    
+    
+ 
+    
+    
+    
+    
 </string>
           </argument>
         </arguments>
