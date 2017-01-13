@@ -32,6 +32,12 @@
     //Jump only if on a solid object. 
     if(place_meeting(x, y+1, obj_solid)) {
         vspd = up * -jumpheight; 
+        dash_count = 0;
+        dash_frames_v = 0;
+        dash_frames_h = 0;
+        can_dash = false;
+    } else {
+        can_dash = true;
     }
     
     //Fast fall
@@ -40,6 +46,69 @@
     //Vertical speed maximums/minimums. 
     if(vspd > 15) { vspd = 15;}
     else if(vspd < -15) { vspd = -15; } 
+    
+// Mid-Air Dashing
+    if (can_dash) {
+        // In mid-air
+        if (dash_frames_v != 0) {
+            // Dashing up
+            vspd = -dash_speed;
+            hspd = 0;
+            dash_frames_v -= 1;
+        } else {
+            // Not dashing up
+            if (dash_frames_h > 0) {
+                // Dashing right
+                hspd = dash_speed;
+                vspd = 0;
+                dash_frames_h -= 1;
+            } else if (dash_frames_h < 0) {
+                // Dashing left
+                hspd = -dash_speed;
+                vspd = 0;
+                dash_frames_h += 1;
+            } else {
+                // Not dashing at all
+                if (dash_count < 3) {
+                    // Can dash again
+                    if (up) {
+                        // Wants to dash up
+                        vspd1 = vspd; /* Store the old velocity for after. */
+                        dash_frames_v += 5;
+                        dash_count += 1;
+                        vspd = -dash_speed;
+                        hspd = 0;
+                    } else if (right_pressed) {
+                        // Wants to dash right
+                        vspd1 = vspd; /* Store the old velocity for after. */
+                        dash_frames_h += 5;
+                        dash_count += 1;
+                        hspd = dash_speed;
+                        vspd = 0;
+                    } else if (left_pressed) {
+                        // Wants to dash left
+                        vspd1 = vspd; /* Store the old velocity for after. */
+                        dash_frames_h -= 5;
+                        dash_count += 1;
+                        hspd = -dash_speed;
+                        vspd = 0;
+                    } else {
+                        // Isnt dashing and doesnt want to dash
+                        //vspd = 0;
+                        //hspd = 0;
+                    }
+                } else {
+                    // Cant dash anymore
+                    //vspd = 0;
+                    //hspd = 0;
+                }
+            }
+        }
+    } else {
+        // Cant dash
+        //vspd = 0;
+        //hspd = 0;
+    }
     
 //Update our sprite so it faces the proper direction. 
     if (hspd != 0) {
