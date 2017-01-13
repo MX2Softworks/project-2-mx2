@@ -33,10 +33,18 @@ jumpheight = 8;
 jumppeak = 0;  
 hspd = 0;
 vspd = 0;
+vspd1 = 0; /* Used to calculate the players speed seperately from the dash speed. */
 xrem = 0;
 yrem = 0;
 acc = .5;
 grav = .30;
+
+dash_count = 0;
+can_dash = false;
+dash_speed = 15;
+dash_frames_v = 0;
+dash_frames_h = 0;
+
 state = scr_player_move_state;
 
 scr_get_input();
