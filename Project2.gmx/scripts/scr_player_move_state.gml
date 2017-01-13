@@ -26,11 +26,13 @@
     
     //Constantly apply gravity. 
     if(vspd < 15){
-        vspd += (grav * (jumppeak*8 + 1)) * global.delta;
+        vspd += (grav * (jumppeak*3 + 1)) * global.delta;
     }
     
     //Jump only if on a solid object. 
-    if(place_meeting(x, y+1, obj_solid)) vspd = up * -jumpheight; 
+    if(place_meeting(x, y+1, obj_solid)) {
+        vspd = up * -jumpheight; 
+    }
     
     //Fast fall
     if(down) vspd += 12 * global.delta;
