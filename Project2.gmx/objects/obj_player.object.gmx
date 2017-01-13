@@ -86,11 +86,46 @@ script_execute(state);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Idle Animation if speed is 0
-if(hspd == 0) sprite_index = spr_player_idle; 
-else sprite_index = spr_fahad_player_test_1; 
+            <string>///Animations
 
-image_speed = .13*abs(hspd)/4; 
+//Horizontal animations if no vertical speed. 
+    
+    //Switches to idle if hspd and vspd are 0 and we aren't finishing the falling animation.
+    if(hspd == 0 &amp;&amp; vspd == 0 &amp;&amp; sprite_index != spr_player_fall){ 
+        sprite_index = spr_player_idle; 
+    }
+    //Switches to running if we have any hspd but aren't jumping/falling.
+    else if( hspd != 0 &amp;&amp; vspd == 0){
+        sprite_index = spr_fahad_player_test_1;     
+        image_speed = .13*abs(hspd)/4 * (delta_time)/(1/60*1000000); //animation speed is a factor of our speed. 
+    }
+    
+//Jumping and falling animation based on previous animation conditions. 
+    
+    //Switches to jump animation if we are moving upwards and haven't already switched.
+    if(vspd &lt; 0 &amp;&amp; sprite_index != spr_player_jump){
+        sprite_index = spr_player_jump;
+        image_speed = (delta_time)/(1/9*1000000); 
+    }
+    //Stops jump animation on the last frame.
+    else if(vspd &lt; 0 &amp;&amp; sprite_index == spr_player_jump &amp;&amp; image_index &gt; image_number-1){
+        image_speed = 0; 
+        image_index = 2; 
+    }
+    //Switches to the falling animation if we are moving downwards and haven't already switched. 
+    else if(vspd &gt; 0 &amp;&amp; sprite_index != spr_player_fall){
+        sprite_index = spr_player_fall;
+        image_speed = 0; 
+        image_index = 0; 
+    }
+    //Starts playing the falling animation once the player hits the ground. 
+    else if(vspd == 0 &amp;&amp; sprite_index == spr_player_fall &amp;&amp; image_index == 0){
+        image_speed = (delta_time)/(1/15*1000000);
+    }
+    //Switches back to idle once the falling animation finishes. 
+    else if(floor(vspd) == 0 &amp;&amp; sprite_index == spr_player_fall &amp;&amp; image_index &gt; image_number-1){
+        sprite_index = spr_player_idle; 
+    }
 </string>
           </argument>
         </arguments>
