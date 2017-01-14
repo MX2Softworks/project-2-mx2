@@ -18,6 +18,7 @@
       <sprite>sprites\spr_player_jump</sprite>
       <sprite>sprites\spr_player_fall</sprite>
       <sprite>sprites\spr_player_slide</sprite>
+      <sprite>sprites\spr_player_slide_to_crouch</sprite>
       <sprite>sprites\spr_player_crouch</sprite>
     </sprites>
     <sprites name="Level">
