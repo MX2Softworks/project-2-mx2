@@ -27,11 +27,14 @@
             <kind>1</kind>
             <string>/// Initialize the enemy patrol
 
+dir = 1;
+grav = 0.2;
 hspd = 0;
 vspd = 0;
 maxspd = 2;
 image_angle = 0;
 image_rotation = 6;
+fearofheights = 1;
 </string>
           </argument>
         </arguments>
