@@ -6,8 +6,9 @@
 
 //Horizontal Movement
     
-    if(direction_vertical == 1 && hspd != 0 && place_meeting(x, y+16, obj_solid)){
-        hspd = max(abs(hspd) - ((acc*.25)*global.delta), 0) * sign(hspd); 
+    //Slide if we have horizontal speed but are holding down. 
+    if(is_sliding == 1){
+        hspd = max(abs(hspd) - ((acc*.25)*global.delta), 0) * sign(hspd);   
     }
     //We check to see if we are attempting to change direction, or if we stop giving input. If so, slow down. 
     else if(direction_horizontal == 0 || (hspd > 0 && direction_horizontal == -1) || (hspd < 0 && direction_horizontal == 1)){ 
