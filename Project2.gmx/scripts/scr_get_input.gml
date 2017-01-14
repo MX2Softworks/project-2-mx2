@@ -18,7 +18,7 @@ dash = keyboard_check_pressed(ord("F"));
 var gp_id = 0;
 var thresh = .5;
 
-if (gamepad_is_connected(gp_id)) {
+/*if (gamepad_is_connected(gp_id)) {
     right = gamepad_axis_value(gp_id, gp_axislh) > thresh;
     left = gamepad_axis_value(gp_id, gp_axislh) < -thresh;
     right_pressed = gamepad_button_check_pressed(gp_id, 
@@ -32,4 +32,4 @@ if (gamepad_is_connected(gp_id)) {
     down_held = 
     
     dash = 
-}
+}*/
