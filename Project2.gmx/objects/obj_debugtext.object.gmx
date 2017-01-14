@@ -93,6 +93,9 @@ if(instance_exists(obj_race_start))
     draw_text(10, 120, "race time"+string_format(global.race_timer, 2, 2)); 
     
 draw_text(10, 156, "dash_count: "+string_format(obj_player.dash_count, 2, 2));
+draw_text(10, 168, "left: "+string_format(obj_player.left, 2, 2));
+draw_text(10, 180, "dash: "+string_format(obj_player.dash, 2, 2));
+draw_text(10, 200, "dash: "+string_format(obj_player.testnum, 2, 2));
 </string>
           </argument>
         </arguments>
