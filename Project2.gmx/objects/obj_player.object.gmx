@@ -99,7 +99,8 @@ script_execute(state);
 //Horizontal animations if no vertical speed. 
     
     //Switches to idle if hspd and vspd are 0 and we aren't finishing the falling animation.
-    if(hspd == 0 &amp;&amp; vspd == 0 &amp;&amp; sprite_index != spr_player_fall &amp;&amp; sprite_index != spr_player_slide){ 
+    if(hspd == 0 &amp;&amp; vspd == 0 &amp;&amp; sprite_index != spr_player_fall &amp;&amp; sprite_index != spr_player_slide 
+       &amp;&amp; sprite_index != spr_player_crouch &amp;&amp; sprite_index != spr_player_slide_to_crouch){ 
         sprite_index = spr_player_idle; 
     }
     //Switches to running if we have any hspd but aren't jumping/falling.
@@ -143,8 +144,7 @@ script_execute(state);
         image_speed = (delta_time)/(1/15*1000000);
     }
     //Stops the sliding animation on the slide 
-    else if(sprite_index == spr_player_slide &amp;&amp; image_index &gt; 3 &amp;&amp; image_index &lt; 4)
-    {
+    else if(sprite_index == spr_player_slide &amp;&amp; image_index &gt; 3 &amp;&amp; image_index &lt; 4){
         image_index = 3; 
         image_speed = 0; 
     }
@@ -158,10 +158,39 @@ script_execute(state);
         sprite_index = spr_player_idle;  
     }
     
+//Crouching Animation
+
+    //Switches to the crouching animation if the player presses down, isn't moving, and hasn't already been switched.
+    if(down &amp;&amp; place_meeting(x, y+16, obj_solid) &amp;&amp; hspd == 0 &amp;&amp; sprite_index != spr_player_crouch){
+        sprite_index = spr_player_crouch; 
+        image_speed = (delta_time)/(1/9*1000000);
+    }
+    //Stops the crouching animation on the squat.
+    else if(sprite_index == spr_player_crouch &amp;&amp; image_index &gt; 2 &amp;&amp; image_index &lt; 3){
+        image_index = 2;
+        image_speed = 0; 
+    }
+    //Reverse the crouching animation if the player lets go of the down key. 
+    else if(!down &amp;&amp; !down_held &amp;&amp; hspd == 0 &amp;&amp; sprite_index == spr_player_crouch &amp;&amp; image_index &lt;= (image_number/2)){
+        image_index = image_number-1 - image_index; 
+        image_speed = (delta_time)/(1/15*1000000);
+    }
+    //Switches to the idle animation if the down key is not being pressed and the crouching animation has finished.
+    else if(!down &amp;&amp; !down_held &amp;&amp; sprite_index == spr_player_crouch &amp;&amp; image_index &gt; image_number-1){
+        sprite_index = spr_player_idle; 
+    }
     
- 
-    
-    
+//Slide to Crouch Animation  
+
+    if((down || down_held) &amp;&amp; hspd == 0 &amp;&amp; sprite_index == spr_player_slide &amp;&amp; image_index == 3){
+        sprite_index = spr_player_slide_to_crouch; 
+        image_speed = (delta_time)/(1/9*1000000); 
+    }
+    else if((down || down_held) &amp;&amp; hspd == 0 &amp;&amp; sprite_index == spr_player_slide_to_crouch &amp;&amp; image_index &gt; image_number-1){
+        image_speed = 0; 
+        image_index = image_number-1; 
+    } 
+
     
     
 </string>
