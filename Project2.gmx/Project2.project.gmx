@@ -27,6 +27,7 @@
     </sprites>
     <sprites name="Enemies">
       <sprite>sprites\spr_saw_test_1</sprite>
+      <sprite>sprites\spr_goomba</sprite>
     </sprites>
   </sprites>
   <backgrounds name="background">
@@ -45,6 +46,9 @@
       <script>scripts\scr_saw_move_right_state.gml</script>
       <script>scripts\scr_saw_move_left_state.gml</script>
     </scripts>
+    <scripts name="Enemy Scripts">
+      <script>scripts\scr_enemy_patrol.gml</script>
+    </scripts>
   </scripts>
   <objects name="objects">
     <objects name="Player">
@@ -58,6 +62,7 @@
     </objects>
     <objects name="Enemies">
       <object>objects\obj_saw_test</object>
+      <object>objects\obj_enemy_patrol</object>
     </objects>
     <objects name="Helpers">
       <object>objects\obj_debugtext</object>
@@ -68,6 +73,7 @@
     <room>rooms\rm_initialize</room>
     <room>rooms\rm_one</room>
     <room>rooms\rm_two</room>
+    <room>rooms\rm_three</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
