@@ -91,6 +91,8 @@ draw_text(10, 108, "ycoor: "+string_format(obj_player.y, 2, 2));
 
 if(instance_exists(obj_race_start))
     draw_text(10, 120, "race time"+string_format(global.race_timer, 2, 2)); 
+    
+draw_text(10, 156, "dash_count: "+string_format(obj_player.dash_count, 2, 2));
 </string>
           </argument>
         </arguments>
