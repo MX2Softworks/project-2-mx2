@@ -32,6 +32,4 @@ if (gamepad_is_connected(gp_id)) {
     down_held = 
     
     dash = 
-    
-    right_previous = gamepad_axis_value(gp_id, gp_axislh);
 }
