@@ -81,7 +81,6 @@
                         dashed = true;
                     } else if (dash && left) {
                         // Wants to dash left
-                        testnum += 1;
                         dash_frames_h -= 5;
                         dash_count += 1;
                         hspd = -dash_speed;

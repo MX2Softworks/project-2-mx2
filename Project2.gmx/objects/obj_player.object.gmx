@@ -45,8 +45,6 @@ dash_frames_v = 0;
 dash_frames_h = 0;
 dashed = false;
 
-testnum = 0;
-
 state = scr_player_move_state;
 
 scr_get_input();
