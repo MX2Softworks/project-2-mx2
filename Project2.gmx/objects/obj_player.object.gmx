@@ -122,11 +122,13 @@ script_execute(state);
     if(hspd == 0 &amp;&amp; vspd == 0 &amp;&amp; sprite_index != spr_player_fall &amp;&amp; sprite_index != spr_player_slide 
        &amp;&amp; sprite_index != spr_player_crouch &amp;&amp; (sprite_index != spr_player_slide_to_crouch &amp;&amp; !down_held &amp;&amp; !down)){ 
         sprite_index = spr_player_idle; 
+        maxspd = 8; 
         image_index = 0; 
     }
     //Switches to running if we have any hspd but aren't jumping/falling.
-    else if( hspd != 0 &amp;&amp; vspd == 0 &amp;&amp; sprite_index != spr_player_slide){
-        sprite_index = spr_fahad_player_test_1;   
+    else if(hspd != 0 &amp;&amp; vspd == 0 &amp;&amp; sprite_index != spr_player_slide &amp;&amp; (!down &amp;&amp; !down_held &amp;&amp; sprite_index != spr_player_roll)){
+        sprite_index = spr_fahad_player_test_1; 
+        maxspd = 8;   
         image_speed = .13*abs(hspd)/4 * (delta_time)/(1/60*1000000); //animation speed is a factor of our speed. 
     }
     
@@ -162,10 +164,10 @@ script_execute(state);
 //Sliding Animations
     
     //Switches to the sliding animation if the player presses down and hasn't already been switched. 
-    if(down &amp;&amp; place_meeting(x, y+16, obj_solid) &amp;&amp; sprite_index != spr_player_slide){
+    if(down &amp;&amp; place_meeting(x, y+16, obj_solid) &amp;&amp; hspd != 0 &amp;&amp; sprite_index != spr_player_slide){
         sprite_index = spr_player_slide;
         image_index = 0;
-        image_speed = (delta_time)/(1/7*1000000);
+        image_speed = (delta_time)/(1/15*1000000);
     }
     //Stops the sliding animation on the slide 
     if(sprite_index == spr_player_slide &amp;&amp; image_index &gt;= 3 &amp;&amp; image_index &lt; 4){
@@ -175,7 +177,7 @@ script_execute(state);
     //Reverses the sliding animation if the player lets go of the down key. 
     if(!down &amp;&amp; !down_held &amp;&amp; hspd == 0 &amp;&amp; sprite_index == spr_player_slide &amp;&amp; image_index &lt;= (image_number/2)){
         image_index = image_number-1 - image_index; 
-        image_speed = (delta_time)/(1/7*1000000);
+        image_speed = (delta_time)/(1/15*1000000);
     }
     //Switches to the idle animation if the down key is not being pressed and the sliding animation has finished.
     else if(!down &amp;&amp; !down_held &amp;&amp; sprite_index == spr_player_slide &amp;&amp; image_index &gt; image_number-1){
@@ -220,7 +222,25 @@ script_execute(state);
         image_index = 2;  
     }
      
+//Rolling Animation
 
+    if((down || down_held)&amp;&amp; place_meeting(x, y+16, obj_solid) &amp;&amp; hspd != 0 &amp;&amp; sprite_index == spr_player_crouch){
+        sprite_index = spr_player_roll;
+        image_index = 0;
+        image_speed = abs(hspd) * (delta_time)/(1/30*1000000); 
+        maxspd = 3; 
+    }
+    else if(sprite_index == spr_player_roll &amp;&amp; hspd == 0 &amp;&amp; image_index &gt; image_number-1){
+        sprite_index = spr_player_crouch; 
+        image_index = 2;
+        image_speed = 0; 
+        maxspd = 8;
+    }
+    else if(sprite_index == spr_player_roll &amp;&amp; hspd == 0 &amp;&amp; image_index &lt;= image_number-1){
+        hspd += 3 * sign(image_xscale); 
+        maxspd = 3; 
+    }
+    
     
     
 </string>
