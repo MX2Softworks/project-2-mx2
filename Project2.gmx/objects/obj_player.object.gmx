@@ -31,7 +31,7 @@
     maxspd = 8;
     minspd = 0;
     jumpheight = 8;
-    jumppeak = 0;
+    jumppeak = 0;  
     hspd = 0;
     vspd = 0;
     xrem = 0;
@@ -51,33 +51,28 @@
 
 // Input variables
     right = false;
+    right_held = false;
+    right_released = false;
+    
     left = false;
-    right_pressed = false;
-    left_pressed = false; 
+    left_held = false;
+    left_released = false;
+    
     up = false; 
+    up_held = false;
+    up_released = false;
+    
     down = false;
-    up_held = false; 
     down_held = false;
+    down_released = false;
+    
     sprint = false;
     dash = false;
+    
     gp_id = 0;
     threshold = .9;
-
-// Gamepad input variables
-    stick_left_held = false;
-    stick_left_pressed = false;
-    stick_left_released = false;
-    stick_right_held = false;
-    stick_right_pressed = false;
-    stick_right_released = false;
-    stick_up_held = false;
-    stick_up_pressed = false;
-    stick_up_released = false;
-    stick_down_held = false;
-    stick_down_pressed = false;
-    stick_down_released = false;
     controller_alarm = 1;
-
+    
 state = scr_player_move_state;
 </string>
           </argument>
@@ -175,8 +170,6 @@ script_execute(state);
     else if(floor(vspd) == 0 &amp;&amp; sprite_index == spr_player_fall &amp;&amp; image_index &gt; image_number-1){
         sprite_index = spr_player_idle; 
         image_index = 0;
-        audio_play_sound(snd_gong, 1, 0);
-        audio_sound_gain(snd_gong, .3, 0); 
     }
     
 //Sliding Animations
@@ -278,10 +271,6 @@ script_execute(state);
         is_rolling = 1;
         maxspd = 3; 
     }
-
-
-    
-    
 </string>
           </argument>
         </arguments>
