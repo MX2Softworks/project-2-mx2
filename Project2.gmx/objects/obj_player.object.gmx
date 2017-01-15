@@ -244,7 +244,9 @@ script_execute(state);
     //If the rolling animation has not finished and the speed is 0, set the speed to 3 times the direction of the previous movement. 
     //Lower max speed to 3 when rolling.
     else if(sprite_index == spr_player_roll &amp;&amp; hspd == 0 &amp;&amp; direction_horizontal == 0 &amp;&amp; image_index &lt;= image_number-1){
-        if(!place_meeting(x+4, y, obj_solid) &amp;&amp; !place_meeting(x+3, y, obj_solid) &amp;&amp; !place_meeting(x+2, y, obj_solid) &amp;&amp; !place_meeting(x+1, y, obj_solid)){ x += 3 * sign(image_xscale) * global.delta; }
+        if(!place_meeting(x+(3*sign(image_xscale)), y, obj_solid) &amp;&amp; !place_meeting(x+(2*sign(image_xscale)), y, obj_solid) &amp;&amp; !place_meeting(x+(1*sign(image_xscale)), y, obj_solid)){ 
+            x += 3 * sign(image_xscale) * global.delta; 
+        }
         is_rolling = 1;
         maxspd = 3; 
     }
