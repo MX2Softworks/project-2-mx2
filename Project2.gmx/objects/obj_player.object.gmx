@@ -27,30 +27,58 @@
             <kind>1</kind>
             <string>/// Initialize the player
 
-maxspd = 8;
-minspd = 0;
-jumpheight = 8;
-jumppeak = 0;  
-hspd = 0;
-vspd = 0;
-xrem = 0;
-yrem = 0;
-acc = .5;
-grav = .30;
+// Movement variables
+    maxspd = 8;
+    minspd = 0;
+    jumpheight = 8;
+    jumppeak = 0;
+    hspd = 0;
+    vspd = 0;
+    xrem = 0;
+    yrem = 0;
+    acc = .5;
+    grav = .30;
+    is_sliding = 0;
+    is_rolling = 0;
 
-dash_count = 0;
-can_dash = false;
-dash_speed = 15;
-dash_frames_v = 0;
-dash_frames_h = 0;
-dashed = false;
+// Dash variables
+    dash_count = 0;
+    can_dash = false;
+    dash_speed = 15;
+    dash_frames_v = 0;
+    dash_frames_h = 0;
+    dashed = false;
 
-is_rolling = 0;
-is_sliding = 0; 
+// Input variables
+    right = false;
+    left = false;
+    right_pressed = false;
+    left_pressed = false; 
+    up = false; 
+    down = false;
+    up_held = false; 
+    down_held = false;
+    sprint = false;
+    dash = false;
+    gp_id = 0;
+    threshold = .9;
+
+// Gamepad input variables
+    stick_left_held = false;
+    stick_left_pressed = false;
+    stick_left_released = false;
+    stick_right_held = false;
+    stick_right_pressed = false;
+    stick_right_released = false;
+    stick_up_held = false;
+    stick_up_pressed = false;
+    stick_up_released = false;
+    stick_down_held = false;
+    stick_down_pressed = false;
+    stick_down_released = false;
+    controller_alarm = 1;
 
 state = scr_player_move_state;
-
-scr_get_input();
 </string>
           </argument>
         </arguments>
