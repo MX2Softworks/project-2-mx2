@@ -27,27 +27,58 @@
             <kind>1</kind>
             <string>/// Initialize the player
 
-maxspd = 8;
-minspd = 0;
-jumpheight = 8;
-jumppeak = 0;  
-hspd = 0;
-vspd = 0;
-xrem = 0;
-yrem = 0;
-acc = .5;
-grav = .30;
+// Movement variables
+    maxspd = 8;
+    minspd = 0;
+    jumpheight = 8;
+    jumppeak = 0;
+    hspd = 0;
+    vspd = 0;
+    xrem = 0;
+    yrem = 0;
+    acc = .5;
+    grav = .30;
+    is_sliding = 0;
+    is_rolling = 0;
 
-dash_count = 0;
-can_dash = false;
-dash_speed = 15;
-dash_frames_v = 0;
-dash_frames_h = 0;
-dashed = false;
+// Dash variables
+    dash_count = 0;
+    can_dash = false;
+    dash_speed = 15;
+    dash_frames_v = 0;
+    dash_frames_h = 0;
+    dashed = false;
+
+// Input variables
+    right = false;
+    left = false;
+    right_pressed = false;
+    left_pressed = false; 
+    up = false; 
+    down = false;
+    up_held = false; 
+    down_held = false;
+    sprint = false;
+    dash = false;
+    gp_id = 0;
+    threshold = .9;
+
+// Gamepad input variables
+    stick_left_held = false;
+    stick_left_pressed = false;
+    stick_left_released = false;
+    stick_right_held = false;
+    stick_right_pressed = false;
+    stick_right_released = false;
+    stick_up_held = false;
+    stick_up_pressed = false;
+    stick_up_released = false;
+    stick_down_held = false;
+    stick_down_pressed = false;
+    stick_down_released = false;
+    controller_alarm = 1;
 
 state = scr_player_move_state;
-
-scr_get_input();
 </string>
           </argument>
         </arguments>
@@ -95,21 +126,26 @@ script_execute(state);
           <argument>
             <kind>1</kind>
             <string>///Animations
-
 //Horizontal animations if no vertical speed. 
     
     //Switches to idle if hspd and vspd are 0 and we aren't finishing the falling animation.
+    //Reset the max speed to normal, in case the player was rolling. 
     if(hspd == 0 &amp;&amp; vspd == 0 &amp;&amp; sprite_index != spr_player_fall &amp;&amp; sprite_index != spr_player_slide 
        &amp;&amp; sprite_index != spr_player_crouch &amp;&amp; (sprite_index != spr_player_slide_to_crouch &amp;&amp; !down_held &amp;&amp; !down)){ 
         sprite_index = spr_player_idle; 
         maxspd = 8; 
         image_index = 0; 
+        is_rolling = 0;
+        is_sliding = 0; 
     }
     //Switches to running if we have any hspd but aren't jumping/falling.
-    else if(hspd != 0 &amp;&amp; vspd == 0 &amp;&amp; sprite_index != spr_player_slide &amp;&amp; (!down &amp;&amp; !down_held &amp;&amp; sprite_index != spr_player_roll)){
+    //Reset max speed to normal, in case the player was previously rolling.
+    else if(hspd != 0 &amp;&amp; vspd == 0 &amp;&amp; sprite_index != spr_player_slide &amp;&amp; sprite_index != spr_player_crouch &amp;&amp; sprite_index != spr_player_roll){
         sprite_index = spr_fahad_player_test_1; 
         maxspd = 8;   
         image_speed = .13*abs(hspd)/4 * (delta_time)/(1/60*1000000); //animation speed is a factor of our speed. 
+        is_rolling = 0;
+        is_sliding = 0;
     }
     
 //Jumping and falling animation based on previous animation conditions. 
@@ -133,12 +169,14 @@ script_execute(state);
     }
     //Starts playing the falling animation once the player hits the ground. 
     else if(vspd == 0 &amp;&amp; sprite_index == spr_player_fall &amp;&amp; image_index == 0){
-        image_speed = (delta_time)/(1/15*1000000);
+        image_speed = (delta_time)/(1/15*1000000); 
     }
     //Switches back to idle once the falling animation finishes. 
     else if(floor(vspd) == 0 &amp;&amp; sprite_index == spr_player_fall &amp;&amp; image_index &gt; image_number-1){
         sprite_index = spr_player_idle; 
         image_index = 0;
+        audio_play_sound(snd_gong, 1, 0);
+        audio_sound_gain(snd_gong, .3, 0); 
     }
     
 //Sliding Animations
@@ -148,6 +186,7 @@ script_execute(state);
         sprite_index = spr_player_slide;
         image_index = 0;
         image_speed = (delta_time)/(1/15*1000000);
+        is_sliding = 1;
     }
     //Stops the sliding animation on the slide 
     if(sprite_index == spr_player_slide &amp;&amp; image_index &gt;= 3 &amp;&amp; image_index &lt; 4){
@@ -163,64 +202,84 @@ script_execute(state);
     else if(!down &amp;&amp; !down_held &amp;&amp; sprite_index == spr_player_slide &amp;&amp; image_index &gt; image_number-1){
         sprite_index = spr_player_idle;  
         image_index = 0; 
+        is_sliding = 0; 
     }
     
 //Crouching Animation
 
     //Switches to the crouching animation if the player presses down, isn't moving, and hasn't already been switched.
-    if(down &amp;&amp; place_meeting(x, y+16, obj_solid) &amp;&amp; hspd == 0 &amp;&amp; sprite_index != spr_player_crouch){
+    if((down || down_held) &amp;&amp; place_meeting(x, y+1, obj_solid) &amp;&amp; hspd == 0 &amp;&amp; sprite_index != spr_player_crouch &amp;&amp; sprite_index != spr_player_roll ){
         sprite_index = spr_player_crouch; 
         image_index = 0;
-        image_speed = (delta_time)/(1/9*1000000);
+        image_speed = (delta_time)/(1/9*1000000); 
     }
     //Stops the crouching animation on the squat.
-    else if(sprite_index == spr_player_crouch &amp;&amp; image_index &gt; 2 &amp;&amp; image_index &lt; 3){
+    else if(sprite_index == spr_player_crouch &amp;&amp; image_index &gt; 2 &amp;&amp; image_index &lt; 3 &amp;&amp; is_rolling == 0){
         image_index = 2;
         image_speed = 0; 
     }
     //Reverse the crouching animation if the player lets go of the down key. 
-    else if(!down &amp;&amp; !down_held &amp;&amp; hspd == 0 &amp;&amp; sprite_index == spr_player_crouch &amp;&amp; image_index &lt;= (image_number/2)){
+    else if(!down &amp;&amp; !down_held &amp;&amp; hspd == 0 &amp;&amp; sprite_index == spr_player_crouch &amp;&amp; image_index &lt;= (image_number/2) ){
         image_index = image_number-1 - image_index; 
-        image_speed = (delta_time)/(1/15*1000000);
+        image_speed = (delta_time)/(1/15*1000000); 
     }
     //Switches to the idle animation if the down key is not being pressed and the crouching animation has finished.
-    else if(!down &amp;&amp; !down_held &amp;&amp; sprite_index == spr_player_crouch &amp;&amp; image_index &gt; image_number-1){
+    else if(!down &amp;&amp; !down_held &amp;&amp; sprite_index == spr_player_crouch &amp;&amp; image_index &gt; image_number-1 ){
         sprite_index = spr_player_idle; 
-        image_index = 0; 
+        image_index = 0;   
     }
     
 //Slide to Crouch Animation  
 
+    //Switches the slide animation to the slide-to-crouch animation if hspd is 0 and the player is holdling/pressing down.
     if((down || down_held) &amp;&amp; hspd == 0 &amp;&amp; sprite_index == spr_player_slide &amp;&amp; image_index == 3){
         sprite_index = spr_player_slide_to_crouch;
         image_index = 0;  
         image_speed = (delta_time)/(1/9*1000000); 
+        is_sliding = 0; 
     }
+    //Switches to the crouch animation once the slide-to-crouch animation finishes. 
     else if((down || down_held) &amp;&amp; hspd == 0 &amp;&amp; sprite_index == spr_player_slide_to_crouch &amp;&amp; image_index &gt; image_number-1){
         image_speed = 0; 
         sprite_index = spr_player_crouch;
-        image_index = 2;  
+        image_index = 2;   
+        is_sliding = 0; 
+        
     }
      
 //Rolling Animation
 
-    if((down || down_held)&amp;&amp; place_meeting(x, y+16, obj_solid) &amp;&amp; hspd != 0 &amp;&amp; sprite_index == spr_player_crouch){
+    //Switches to the rolling animation if down is being pressed and there is any horizontal speed and the player is in the crouching animation. 
+    //Lower max speed to 3 when rolling.
+    if((down || down_held) &amp;&amp; place_meeting(x, y+1, obj_solid) &amp;&amp; (direction_horizontal != 0 || hspd != 0) 
+       &amp;&amp; (sprite_index == spr_player_crouch || sprite_index == spr_player_slide_to_crouch)){
         sprite_index = spr_player_roll;
         image_index = 0;
-        image_speed = abs(hspd) * (delta_time)/(1/30*1000000); 
-        maxspd = 3; 
+        image_speed = (delta_time)/(1/20*1000000); 
+        is_sliding = 0;
+        is_rolling = 1; 
+        maxspd = 3;
     }
+    //Switches to the crouching animation if the speed of the horizontal movement is 0.
+    //Reset max speed to normal.  
     else if(sprite_index == spr_player_roll &amp;&amp; hspd == 0 &amp;&amp; image_index &gt; image_number-1){
         sprite_index = spr_player_crouch; 
         image_index = 2;
         image_speed = 0; 
-        maxspd = 8;
+        is_rolling = 0; 
+        maxspd = 8; 
     }
-    else if(sprite_index == spr_player_roll &amp;&amp; hspd == 0 &amp;&amp; image_index &lt;= image_number-1){
-        hspd += 3 * sign(image_xscale); 
+    //If the rolling animation has not finished and the speed is 0, set the speed to 3 times the direction of the previous movement. 
+    //Lower max speed to 3 when rolling.
+    else if(sprite_index == spr_player_roll &amp;&amp; hspd == 0 &amp;&amp; direction_horizontal == 0 &amp;&amp; image_index &lt;= image_number-1){
+        if(!place_meeting(x+(3*sign(image_xscale)), y, obj_solid) &amp;&amp; !place_meeting(x+(2*sign(image_xscale)), y, obj_solid) &amp;&amp; !place_meeting(x+(1*sign(image_xscale)), y, obj_solid)){ 
+            x += 3 * sign(image_xscale) * global.delta; 
+        }
+        is_rolling = 1;
         maxspd = 3; 
     }
-    
+
+
     
     
 </string>
