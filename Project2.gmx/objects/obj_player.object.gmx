@@ -38,6 +38,8 @@
     yrem = 0;
     acc = .5;
     grav = .30;
+    is_sliding = 0;
+    is_rolling = 0;
 
 // Dash variables
     dash_count = 0;
@@ -59,15 +61,26 @@
     sprint = false;
     dash = false;
     gp_id = 0;
-    thresh = .5;
+    threshold = .9;
     
 // Gamepad input variables
     stick_left_held = false;
     stick_left_pressed = false;
     stick_left_released = false;
-    
+    stick_right_held = false;
+    stick_right_pressed = false;
+    stick_right_released = false;
+    stick_up_held = false;
+    stick_up_pressed = false;
+    stick_up_released = false;
+    stick_down_held = false;
+    stick_down_pressed = false;
+    stick_down_released = false;
+    controller_alarm = 1;
     
 state = scr_player_move_state;
+
+scr_get_input();
 </string>
           </argument>
         </arguments>
