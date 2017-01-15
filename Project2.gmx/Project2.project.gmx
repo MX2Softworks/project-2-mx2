@@ -20,6 +20,7 @@
       <sprite>sprites\spr_player_slide</sprite>
       <sprite>sprites\spr_player_slide_to_crouch</sprite>
       <sprite>sprites\spr_player_crouch</sprite>
+      <sprite>sprites\spr_player_roll</sprite>
     </sprites>
     <sprites name="Level">
       <sprite>sprites\spr_solid</sprite>
@@ -64,8 +65,8 @@
     </objects>
     <objects name="Enemies">
       <object>objects\obj_saw_test</object>
-      <object>objects\obj_enemy_patrol</object>
-      <object>objects\obj_enemy_pathfinder</object>
+      <object>objects\obj_debugtext</object>
+      <object>objects\obj_debugtext</object>
     </objects>
     <objects name="Helpers">
       <object>objects\obj_debugtext</object>

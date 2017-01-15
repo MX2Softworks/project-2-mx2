@@ -2,11 +2,16 @@
 
 //Determine direction of movement based off of inputs. 
     direction_vertical = max(down, down_held) - max(up, up_held); 
-    direction_horizontal = right - left; 
+    direction_horizontal = max(right, right_held) - max(left, left_held); 
 
 //Horizontal Movement
+    
+    //Slide if we have horizontal speed but are holding down. 
+    if(is_sliding == 1){
+        hspd = max(abs(hspd) - ((acc*.25)*global.delta), 0) * sign(hspd);   
+    }
     //We check to see if we are attempting to change direction, or if we stop giving input. If so, slow down. 
-    if(direction_horizontal == 0 || (hspd > 0 && direction_horizontal == -1) || (hspd < 0 && direction_horizontal == 1)){ 
+    else if(direction_horizontal == 0 || (hspd > 0 && direction_horizontal == -1) || (hspd < 0 && direction_horizontal == 1)){ 
         hspd = max(abs(hspd) - ((acc*1.5)*global.delta), 0) * sign(hspd);
     }
     //Otherwise, apply acceleration as normal. 
@@ -72,14 +77,14 @@
                 // Not dashing at all
                 if (dash_count < 3) {
                     // Can dash again
-                    if (dash && right) {
+                    if (dash && right_held) {
                         // Wants to dash right
                         dash_frames_h += 5;
                         dash_count += 1;
                         hspd = dash_speed;
                         vspd = 0;
                         dashed = true;
-                    } else if (dash && left) {
+                    } else if (dash && left_held) {
                         // Wants to dash left
                         dash_frames_h -= 5;
                         dash_count += 1;
@@ -109,7 +114,7 @@
     if (hspd != 0) {
         image_xscale = sign(hspd);
     }
-
+    
 scr_move(obj_solid);
 
 
