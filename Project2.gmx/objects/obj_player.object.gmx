@@ -321,9 +321,9 @@ if(keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W")))
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Move to the next room if 'N' is pressed
+            <string>/// Move to the next room if 'N' or 'Select' is pressed
 
-if (keyboard_check(ord("N")) == true) {  
+if ((keyboard_check(ord("N")) == true &amp;&amp; !gamepad_is_connected(gp_id)) || (gamepad_is_connected(gp_id) &amp;&amp; gamepad_button_check_pressed(gp_id, gp_select))) {  
     
     audio_play_sound(snd_gong, 10, false);
     
