@@ -42,6 +42,7 @@
         dash_frames_h = 0;
         can_dash = false;
         dashed = false;
+        jumppeak = 0;
     } else {
         can_dash = true;
     }
@@ -53,6 +54,20 @@
     if(vspd > 15) { vspd = 15;}
     else if(vspd < -15) { vspd = -15; } 
     
+// After Dash Float
+    if (float_frames > 0) {
+        vspd = 0;
+        hspd = 0;
+        if (v_float) {
+            vspd -= float_frames * .05;
+        } else if (h_float_left) {
+            hspd -= float_frames * .05;
+        } else if (h_float_right) {
+            hspd += float_frames * .05;
+        }
+        float_frames -= 1;
+    }
+    
 // Mid-Air Dashing
     if (can_dash) {
         // In mid-air
@@ -61,6 +76,12 @@
             vspd = -dash_speed;
             hspd = 0;
             dash_frames_v -= 1;
+            if (dash_frames_v == 0) {
+                float_frames = 40;
+                v_float = true;
+            }
+            h_float_left = false;
+            h_float_right = false;
         } else {
             // Not dashing up
             if (dash_frames_h > 0) {
@@ -68,11 +89,23 @@
                 hspd = dash_speed;
                 vspd = 0;
                 dash_frames_h -= 1;
+                if (dash_frames_h == 0) {
+                    float_frames = 40;
+                    h_float_right = true;
+                }
+                h_float_left = false;
+                v_float = false;
             } else if (dash_frames_h < 0) {
                 // Dashing left
                 hspd = -dash_speed;
                 vspd = 0;
                 dash_frames_h += 1;
+                if (dash_frames_h == 0) {
+                    float_frames = 40;
+                    h_float_left = true;
+                }
+                v_float = false;
+                h_float_right = false;
             } else {
                 // Not dashing at all
                 if (dash_count < 3) {

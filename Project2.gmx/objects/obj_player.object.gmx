@@ -44,9 +44,14 @@
 // Dash variables
     dash_count = 0;
     can_dash = false;
-    dash_speed = 15;
+    dash_speed = 30;
     dash_frames_v = 0;
     dash_frames_h = 0;
+    float_frames = 0;
+    v_float = false;
+    h_float_left = false;
+    h_float_right = false;
+    can_float = false;
     dashed = false;
 
 // Input variables
