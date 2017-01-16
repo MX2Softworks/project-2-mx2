@@ -24,6 +24,8 @@
     </sprites>
     <sprites name="Level">
       <sprite>sprites\spr_solid</sprite>
+      <sprite>sprites\spr_platform</sprite>
+      <sprite>sprites\spr_moving_platform</sprite>
       <sprite>sprites\spr_race</sprite>
     </sprites>
     <sprites name="Enemies">
@@ -59,6 +61,8 @@
     </objects>
     <objects name="Level">
       <object>objects\obj_solid</object>
+      <object>objects\obj_platform</object>
+      <object>objects\obj_moving_platform</object>
       <object>objects\obj_next_room</object>
       <object>objects\obj_race_start</object>
       <object>objects\obj_race_end</object>
