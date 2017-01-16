@@ -43,7 +43,7 @@ if (gamepad_is_connected(gp_id)) {
     
     // Set inputs
     sprint = gamepad_button_check(gp_id, gp_shoulderrb);
-    dash = gamepad_button_check(gp_id, gp_shoulderlb);
+    dash = gamepad_button_check_pressed(gp_id, gp_shoulderlb);
     
     up = gamepad_button_check_pressed(gp_id, gp_face1);
     up_held = gamepad_button_check(gp_id, gp_face1);
