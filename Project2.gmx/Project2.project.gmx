@@ -66,6 +66,8 @@
     </objects>
     <objects name="Enemies">
       <object>objects\obj_saw_test</object>
+      <object>objects\obj_enemy_patrol</object>
+      <object>objects\obj_enemy_pathfinder</object>
     </objects>
     <objects name="Helpers">
       <object>objects\obj_debugtext</object>

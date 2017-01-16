@@ -28,12 +28,10 @@
             <string>/// Initialize the enemy patrol
 
 dir = 1;
+maxspd = 3;
 grav = 0.2;
 hspd = 0;
 vspd = 0;
-maxspd = 2;
-image_angle = 0;
-image_rotation = 6;
 fearofheights = 1;
 </string>
           </argument>
@@ -57,7 +55,7 @@ fearofheights = 1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Execute the patrol script
+            <string>/// Execute the script
 
 script_execute(scr_enemy_patrol);
 </string>
