@@ -27,11 +27,12 @@
             <kind>1</kind>
             <string>/// Initialize the enemy pathfinder
 
-maxspd = 2;
-vspd = 0;
 hspd = 0;
-hdir = 0;
+vspd = 0;
 vdir = 0;
+hdir = 0;
+maxspd = 1;
+
 </string>
           </argument>
         </arguments>
@@ -54,7 +55,7 @@ vdir = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Execute pathfinder script
+            <string>/// Execute the enemy pathfinder script
 
 script_execute(scr_enemy_pathfinder);
 </string>
