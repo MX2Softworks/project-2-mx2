@@ -115,21 +115,21 @@
                 // Not dashing at all
                 if (dash_count < 3) {
                     // Can dash again
-                    if (dash && right_held) {
+                    if (dash && (right_held || (diag_ur_held && abs(x_axis) >= abs(y_axis)) || (diag_dr_held && abs(x_axis) >= abs(y_axis)))) {
                         // Wants to dash right
                         dash_frames_h += 5;
                         dash_count += 1;
                         hspd = dash_speed;
                         vspd = 0;
                         dashed = true;
-                    } else if (dash && left_held) {
+                    } else if (dash && (left_held || (diag_ul_held && abs(x_axis) >= abs(y_axis)) || (diag_dl_held && abs(x_axis) >= abs(y_axis)))) {
                         // Wants to dash left
                         dash_frames_h -= 5;
                         dash_count += 1;
                         hspd = -dash_speed;
                         vspd = 0;
                         dashed = true;
-                    } else if (dash && (up_held || stick_up_held)) {
+                    } else if (dash && ((up_held && !gamepad_is_connected(0)) || (stick_up_held && gamepad_is_connected(0)) || (diag_ul_held && abs(y_axis) > abs(x_axis)) || (diag_ur_held && abs(y_axis) > abs(x_axis)))) {
                         // Wants to dash up
                         dash_frames_v += 5;
                         dash_count += 1;
