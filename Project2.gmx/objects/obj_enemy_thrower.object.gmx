@@ -31,6 +31,8 @@ sprite_index = spr_thrower;
 strength = 5;
 range = 1000;
 timer = 0;
+duration = 0;
+soundplayed = 0;
 
 </string>
           </argument>

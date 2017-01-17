@@ -9,6 +9,7 @@
     <sound>sound\snd_collision</sound>
     <sound>sound\snd_jump_0</sound>
     <sound>sound\snd_gong</sound>
+    <sound>sound\snd_fireball</sound>
   </sounds>
   <sprites name="sprites">
     <sprites name="Player">
