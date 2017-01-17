@@ -22,6 +22,7 @@
       <sprite>sprites\spr_player_slide_to_crouch</sprite>
       <sprite>sprites\spr_player_crouch</sprite>
       <sprite>sprites\spr_player_roll</sprite>
+      <sprite>sprites\spr_player_dash</sprite>
     </sprites>
     <sprites name="Level">
       <sprite>sprites\spr_solid</sprite>
