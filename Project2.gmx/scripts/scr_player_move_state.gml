@@ -16,6 +16,13 @@
     } 
 
 //Vertical Movement
+
+     //To prevent hspd from stopping when we jump and slide
+    if(vspd != 0 && is_sliding == 1){
+        hspd = min(abs(hspd)+((acc*(1+(sprint/2.0)))*global.delta), maxspd*(1+(sprint/2.0))) * direction_horizontal;
+    }
+
+
     //Determine whether the player has reached peak jump height.
     if(vspd >= 0){ jumppeak = 1; }
     else if(vspd < 0)
@@ -40,10 +47,7 @@
         dashed = false;
         jumppeak = 0;
         
-        //To prevent hspd from stopping when we jump and slide
-        if(is_sliding == 1){
-            hspd = min(abs(hspd)+((acc*(1+(sprint/2.0)))*global.delta), maxspd*(1+(sprint/2.0))) * direction_horizontal;
-        }   
+           
     } else {
         can_dash = true;
     }
