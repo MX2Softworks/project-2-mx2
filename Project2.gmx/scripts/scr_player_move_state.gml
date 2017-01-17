@@ -52,9 +52,6 @@
         can_dash = true;
     }
     
-    //Fast fall
-    if(down) vspd += 12 * global.delta;
-    
     //Vertical speed maximums/minimums. 
     if(vspd > 15) { vspd = 15;}
     else if(vspd < -15) { vspd = -15; } 
@@ -78,7 +75,7 @@
         // In mid-air
         if (dash_frames_v != 0) {
             // Dashing up
-            vspd = -dash_speed;
+            vspd = -dash_speed * .6;
             hspd = 0;
             dash_frames_v -= 1;
             if (dash_frames_v == 0) {
@@ -133,7 +130,7 @@
                         // Wants to dash up
                         dash_frames_v += 5;
                         dash_count += 1;
-                        vspd = -dash_speed;
+                        vspd = -dash_speed * .6;
                         hspd = 0;
                         dashed = true;
                     } else {
@@ -146,6 +143,12 @@
         }
     } else {
         // Cant dash
+    }
+    
+    //Fast fall
+    if(down) {
+        vspd += 12 * global.delta;
+        float_frames = 0;
     }
     
 //Update our sprite so it faces the proper direction. 
