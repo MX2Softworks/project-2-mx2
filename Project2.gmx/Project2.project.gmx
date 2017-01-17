@@ -32,6 +32,11 @@
       <sprite>sprites\spr_saw_test_1</sprite>
       <sprite>sprites\spr_goomba</sprite>
       <sprite>sprites\spr_boo</sprite>
+      <sprites name="Enemy Thrower">
+        <sprite>sprites\spr_thrower</sprite>
+        <sprite>sprites\spr_thrower_throwing</sprite>
+        <sprite>sprites\spr_fireball</sprite>
+      </sprites>
     </sprites>
   </sprites>
   <backgrounds name="background">
@@ -53,6 +58,8 @@
     <scripts name="Enemy Scripts">
       <script>scripts\scr_enemy_patrol.gml</script>
       <script>scripts\scr_enemy_pathfinder.gml</script>
+      <script>scripts\scr_enemy_thrower.gml</script>
+      <script>scripts\scr_projectile.gml</script>
     </scripts>
   </scripts>
   <objects name="objects">
@@ -71,6 +78,10 @@
       <object>objects\obj_saw_test</object>
       <object>objects\obj_enemy_patrol</object>
       <object>objects\obj_enemy_pathfinder</object>
+      <objects name="Enemy Thrower">
+        <object>objects\obj_enemy_thrower</object>
+        <object>objects\obj_fireball</object>
+      </objects>
     </objects>
     <objects name="Helpers">
       <object>objects\obj_debugtext</object>
