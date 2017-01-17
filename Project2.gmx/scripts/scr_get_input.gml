@@ -40,6 +40,9 @@ if (gamepad_is_connected(gp_id)) {
         down = false;
         stick_up = false;
         
+        stick_up = false;
+        stick_up_released = false; 
+        
         left_released = false;
         right_released = false;
         up_released = false;

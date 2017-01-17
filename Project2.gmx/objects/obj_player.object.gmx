@@ -216,9 +216,7 @@ script_execute(state);
     //Reverses the sliding animation if the player lets go of the down key. 
     if(!down &amp;&amp; !down_held &amp;&amp; !diag_dl_held &amp;&amp; !diag_dr_held &amp;&amp; hspd == 0 &amp;&amp; sprite_index == spr_player_slide &amp;&amp; image_index &lt;= (image_number/2)){
         image_index = image_number-1 - image_index; 
-        image_speed = (delta_time)/(1/15*1000000);
-         audio_play_sound(snd_gong, 1, 0);
-        audio_sound_gain(snd_gong, .2, 0); 
+        image_speed = (delta_time)/(1/15*1000000); 
     }
     //Switches to the idle animation if the down key is not being pressed and the sliding animation has finished.
     else if(!down &amp;&amp; !down_held &amp;&amp; !diag_dl_held &amp;&amp; !diag_dr_held &amp;&amp; sprite_index == spr_player_slide &amp;&amp; image_index &gt; image_number-1){
