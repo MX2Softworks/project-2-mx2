@@ -224,7 +224,8 @@ script_execute(state);
 //Crouching Animation
 
     //Switches to the crouching animation if the player presses down, isn't moving, and hasn't already been switched.
-    if((down || down_held) &amp;&amp; place_meeting(x, y+1, obj_solid) &amp;&amp; hspd == 0 &amp;&amp; sprite_index != spr_player_crouch &amp;&amp; sprite_index != spr_player_roll ){
+    if((down || down_held) &amp;&amp; place_meeting(x, y+1, obj_solid) &amp;&amp; hspd == 0 &amp;&amp; sprite_index != spr_player_crouch 
+    &amp;&amp; sprite_index != spr_player_roll &amp;&amp; sprite_index != spr_player_slide &amp;&amp; sprite_index != spr_player_slide_to_crouch ){
         sprite_index = spr_player_crouch; 
         image_index = 0;
         image_speed = (delta_time)/(1/9*1000000); 
@@ -260,7 +261,6 @@ script_execute(state);
         sprite_index = spr_player_crouch;
         image_index = 2;   
         is_sliding = 0; 
-        
     }
      
 //Rolling Animation
