@@ -94,6 +94,21 @@ if(instance_exists(obj_race_start))
     
 draw_text(10, 156, "dash_count: "+string_format(obj_player.dash_count, 2, 2));
 draw_text(10, 212, "gamepad: "+string_format(gamepad_button_check(0, gp_shoulderrb), 2, 2));
+draw_text(10, 224, "magnitude: "+string_format(obj_player.magnitude, 2, 2));
+draw_text(10, 236, "threshold: "+string_format(obj_player.threshold, 2, 2));
+draw_text(10, 248, "left: "+string_format(obj_player.left, 2, 2));
+draw_text(10, 260, "left_held: "+string_format(obj_player.left_held, 2, 2));
+draw_text(10, 272, "left_released: "+string_format(obj_player.left_released, 2, 2));
+draw_text(10, 284, "x_axis: "+string_format(gamepad_axis_value(0, gp_axislh), 2, 2));
+
+draw_text(10, 296, "ul: "+string_format(obj_player.diag_ul_held, 2, 2));
+draw_text(10, 308, "ur: "+string_format(obj_player.diag_ur_held, 2, 2));
+draw_text(10, 320, "dl: "+string_format(obj_player.diag_dl_held, 2, 2));
+draw_text(10, 332, "dr: "+string_format(obj_player.diag_dr_held, 2, 2));
+draw_text(10, 344, "right: "+string_format(obj_player.right_held, 2, 2));
+draw_text(10, 356, "up: "+string_format(obj_player.stick_up_held, 2, 2));
+draw_text(10, 368, "down: "+string_format(obj_player.down_held, 2, 2));
+draw_text(10, 380, "y_axis: "+string_format(gamepad_axis_value(0, gp_axislv), 2, 2));
 </string>
           </argument>
         </arguments>
