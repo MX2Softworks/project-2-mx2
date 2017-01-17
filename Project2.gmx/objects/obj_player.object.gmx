@@ -66,6 +66,9 @@
     up = false; 
     up_held = false;
     up_released = false;
+    stick_up_held = false;
+    stick_up = false;
+    stick_up_released = false;
     
     down = false;
     down_held = false;
@@ -74,9 +77,24 @@
     sprint = false;
     dash = false;
     
+    diag_ul = false;
+    diag_ul_held = false;
+    diag_ul_released = false;
+    diag_ur = false;
+    diag_ur_held = false;
+    diag_ur_released = false;
+    diag_dl = false;
+    diag_dl_held = false;
+    diag_dl_released = false;
+    diag_dr = false;
+    diag_dr_held = false;
+    diag_dr_released = false;
+    
     gp_id = 0;
-    threshold = .9;
+    threshold = .95;
+    threshold_diag = 1.05;
     controller_alarm = 1;
+    magnitude = 0;
     
 state = scr_player_move_state;
 </string>

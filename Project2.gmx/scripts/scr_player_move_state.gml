@@ -1,9 +1,5 @@
 /// scr_player_move_state()
 
-//Determine direction of movement based off of inputs. 
-    direction_vertical = max(down, down_held) - max(up, up_held); 
-    direction_horizontal = max(right, right_held) - max(left, left_held); 
-
 //Horizontal Movement
     
     //Slide if we have horizontal speed but are holding down. 
