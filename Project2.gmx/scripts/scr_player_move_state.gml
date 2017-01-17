@@ -39,6 +39,11 @@
         can_dash = false;
         dashed = false;
         jumppeak = 0;
+        
+        //To prevent hspd from stopping when we jump and slide
+        if(is_sliding == 1){
+            hspd = min(abs(hspd)+((acc*(1+(sprint/2.0)))*global.delta), maxspd*(1+(sprint/2.0))) * direction_horizontal;
+        }   
     } else {
         can_dash = true;
     }
@@ -120,7 +125,7 @@
                         hspd = -dash_speed;
                         vspd = 0;
                         dashed = true;
-                    } else if (dash && up_held) {
+                    } else if (dash && (up_held || stick_up_held)) {
                         // Wants to dash up
                         dash_frames_v += 5;
                         dash_count += 1;
