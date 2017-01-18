@@ -62,10 +62,19 @@
         hspd = 0;
         if (v_float) {
             vspd -= float_frames * .05;
+            if (place_meeting(x, y-1, obj_solid)) {
+                float_frames = 0;
+            }
         } else if (h_float_left) {
             hspd -= float_frames * .05;
+            if (place_meeting(x-1, y, obj_solid)) {
+                float_frames = 0;
+            }
         } else if (h_float_right) {
             hspd += float_frames * .05;
+            if (place_meeting(x+1, y, obj_solid)) {
+                float_frames = 0;
+            }
         }
         float_frames -= 1;
     }
