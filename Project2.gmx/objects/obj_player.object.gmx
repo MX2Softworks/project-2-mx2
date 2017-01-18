@@ -101,6 +101,7 @@
     diag_dr_held = false;
     diag_dr_released = false;
     
+// Controller only variables
     gp_id = 0;
     threshold = .5;
     threshold_diag = 1.05;

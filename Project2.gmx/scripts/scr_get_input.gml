@@ -31,6 +31,7 @@ threshold = .5;
 
 if (gamepad_is_connected(gp_id)) {
 
+    // Used for diagonals
     magnitude = point_distance(0, 0, gamepad_axis_value(gp_id, gp_axislh), gamepad_axis_value(gp_id, gp_axislv));
     x_axis = gamepad_axis_value(gp_id, gp_axislh);
     y_axis = gamepad_axis_value(gp_id, gp_axislv);
