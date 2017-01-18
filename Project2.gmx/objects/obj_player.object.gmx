@@ -57,6 +57,8 @@
     switch_up = false;
     can_float = false;
     dashed = false;
+    dash_held_frames = 0;
+    dash_distance_mod = 0;
 
 // Input variables
     right = false;
@@ -80,6 +82,8 @@
     
     sprint = false;
     dash = false;
+    dash_held = false;
+    dash_released = false;
     
     diag_ul = false;
     diag_ul_held = false;

@@ -109,6 +109,8 @@ draw_text(10, 344, "right: "+string_format(obj_player.right_held, 2, 2));
 draw_text(10, 356, "up: "+string_format(obj_player.stick_up_held, 2, 2));
 draw_text(10, 368, "down: "+string_format(obj_player.down_held, 2, 2));
 draw_text(10, 380, "y_axis: "+string_format(gamepad_axis_value(0, gp_axislv), 2, 2));
+
+draw_text(10, 404, "dash_held: "+string_format(obj_player.dash_distance_mod, 2, 2));
 </string>
           </argument>
         </arguments>
