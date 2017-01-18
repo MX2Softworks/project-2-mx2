@@ -224,18 +224,20 @@
     
     // Dash Charge
     if (dash_charge_mode) {
-        if (dash_count < 3) {
-            if (dash_held) {
-                if (dash_held_frames <= 75) {
-                    dash_held_frames += 1;
+        if (can_dash) {
+            if (dash_count < 3) {
+                if (dash_held) {
+                    if (dash_held_frames <= 75) {
+                        dash_held_frames += 1;
+                    }
+                    dash_distance_mod = dash_held_frames div 15;
+                    vspd = 0;
+                    hspd = 0;
+                } else if (dash_released) {
+                    dash_held_frames = 0;
+                    dash_distance_mod = 0;
+                    dash_count += 1;
                 }
-                dash_distance_mod = dash_held_frames div 15;
-                vspd = 0;
-                hspd = 0;
-            } else if (dash_released) {
-                dash_held_frames = 0;
-                dash_distance_mod = 0;
-                dash_count += 1;
             }
         }
     } else {
