@@ -24,7 +24,14 @@
 
 
     //Determine whether the player has reached peak jump height.
-    if(vspd >= 0){ jumppeak = 1; }
+    if(vspd >= 0) {
+        if (fall_frames > 0) {
+            jumppeak = 0;
+            fall_frames -= 1;
+        } else {
+            jumppeak = 1;
+        }
+    }
     else if(vspd < 0)
     {
         //Variable jump height based off of how long the jump button is held. 
@@ -46,14 +53,9 @@
         can_dash = false;
         dashed = false;
         jumppeak = 0;
-        
-           
     } else {
         can_dash = true;
     }
-    
-    //Fast fall
-    if(down) vspd += 12 * global.delta;
     
     //Vertical speed maximums/minimums. 
     if(vspd > 15) { vspd = 15;}
@@ -64,13 +66,44 @@
         vspd = 0;
         hspd = 0;
         if (v_float) {
-            vspd -= float_frames * .05;
+            if (place_meeting(x, y-1, obj_solid)) {
+                switch_up = true;
+                float_frames /= 2;
+            }
+            if (switch_up) {
+                vspd += float_frames * .05;
+            } else {
+                vspd -= float_frames * .05;
+            }
         } else if (h_float_left) {
-            hspd -= float_frames * .05;
+            if (place_meeting(x-1, y, obj_solid)) {
+                switch_left = true;
+                float_frames /= 2;
+            }
+            if (switch_left) {
+                hspd += float_frames * .05;
+            } else {
+                hspd -= float_frames * .05;
+            }
         } else if (h_float_right) {
-            hspd += float_frames * .05;
+            if (place_meeting(x+1, y, obj_solid)) {
+                switch_right = true;
+                float_frames /= 2;
+            }
+            if (switch_right) {
+                hspd -= float_frames * .05;
+            } else {
+                hspd += float_frames * .05;
+            }
         }
         float_frames -= 1;
+        if (float_frames == 0) {
+            fall_frames = 20;
+        }
+    } else {
+        switch_left = false;
+        switch_right = false;
+        switch_up = false;
     }
     
 // Mid-Air Dashing
@@ -78,7 +111,7 @@
         // In mid-air
         if (dash_frames_v != 0) {
             // Dashing up
-            vspd = -dash_speed;
+            vspd = -dash_speed * .6;
             hspd = 0;
             dash_frames_v -= 1;
             if (dash_frames_v == 0) {
@@ -115,25 +148,25 @@
                 // Not dashing at all
                 if (dash_count < 3) {
                     // Can dash again
-                    if (dash && right_held) {
+                    if (dash && (right_held || (diag_ur_held && abs(x_axis) >= abs(y_axis)) || (diag_dr_held && abs(x_axis) >= abs(y_axis)))) {
                         // Wants to dash right
                         dash_frames_h += 5;
                         dash_count += 1;
                         hspd = dash_speed;
                         vspd = 0;
                         dashed = true;
-                    } else if (dash && left_held) {
+                    } else if (dash && (left_held || (diag_ul_held && abs(x_axis) >= abs(y_axis)) || (diag_dl_held && abs(x_axis) >= abs(y_axis)))) {
                         // Wants to dash left
                         dash_frames_h -= 5;
                         dash_count += 1;
                         hspd = -dash_speed;
                         vspd = 0;
                         dashed = true;
-                    } else if (dash && (up_held || stick_up_held)) {
+                    } else if (dash && ((up_held && !gamepad_is_connected(0)) || (stick_up_held && gamepad_is_connected(0)) || (diag_ul_held && abs(y_axis) > abs(x_axis)) || (diag_ur_held && abs(y_axis) > abs(x_axis)))) {
                         // Wants to dash up
                         dash_frames_v += 5;
                         dash_count += 1;
-                        vspd = -dash_speed;
+                        vspd = -dash_speed * .6;
                         hspd = 0;
                         dashed = true;
                     } else {
@@ -146,6 +179,12 @@
         }
     } else {
         // Cant dash
+    }
+    
+    //Fast fall
+    if(down) {
+        vspd += 12 * global.delta;
+        float_frames = 0;
     }
     
 //Update our sprite so it faces the proper direction. 

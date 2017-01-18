@@ -24,7 +24,7 @@ dash = keyboard_check_pressed(ord("F"));
 
 // Override the controls for a gamepad
 gp_id = 0;
-threshold = .9;
+threshold = .5;
 
 if (gamepad_is_connected(gp_id)) {
 
