@@ -24,7 +24,14 @@
 
 
     //Determine whether the player has reached peak jump height.
-    if(vspd >= 0){ jumppeak = 1; }
+    if(vspd >= 0) {
+        if (fall_frames > 0) {
+            jumppeak = 0;
+            fall_frames -= 1;
+        } else {
+            jumppeak = 1;
+        }
+    }
     else if(vspd < 0)
     {
         //Variable jump height based off of how long the jump button is held. 
@@ -46,8 +53,6 @@
         can_dash = false;
         dashed = false;
         jumppeak = 0;
-        
-           
     } else {
         can_dash = true;
     }
@@ -92,6 +97,9 @@
             }
         }
         float_frames -= 1;
+        if (float_frames == 0) {
+            fall_frames = 20;
+        }
     } else {
         switch_left = false;
         switch_right = false;

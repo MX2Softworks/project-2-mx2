@@ -48,6 +48,7 @@
     dash_frames_v = 0;
     dash_frames_h = 0;
     float_frames = 0;
+    fall_frames = 0;
     v_float = false;
     h_float_left = false;
     h_float_right = false;
