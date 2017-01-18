@@ -51,6 +51,9 @@
     v_float = false;
     h_float_left = false;
     h_float_right = false;
+    switch_left = false;
+    switch_right = false;
+    switch_up = false;
     can_float = false;
     dashed = false;
 

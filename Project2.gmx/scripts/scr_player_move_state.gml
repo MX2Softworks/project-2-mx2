@@ -61,22 +61,41 @@
         vspd = 0;
         hspd = 0;
         if (v_float) {
-            vspd -= float_frames * .05;
             if (place_meeting(x, y-1, obj_solid)) {
-                float_frames = 0;
+                switch_up = true;
+                float_frames /= 2;
+            }
+            if (switch_up) {
+                vspd += float_frames * .05;
+            } else {
+                vspd -= float_frames * .05;
             }
         } else if (h_float_left) {
-            hspd -= float_frames * .05;
             if (place_meeting(x-1, y, obj_solid)) {
-                float_frames = 0;
+                switch_left = true;
+                float_frames /= 2;
+            }
+            if (switch_left) {
+                hspd += float_frames * .05;
+            } else {
+                hspd -= float_frames * .05;
             }
         } else if (h_float_right) {
-            hspd += float_frames * .05;
             if (place_meeting(x+1, y, obj_solid)) {
-                float_frames = 0;
+                switch_right = true;
+                float_frames /= 2;
+            }
+            if (switch_right) {
+                hspd -= float_frames * .05;
+            } else {
+                hspd += float_frames * .05;
             }
         }
         float_frames -= 1;
+    } else {
+        switch_left = false;
+        switch_right = false;
+        switch_up = false;
     }
     
 // Mid-Air Dashing
