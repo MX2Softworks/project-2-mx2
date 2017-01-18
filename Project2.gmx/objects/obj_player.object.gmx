@@ -59,6 +59,8 @@
     dashed = false;
     dash_held_frames = 0;
     dash_distance_mod = 0;
+    dash_charge_mode = false;
+    dash_activate = false;
 
 // Input variables
     right = false;
@@ -84,6 +86,7 @@
     dash = false;
     dash_held = false;
     dash_released = false;
+    switch_dash_mode = false;
     
     diag_ul = false;
     diag_ul_held = false;
