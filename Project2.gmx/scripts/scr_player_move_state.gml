@@ -187,10 +187,10 @@
     // Dash Charge
     if (dash_count < 3) {
         if (dash_held) {
-            if (dash_held_frames <= 300) {
+            if (dash_held_frames <= 75) {
                 dash_held_frames += 1;
             }
-            dash_distance_mod = dash_held_frames div 60;
+            dash_distance_mod = dash_held_frames div 15;
             vspd = 0;
             hspd = 0;
         } else if (dash_released) {
