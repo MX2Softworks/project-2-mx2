@@ -336,7 +336,7 @@ script_execute(state);
         if(left_held || right_held){ 
             sprite_index = spr_player_dash_rotating; 
             image_index = 0;
-            image_speed = (delta_time)/(1/45*1000000);  
+            image_speed = (delta_time)/(1/60*1000000);  
         }
         else { 
             sprite_index = spr_player_dash; 
@@ -350,6 +350,11 @@ script_execute(state);
         image_index = 0;
         sprite_index = spr_player_dash_unrotating; 
         image_speed = (delta_time)/(1/45*1000000); 
+    }
+    //Switches to the running animation once the unrotating animation has finished.
+    if(sprite_index == spr_player_dash_unrotating &amp;&amp; image_index &gt;= image_number-1){
+        sprite_index = spr_fahad_player_test_1;   
+        image_speed = .13*abs(hspd)/4 * (delta_time)/(1/60*1000000);
     }
     //Slows the dash speed down every frame once the player has switched to the dash animation.
     if((sprite_index == spr_player_dash || spr_player_dash_rotated || spr_player_dash_unrotating)
