@@ -165,7 +165,9 @@ script_execute(state);
     //Switches to idle if hspd and vspd are 0 and we aren't finishing the falling animation.
     //Reset the max speed to normal, in case the player was rolling. 
     if(hspd == 0 &amp;&amp; vspd == 0 &amp;&amp; sprite_index != spr_player_fall &amp;&amp; sprite_index != spr_player_slide 
-       &amp;&amp; sprite_index != spr_player_crouch &amp;&amp; (sprite_index != spr_player_slide_to_crouch &amp;&amp; !down_held &amp;&amp; !down &amp;&amp; !diag_dl &amp;&amp; !diag_dr)){ 
+       &amp;&amp; sprite_index != spr_player_crouch &amp;&amp; (sprite_index != spr_player_slide_to_crouch &amp;&amp; !down_held &amp;&amp; !down &amp;&amp; !diag_dl &amp;&amp; !diag_dr)
+       &amp;&amp; sprite_index != spr_player_dash &amp;&amp; sprite_index != spr_player_dash_rotating  &amp;&amp; sprite_index != spr_player_dash_unrotating
+       ){ 
         sprite_index = spr_player_idle; 
         maxspd = 8; 
         image_index = 0; 
@@ -176,7 +178,9 @@ script_execute(state);
     //Reset max speed to normal, in case the player was previously rolling.
     else if(hspd != 0 &amp;&amp; vspd == 0 &amp;&amp; !diag_dl_held &amp;&amp; !diag_dr_held &amp;&amp; sprite_index != spr_player_slide 
             &amp;&amp; sprite_index != spr_player_crouch &amp;&amp; sprite_index != spr_player_roll
-            &amp;&amp; sprite_index != spr_player_slide_to_crouch &amp;&amp; sprite_index != spr_player_dash){
+            &amp;&amp; sprite_index != spr_player_slide_to_crouch 
+            &amp;&amp; ((sprite_index != spr_player_dash &amp;&amp; sprite_index != spr_player_dash_rotating &amp;&amp; sprite_index != spr_player_dash_unrotating) 
+            || (switch_right || switch_left))){
         sprite_index = spr_fahad_player_test_1; 
         maxspd = 8;   
         image_speed = .13*abs(hspd)/4 * (delta_time)/(1/60*1000000); //animation speed is a factor of our speed. 
@@ -187,7 +191,8 @@ script_execute(state);
 //Jumping and falling animation based on previous animation conditions. 
     
     //Switches to jump animation if we are moving upwards and haven't already switched.
-    if(vspd &lt; 0 &amp;&amp; sprite_index != spr_player_jump &amp;&amp; sprite_index != spr_player_dash){
+    if(vspd &lt; 0 &amp;&amp; sprite_index != spr_player_jump &amp;&amp; sprite_index != spr_player_dash 
+       &amp;&amp; sprite_index != spr_player_dash_rotating &amp;&amp; sprite_index != spr_player_dash_unrotating){
         sprite_index = spr_player_jump;
         image_index = 0; 
         image_speed = (delta_time)/(1/9*1000000); 
@@ -204,8 +209,10 @@ script_execute(state);
         image_index = 0; 
     }
     //Starts playing the falling animation once the player hits the ground or if the player has finished a dash. 
-    else if(vspd == 0 &amp;&amp; 
-            ((sprite_index == spr_player_fall &amp;&amp; image_index == 0) || (sprite_index == spr_player_dash &amp;&amp; dashed == false &amp;&amp; image_speed == 0))){
+    else if(vspd == 0 
+            &amp;&amp; ((sprite_index == spr_player_fall &amp;&amp; image_index == 0) || 
+               ((sprite_index == spr_player_dash || sprite_index == spr_player_dash_rotating  || sprite_index == spr_player_dash_unrotating
+               || sprite_index == spr_player_dash_rotated) &amp;&amp; dashed == false &amp;&amp; image_speed == 0))){
         sprite_index = spr_player_fall;
         image_index = 0; 
         image_speed = (delta_time)/(1/15*1000000); 
@@ -233,7 +240,8 @@ script_execute(state);
         image_speed = 0; 
     }
     //Reverses the sliding animation if the player lets go of the down key. 
-    if(!down &amp;&amp; !down_held &amp;&amp; !diag_dl_held &amp;&amp; !diag_dr_held &amp;&amp; hspd == 0 &amp;&amp; sprite_index == spr_player_slide &amp;&amp; image_index &lt;= (image_number/2)){
+    if(!down &amp;&amp; !down_held &amp;&amp; !diag_dl_held &amp;&amp; !diag_dr_held &amp;&amp; hspd == 0 
+       &amp;&amp; sprite_index == spr_player_slide &amp;&amp; image_index &lt;= (image_number/2)){
         image_index = image_number-1 - image_index; 
         image_speed = (delta_time)/(1/15*1000000); 
     }
@@ -321,20 +329,35 @@ script_execute(state);
     
 //Dashing Animation
 
-    //Switches to dash animation when the dash movement occurs.
-    if(dashed &amp;&amp; dash_activate &amp;&amp; sprite_index != spr_player_dash){
+    //Switches to dash animation when the dash movement occurs and we have not already switched.
+    if(dashed &amp;&amp; (dash || charge_dash_released) &amp;&amp; sprite_index != spr_player_dash &amp;&amp; sprite_index != spr_player_dash_rotating 
+       &amp;&amp; sprite_index != spr_player_dash_rotated){
         
-        audio_play_sound(snd_gong, 0, 0);
-        audio_sound_gain(snd_gong, .15, 0); 
-        
-        sprite_index = spr_player_dash;
-        image_index = 0;
-        image_speed = (delta_time)/(1/30*1000000);    
+        if(left_held || right_held){ 
+            sprite_index = spr_player_dash_rotating; 
+            image_index = 0;
+            image_speed = (delta_time)/(1/45*1000000);  
+        }
+        else { 
+            sprite_index = spr_player_dash; 
+            image_index = 0;
+            image_speed = (delta_time)/(1/30*1000000);  
+        }
+               
     }
-    if(sprite_index == spr_player_dash){
-        
+    //Switches to unrotating dash if the dash movement has finished rotating. 
+    if(sprite_index == spr_player_dash_rotating &amp;&amp; image_index &gt;= image_number-1){
+        image_index = 0;
+        sprite_index = spr_player_dash_unrotating; 
+        image_speed = (delta_time)/(1/45*1000000); 
+    }
+    //Slows the dash speed down every frame once the player has switched to the dash animation.
+    if((sprite_index == spr_player_dash || spr_player_dash_rotated || spr_player_dash_unrotating)
+     &amp;&amp; !dash &amp;&amp; !charge_dash_released){
         image_speed *= .955
     }
+    
+
 </string>
           </argument>
         </arguments>
@@ -357,7 +380,7 @@ script_execute(state);
             <kind>1</kind>
             <string>/// Sound Effects
 
-if(keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W")))
+if(up)
 {
     audio_play_sound(snd_jump_0, 10, false);
 }
