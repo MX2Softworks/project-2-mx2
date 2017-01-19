@@ -57,6 +57,10 @@
     switch_up = false;
     can_float = false;
     dashed = false;
+    dash_held_frames = 0;
+    dash_distance_mod = 0;
+    dash_charge_mode = false;
+    dash_activate = false;
 
 // Input variables
     right = false;
@@ -80,6 +84,9 @@
     
     sprint = false;
     dash = false;
+    dash_held = false;
+    dash_released = false;
+    switch_dash_mode = false;
     
     diag_ul = false;
     diag_ul_held = false;
@@ -94,6 +101,7 @@
     diag_dr_held = false;
     diag_dr_released = false;
     
+// Controller only variables
     gp_id = 0;
     threshold = .5;
     threshold_diag = 1.05;

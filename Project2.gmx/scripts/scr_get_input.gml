@@ -21,6 +21,9 @@ direction_horizontal = max(right, right_held) - max(left, left_held);
 
 sprint = keyboard_check(vk_shift);
 dash = keyboard_check_pressed(ord("F"));
+dash_held = keyboard_check(ord("F"));
+dash_released = keyboard_check_released(ord("F"));
+switch_dash_mode = keyboard_check_pressed(ord("G"));
 
 // Override the controls for a gamepad
 gp_id = 0;
@@ -28,6 +31,7 @@ threshold = .5;
 
 if (gamepad_is_connected(gp_id)) {
 
+    // Used for diagonals
     magnitude = point_distance(0, 0, gamepad_axis_value(gp_id, gp_axislh), gamepad_axis_value(gp_id, gp_axislv));
     x_axis = gamepad_axis_value(gp_id, gp_axislh);
     y_axis = gamepad_axis_value(gp_id, gp_axislv);
@@ -66,6 +70,9 @@ if (gamepad_is_connected(gp_id)) {
     // Set inputs
     sprint = gamepad_button_check(gp_id, gp_shoulderrb);
     dash = gamepad_button_check_pressed(gp_id, gp_shoulderlb) || gamepad_button_check_pressed(gp_id, gp_shoulderl);
+    dash_held = gamepad_button_check(gp_id, gp_shoulderlb) || gamepad_button_check(gp_id, gp_shoulderl);
+    dash_released = gamepad_button_check_released(gp_id, gp_shoulderlb) || gamepad_button_check_released(gp_id, gp_shoulderl);
+    switch_dash_mode = gamepad_button_check_pressed(gp_id, gp_face3);
     
     up = gamepad_button_check_pressed(gp_id, gp_face1);
     up_held = gamepad_button_check(gp_id, gp_face1);
