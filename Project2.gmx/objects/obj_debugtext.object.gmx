@@ -135,6 +135,14 @@ draw_text(10, 404, "dash_held: "+string_format(obj_player.dash_distance_mod, 2, 
     if (obj_player.dash_distance_mod &gt;= 5) {
         draw_rectangle_colour(view_wport[0]-40, 20, view_wport[0]-20, 60, c_green, c_green, c_green, c_green, false);
     }
+    if (obj_player.dash_held_frames &gt;= 155 &amp;&amp; obj_player.dash_held_frames &lt;= 170) {
+        draw_set_colour(c_red);
+        draw_rectangle(view_wport[0]-150, 25, view_wport[0]-145, 45, false);
+        draw_rectangle(view_wport[0]-150, 50, view_wport[0]-145, 55, false);
+        draw_set_colour(c_gray);
+        draw_rectangle(view_wport[0]-150, 25, view_wport[0]-145, 45, true);
+        draw_rectangle(view_wport[0]-150, 50, view_wport[0]-145, 55, true);
+    }
     draw_set_colour(c_gray);
     draw_rectangle(view_wport[0]-120, 20, view_wport[0]-19, 60, true);
     draw_rectangle(view_wport[0]-119, 21, view_wport[0]-20, 59, true);
