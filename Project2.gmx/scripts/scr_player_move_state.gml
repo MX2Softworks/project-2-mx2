@@ -54,6 +54,9 @@
         can_dash = false;
         dashed = false;
         jumppeak = 0;
+        dash_held_frames = 0;
+        dash_distance_mod = 0;
+        dash_charge_mode = false;
     } else {
         can_dash = true;
     }
@@ -242,12 +245,12 @@
             if (dash_count < 3) {
                 if (charge_dash_held) {
                     // Charge the dash
-                    if (dash_held_frames <= 75) {
+                    if (dash_held_frames <= 150) {
                         dash_held_frames += 1;
                     }
-                    dash_distance_mod = dash_held_frames div 15;
-                    vspd = 0;
-                    hspd = 0;
+                    dash_distance_mod = dash_held_frames div 30;
+                    vspd /= 6;
+                    hspd /= 1.75;
                 } else if (charge_dash_released) {
                     // Reset the charge for the next dash
                     dash_held_frames = 0;
