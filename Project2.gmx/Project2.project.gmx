@@ -23,6 +23,9 @@
       <sprite>sprites\spr_player_crouch</sprite>
       <sprite>sprites\spr_player_roll</sprite>
       <sprite>sprites\spr_player_dash</sprite>
+      <sprite>sprites\spr_player_dash_unrotating</sprite>
+      <sprite>sprites\spr_player_dash_rotated</sprite>
+      <sprite>sprites\spr_player_dash_rotating</sprite>
     </sprites>
     <sprites name="Level">
       <sprite>sprites\spr_solid</sprite>

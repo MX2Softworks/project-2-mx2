@@ -245,9 +245,9 @@
             if (dash_count < 3) {
                 if (charge_dash_held) {
                     // Charge the dash
-                    if (dash_held_frames <= 179) {
+                    if (dash_held_frames <= 35) {
                         dash_held_frames += 1;
-                        dash_distance_mod = dash_held_frames div 30;
+                        dash_distance_mod = dash_held_frames div 6;
                         vspd /= 6;
                         hspd /= 1.75;
                     }
