@@ -24,7 +24,15 @@
 
 
     //Determine whether the player has reached peak jump height.
-    if(vspd >= 0){ jumppeak = 1; }
+    if(vspd >= 0) {
+        // For the first 20 frames after a dash the fall is less drastic
+        if (fall_frames > 0) {
+            jumppeak = 0;
+            fall_frames -= 1;
+        } else {
+            jumppeak = 1;
+        }
+    }
     else if(vspd < 0)
     {
         //Variable jump height based off of how long the jump button is held. 
@@ -46,14 +54,9 @@
         can_dash = false;
         dashed = false;
         jumppeak = 0;
-        
-           
     } else {
         can_dash = true;
     }
-    
-    //Fast fall
-    if(down) vspd += 12 * global.delta;
     
     //Vertical speed maximums/minimums. 
     if(vspd > 15) { vspd = 15;}
@@ -61,16 +64,73 @@
     
 // After Dash Float
     if (float_frames > 0) {
+        // Reset speeds
         vspd = 0;
         hspd = 0;
+        // Check the direction we are floating in
         if (v_float) {
-            vspd -= float_frames * .05;
+            // Bounce off wall
+            if (place_meeting(x, y-1, obj_solid)) {
+                switch_up = true;
+                float_frames /= 2;
+            }
+            // Move slightly in the direction of the float
+            if (switch_up) {
+                vspd += float_frames * .05;
+            } else {
+                vspd -= float_frames * .05;
+            }
         } else if (h_float_left) {
-            hspd -= float_frames * .05;
+            // Bounce off wall
+            if (place_meeting(x-1, y, obj_solid)) {
+                switch_left = true;
+                float_frames /= 2;
+            }
+            // Move slightly in the direction of the float
+            if (switch_left) {
+                hspd += float_frames * .05;
+            } else {
+                hspd -= float_frames * .05;
+            }
         } else if (h_float_right) {
-            hspd += float_frames * .05;
+            // Bounce off wall
+            if (place_meeting(x+1, y, obj_solid)) {
+                switch_right = true;
+                float_frames /= 2;
+            }
+            // Move slightly in the direction of the float
+            if (switch_right) {
+                hspd -= float_frames * .05;
+            } else {
+                hspd += float_frames * .05;
+            }
         }
         float_frames -= 1;
+        // After the float set fall frames
+        if (float_frames == 0) {
+            fall_frames = 20;
+        }
+    } else {
+        // Reset switch variables
+        switch_left = false;
+        switch_right = false;
+        switch_up = false;
+    }
+    
+// Dash Mode
+    if (switch_dash_mode) {
+        // Switch modes
+        if (dash_charge_mode) {
+            dash_charge_mode = false;
+        } else {
+            dash_charge_mode = true;
+        }
+    }
+    // Set the correct button input depending on the dash mode
+    if (dash_charge_mode) {
+        dash_activate = dash_released;
+    } else {
+        dash_activate = dash;
     }
     
 // Mid-Air Dashing
@@ -78,7 +138,7 @@
         // In mid-air
         if (dash_frames_v != 0) {
             // Dashing up
-            vspd = -dash_speed;
+            vspd = -dash_speed * .6;
             hspd = 0;
             dash_frames_v -= 1;
             if (dash_frames_v == 0) {
@@ -115,27 +175,60 @@
                 // Not dashing at all
                 if (dash_count < 3) {
                     // Can dash again
-                    if (dash && right_held) {
+                    if (dash_activate && (right_held || (diag_ur_held && abs(x_axis) >= abs(y_axis)) || (diag_dr_held && abs(x_axis) >= abs(y_axis)))) {
                         // Wants to dash right
-                        dash_frames_h += 5;
-                        dash_count += 1;
-                        hspd = dash_speed;
-                        vspd = 0;
-                        dashed = true;
-                    } else if (dash && left_held) {
+                        if (dash_charge_mode) {
+                            // Charge Dash
+                            if (dash_distance_mod > 0) {
+                                dash_frames_h += dash_distance_mod;
+                                hspd = dash_speed;
+                                vspd = 0;
+                                dashed = true;
+                            }
+                        } else {
+                            // Normal Dash
+                            dash_frames_h += 5;
+                            dash_count += 1;
+                            hspd = dash_speed;
+                            vspd = 0;
+                            dashed = true;
+                        }
+                    } else if (dash_activate && (left_held || (diag_ul_held && abs(x_axis) >= abs(y_axis)) || (diag_dl_held && abs(x_axis) >= abs(y_axis)))) {
                         // Wants to dash left
-                        dash_frames_h -= 5;
-                        dash_count += 1;
-                        hspd = -dash_speed;
-                        vspd = 0;
-                        dashed = true;
-                    } else if (dash && (up_held || stick_up_held)) {
+                        if (dash_charge_mode) {
+                            // Charge Dash
+                            if (dash_distance_mod > 0) {
+                                dash_frames_h -= dash_distance_mod;
+                                hspd = -dash_speed;
+                                vspd = 0;
+                                dashed = true;
+                            }
+                        } else {
+                            // Normal Dash
+                            dash_frames_h -= 5;
+                            dash_count += 1;
+                            hspd = -dash_speed;
+                            vspd = 0;
+                            dashed = true;
+                        }
+                    } else if (dash_activate && ((up_held && !gamepad_is_connected(0)) || (stick_up_held && gamepad_is_connected(0)) || (diag_ul_held && abs(y_axis) > abs(x_axis)) || (diag_ur_held && abs(y_axis) > abs(x_axis)))) {
                         // Wants to dash up
-                        dash_frames_v += 5;
-                        dash_count += 1;
-                        vspd = -dash_speed;
-                        hspd = 0;
-                        dashed = true;
+                        if (dash_charge_mode) {
+                            // Charge Dash
+                            if (dash_distance_mod > 0) {
+                                dash_frames_v += dash_distance_mod;
+                                vspd = -dash_speed * .6;
+                                hspd = 0;
+                                dashed = true;
+                            }
+                        } else {
+                            // Normal Dash
+                            dash_frames_v += 5;
+                            dash_count += 1;
+                            vspd = -dash_speed * .6;
+                            hspd = 0;
+                            dashed = true;
+                        }
                     } else {
                         // Isnt dashing and doesnt want to dash
                     }
@@ -146,6 +239,40 @@
         }
     } else {
         // Cant dash
+    }
+    
+    // Dash Charge
+    if (dash_charge_mode) {
+        // Charge mode
+        if (can_dash) {
+            // In mid-air
+            if (dash_count < 3) {
+                if (dash_held) {
+                    // Charge the dash
+                    if (dash_held_frames <= 75) {
+                        dash_held_frames += 1;
+                    }
+                    dash_distance_mod = dash_held_frames div 15;
+                    vspd = 0;
+                    hspd = 0;
+                } else if (dash_released) {
+                    // Reset the charge for the next dash
+                    dash_held_frames = 0;
+                    dash_distance_mod = 0;
+                    dash_count += 1;
+                }
+            }
+        }
+    } else {
+        // Reset charge values
+        dash_held_frames = 0;
+        dash_distance_mod = 0;
+    }
+    
+    // Fast fall
+    if(down) {
+        vspd += 12 * global.delta;
+        float_frames = 0;
     }
     
 //Update our sprite so it faces the proper direction. 
