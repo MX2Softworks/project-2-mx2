@@ -86,7 +86,9 @@
     dash = false;
     dash_held = false;
     dash_released = false;
-    switch_dash_mode = false;
+    charge_dash = false;
+    charge_dash_held = false;
+    charge_dash_released = false;
     
     diag_ul = false;
     diag_ul_held = false;

@@ -23,7 +23,9 @@ sprint = keyboard_check(vk_shift);
 dash = keyboard_check_pressed(ord("F"));
 dash_held = keyboard_check(ord("F"));
 dash_released = keyboard_check_released(ord("F"));
-switch_dash_mode = keyboard_check_pressed(ord("G"));
+charge_dash = keyboard_check_pressed(ord("G"));
+charge_dash_held = keyboard_check(ord("G"));
+charge_dash_released = keyboard_check_released(ord("G"));
 
 // Override the controls for a gamepad
 gp_id = 0;
@@ -69,10 +71,12 @@ if (gamepad_is_connected(gp_id)) {
     
     // Set inputs
     sprint = gamepad_button_check(gp_id, gp_shoulderrb);
-    dash = gamepad_button_check_pressed(gp_id, gp_shoulderlb) || gamepad_button_check_pressed(gp_id, gp_shoulderl);
-    dash_held = gamepad_button_check(gp_id, gp_shoulderlb) || gamepad_button_check(gp_id, gp_shoulderl);
-    dash_released = gamepad_button_check_released(gp_id, gp_shoulderlb) || gamepad_button_check_released(gp_id, gp_shoulderl);
-    switch_dash_mode = gamepad_button_check_pressed(gp_id, gp_face3);
+    dash = gamepad_button_check_pressed(gp_id, gp_shoulderl);
+    dash_held = gamepad_button_check(gp_id, gp_shoulderl);
+    dash_released = gamepad_button_check_released(gp_id, gp_shoulderl);
+    charge_dash = gamepad_button_check_pressed(gp_id, gp_shoulderlb);
+    charge_dash_held = gamepad_button_check(gp_id, gp_shoulderlb);
+    charge_dash_released = gamepad_button_check_released(gp_id, gp_shoulderlb);
     
     up = gamepad_button_check_pressed(gp_id, gp_face1);
     up_held = gamepad_button_check(gp_id, gp_face1);
