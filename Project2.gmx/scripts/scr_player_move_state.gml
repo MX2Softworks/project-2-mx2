@@ -168,7 +168,7 @@
                 // Not dashing at all
                 if (dash_count < 3) {
                     // Can dash again
-                    if (((charge_dash_released || dash) && !(charge_dash_released && dash)) && (right_held || (diag_ur_held && abs(x_axis) >= abs(y_axis)) || (diag_dr_held && abs(x_axis) >= abs(y_axis)))) {
+                    if ((((charge_dash_released && dash_charge_mode) || dash) && !(charge_dash_released && dash)) && (right_held || (diag_ur_held && abs(x_axis) >= abs(y_axis)) || (diag_dr_held && abs(x_axis) >= abs(y_axis)))) {
                         // Wants to dash right
                         if (dash_charge_mode) {
                             // Charge Dash
@@ -187,7 +187,7 @@
                             dashed = true;
                             dash_charge_mode = false;
                         }
-                    } else if (((charge_dash_released || dash) && !(charge_dash_released && dash)) && (left_held || (diag_ul_held && abs(x_axis) >= abs(y_axis)) || (diag_dl_held && abs(x_axis) >= abs(y_axis)))) {
+                    } else if ((((charge_dash_released && dash_charge_mode) || dash) && !(charge_dash_released && dash)) && (left_held || (diag_ul_held && abs(x_axis) >= abs(y_axis)) || (diag_dl_held && abs(x_axis) >= abs(y_axis)))) {
                         // Wants to dash left
                         if (dash_charge_mode) {
                             // Charge Dash
@@ -206,7 +206,7 @@
                             dashed = true;
                             dash_charge_mode = false;
                         }
-                    } else if (((charge_dash_released || dash) && !(charge_dash_released && dash)) && ((up_held && !gamepad_is_connected(0)) || (stick_up_held && gamepad_is_connected(0)) || (diag_ul_held && abs(y_axis) > abs(x_axis)) || (diag_ur_held && abs(y_axis) > abs(x_axis)))) {
+                    } else if ((((charge_dash_released && dash_charge_mode) || dash) && !(charge_dash_released && dash)) && ((up_held && !gamepad_is_connected(0)) || (stick_up_held && gamepad_is_connected(0)) || (diag_ul_held && abs(y_axis) > abs(x_axis)) || (diag_ur_held && abs(y_axis) > abs(x_axis)))) {
                         // Wants to dash up
                         if (dash_charge_mode) {
                             // Charge Dash
@@ -245,12 +245,12 @@
             if (dash_count < 3) {
                 if (charge_dash_held) {
                     // Charge the dash
-                    if (dash_held_frames <= 150) {
+                    if (dash_held_frames <= 179) {
                         dash_held_frames += 1;
+                        dash_distance_mod = dash_held_frames div 30;
+                        vspd /= 6;
+                        hspd /= 1.75;
                     }
-                    dash_distance_mod = dash_held_frames div 30;
-                    vspd /= 6;
-                    hspd /= 1.75;
                 } else if (charge_dash_released) {
                     // Reset the charge for the next dash
                     dash_held_frames = 0;
