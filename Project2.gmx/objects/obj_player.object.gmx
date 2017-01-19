@@ -176,7 +176,7 @@ script_execute(state);
     //Reset max speed to normal, in case the player was previously rolling.
     else if(hspd != 0 &amp;&amp; vspd == 0 &amp;&amp; !diag_dl_held &amp;&amp; !diag_dr_held &amp;&amp; sprite_index != spr_player_slide 
             &amp;&amp; sprite_index != spr_player_crouch &amp;&amp; sprite_index != spr_player_roll
-            &amp;&amp; sprite_index != spr_player_slide_to_crouch){
+            &amp;&amp; sprite_index != spr_player_slide_to_crouch &amp;&amp; sprite_index != spr_player_dash){
         sprite_index = spr_fahad_player_test_1; 
         maxspd = 8;   
         image_speed = .13*abs(hspd)/4 * (delta_time)/(1/60*1000000); //animation speed is a factor of our speed. 
@@ -187,7 +187,7 @@ script_execute(state);
 //Jumping and falling animation based on previous animation conditions. 
     
     //Switches to jump animation if we are moving upwards and haven't already switched.
-    if(vspd &lt; 0 &amp;&amp; sprite_index != spr_player_jump){
+    if(vspd &lt; 0 &amp;&amp; sprite_index != spr_player_jump &amp;&amp; sprite_index != spr_player_dash){
         sprite_index = spr_player_jump;
         image_index = 0; 
         image_speed = (delta_time)/(1/9*1000000); 
@@ -203,8 +203,11 @@ script_execute(state);
         image_speed = 0; 
         image_index = 0; 
     }
-    //Starts playing the falling animation once the player hits the ground. 
-    else if(vspd == 0 &amp;&amp; sprite_index == spr_player_fall &amp;&amp; image_index == 0){
+    //Starts playing the falling animation once the player hits the ground or if the player has finished a dash. 
+    else if(vspd == 0 &amp;&amp; 
+            ((sprite_index == spr_player_fall &amp;&amp; image_index == 0) || (sprite_index == spr_player_dash &amp;&amp; dashed == false &amp;&amp; image_speed == 0))){
+        sprite_index = spr_player_fall;
+        image_index = 0; 
         image_speed = (delta_time)/(1/15*1000000); 
     }
     //Switches back to idle once the falling animation finishes. 
@@ -314,6 +317,23 @@ script_execute(state);
         }
         is_rolling = 1;
         maxspd = 3; 
+    }
+    
+//Dashing Animation
+
+    //Switches to dash animation when the dash movement occurs.
+    if(dashed &amp;&amp; dash_activate &amp;&amp; sprite_index != spr_player_dash){
+        
+        audio_play_sound(snd_gong, 0, 0);
+        audio_sound_gain(snd_gong, .15, 0); 
+        
+        sprite_index = spr_player_dash;
+        image_index = 0;
+        image_speed = (delta_time)/(1/30*1000000);    
+    }
+    if(sprite_index == spr_player_dash){
+        
+        image_speed *= .955
     }
 </string>
           </argument>
