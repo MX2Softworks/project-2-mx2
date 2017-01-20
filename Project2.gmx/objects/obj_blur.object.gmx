@@ -25,20 +25,20 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>screenWidth = view_wview[view_current];
-screenHeight = view_hview[view_current];
-global.mblur = surface_create(screenWidth,screenHeight);
-temp = surface_create(screenWidth,screenHeight);
+            <string>screen_width = view_wview[view_current];
+screen_height = view_hview[view_current];
+global.motion_blur = surface_create(screen_width,screen_height);
+temp = surface_create(screen_width,screen_height);
 
-surface_set_target(global.mblur);
+surface_set_target(global.motion_blur);
 draw_clear_alpha(c_white,0) ;//Actually any color would do
 surface_reset_target();
 surface_set_target(temp);
 draw_clear_alpha(c_white,0);
 surface_reset_target();
 
-camLastX = view_xview[view_current];
-camLastY = view_yview[view_current];
+cam_last_X = view_xview[view_current];
+cam_last_Y = view_yview[view_current];
 </string>
           </argument>
         </arguments>
@@ -61,23 +61,22 @@ camLastY = view_yview[view_current];
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>difX = camLastX-view_xview[0];
-difY = camLastY-view_yview[0];
+            <string>dif_X = cam_last_X-view_xview[0];
+dif_Y = cam_last_Y-view_yview[0];
 
 //Copyroutine
 surface_set_target(temp); //This part moves the trail in camera
-draw_surface_ext(global.mblur,difX,difY,1,1,0,c_white,0.94); 
+draw_surface_ext(global.motion_blur,dif_X,dif_Y,1,1,0,c_white,0.94); 
+surface_copy(global.motion_blur,0,0,temp);
 surface_reset_target();
-surface_copy(global.mblur,0,0,temp);
-
-surface_set_target(temp);//We clear the temp-surface
+surface_set_target(temp); //We clear the temp-surface
 draw_clear_alpha(c_white,0);
 surface_reset_target();
 //End of copyroutine
 
+cam_last_X = view_xview[0];
+cam_last_Y = view_yview[0];
 
-camLastY = view_yview[0];
-camLastX = view_xview[0];
 </string>
           </argument>
         </arguments>
@@ -100,7 +99,7 @@ camLastX = view_xview[0];
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_surface_ext(global.mblur,view_xview[0],view_yview[0],1,1,0,c_white,0.8);
+            <string>draw_surface_ext(global.motion_blur,view_xview[0],view_yview[0],1,1,0,c_white,0.8);
 
 </string>
           </argument>
