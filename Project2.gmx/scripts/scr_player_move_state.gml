@@ -1,12 +1,5 @@
 /// scr_player_move_state()
 
-// Edge towards the wall
-    if (place_meeting(x+1, y, obj_solid)) {
-        while (place_meeting(x, y, obj_solid)) {
-            x -= .1;
-        }
-    }
-
 //Horizontal Movement
     
     if(wall_jump == true){
