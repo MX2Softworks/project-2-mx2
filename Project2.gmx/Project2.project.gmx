@@ -97,6 +97,9 @@
       <object>objects\obj_debugtext</object>
       <object>objects\obj_delta_tracker</object>
     </objects>
+    <objects name="Effects">
+      <object>objects\obj_blur</object>
+    </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_initialize</room>

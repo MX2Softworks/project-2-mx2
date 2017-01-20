@@ -110,9 +110,37 @@
     controller_alarm = 1;
     magnitude = 0;
     x_axis = 0;
-    y_axis = 0;
+    y_axis = 0;   
     
 state = scr_player_move_state;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="2">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>
+if(dashed &amp;&amp; (abs(hspd) &gt; 12 || abs(vspd) &gt; 12)){
+    surface_set_target(global.mblur);
+    draw_sprite_ext(sprite_index,image_index,x-view_xview[0],y-view_yview[0],image_xscale,image_yscale,image_angle,image_blend,image_alpha);
+    surface_reset_target();
+}
 </string>
           </argument>
         </arguments>
