@@ -13,15 +13,10 @@
     //Otherwise, apply acceleration as normal. 
     else{
         hspd = min(abs(hspd)+((acc*(1+(sprint/2.0)))*global.delta), maxspd*(1+(sprint/2.0))) * direction_horizontal; 
-    } 
+    }
+    
 
 //Vertical Movement
-
-     //To prevent hspd from stopping when we jump and slide
-    if(vspd != 0 && is_sliding == 1){
-        hspd = min(abs(hspd)+((acc*(1+(sprint/2.0)))*global.delta), maxspd*(1+(sprint/2.0))) * direction_horizontal;
-    }
-
 
     //Determine whether the player has reached peak jump height.
     if(vspd >= 0) {
@@ -33,16 +28,15 @@
             jumppeak = 1;
         }
     }
-    else if(vspd < 0)
-    {
+    else if(vspd < 0){
         //Variable jump height based off of how long the jump button is held. 
         if(up_held == 0 && dashed == false){ vspd = max(vspd, -jumpheight/4); }
         jumppeak = 0;
     } 
-    
+        
     //Constantly apply gravity. 
     if(vspd < 15){
-        vspd += (grav * (jumppeak*3 + 1)) * global.delta;
+        vspd += (grav * (jumppeak*3 + 1)) *  global.delta;
     }
     
     //Jump only if on a solid object. 
@@ -53,6 +47,7 @@
         dash_frames_h = 0;
         can_dash = false;
         dashed = false;
+        can_wall_slide = false;
         jumppeak = 0;
         dash_held_frames = 0;
         dash_distance_mod = 0;
