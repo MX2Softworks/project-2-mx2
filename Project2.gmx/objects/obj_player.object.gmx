@@ -407,6 +407,7 @@ if(up)
 if ((keyboard_check(ord("N")) == true &amp;&amp; !gamepad_is_connected(gp_id)) || (gamepad_is_connected(gp_id) &amp;&amp; gamepad_button_check_pressed(gp_id, gp_select))) {  
     
     audio_play_sound(snd_gong, 10, false);
+    audio_sound_gain(snd_gong, .1, 0); 
     
     if (room = room_last) {
         room_goto(rm_one);
