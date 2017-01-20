@@ -378,7 +378,7 @@ script_execute(state);
             dash_count += 1;
         }
         
-        if((left_held || right_held)){ 
+        if(((left_held || (diag_ul_held &amp;&amp; abs(x_axis) &gt;= abs(y_axis)) || (diag_dl_held &amp;&amp; abs(x_axis) &gt;= abs(y_axis))) || (right_held || (diag_ur_held &amp;&amp; abs(x_axis) &gt;= abs(y_axis)) || (diag_dr_held &amp;&amp; abs(x_axis) &gt;= abs(y_axis))))){ 
             sprite_index = spr_player_dash_horizontal; 
             image_index = 0;
             image_speed = (delta_time)/(1/60*1000000);  
