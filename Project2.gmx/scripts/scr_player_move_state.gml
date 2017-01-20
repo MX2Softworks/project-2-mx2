@@ -49,11 +49,11 @@
 
     //Wall Sliding
     //Set wall_sliding to true if we are touching a wall in midair.
-    if((wall_slide || place_meeting(x+sign(direction_horizontal), y, obj_solid)) && !place_meeting(x, y+1, obj_solid)){
-        wall_slide = true;  
+    if((place_meeting(x-1, y, obj_solid) || place_meeting(x+1, y, obj_solid)) && !place_meeting(x, y+1, obj_solid)){
+        wall_slide = true;
     }
     //If we are not touching a wall then set wall sliding to false. 
-    else if(!place_meeting(x+sign(direction_horizontal), y, obj_solid) || !place_meeting(x, y+1, obj_solid) || float_frames > 0){
+    else {
         wall_slide = false; 
     }
     
