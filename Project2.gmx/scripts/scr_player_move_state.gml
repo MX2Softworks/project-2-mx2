@@ -53,8 +53,26 @@
         wall_slide = true;  
     }
     //If we are not touching a wall then set wall sliding to false. 
-    else if(!place_meeting(x+sign(direction_horizontal), y, obj_solid) || !place_meeting(x, y+1, obj_solid)){
+    else if(!place_meeting(x+sign(direction_horizontal), y, obj_solid) || !place_meeting(x, y+1, obj_solid) || float_frames > 0){
         wall_slide = false; 
+    }
+    
+    // If sliding you can push off the wall.
+    if (wall_slide == true) {
+        if (wall_push && push_frames <= 0) {
+            push_frames = 5;
+        }
+        if (push_frames > 0) {
+            if (push_frames == 5) {
+                hspd =  -5 * sign(image_xscale);
+            } else {
+                hspd =  5 * sign(image_xscale);
+            }
+            push_frames -= 1;
+            if (push_frames == 0) {
+                wall_slide = false; 
+            }
+        }
     }
         
     //Constantly apply gravity. 
@@ -66,7 +84,7 @@
     //Wall jumping
     if(wall_slide && up){
         vspd = up * -jumpheight*1.2; 
-        hspd =  -1 * sign(image_xscale)
+        hspd =  -1 * sign(image_xscale);
         wall_slide = false; 
         wall_jump = true; 
     }

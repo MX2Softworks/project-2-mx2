@@ -45,7 +45,9 @@
     wall_slide = false;  
     wall_jump = false;   
     wall_jump_counter = 0;
-    wall_jump_counter_max = 7; 
+    wall_jump_counter_max = 7;
+    wall_push = false;
+    push_frames = 0;
     
 // Dash variables
     dash_count = 0;
@@ -141,7 +143,7 @@ state = scr_player_move_state;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Adds motion blur during dashes. 
+            <string>/// Adds motion blur during dashes. 
 if(instance_exists(obj_blur) &amp;&amp; dashed &amp;&amp; (abs(hspd) &gt; 12 || abs(vspd) &gt; 12)){
     d3d_set_fog(1,c_navy,0,0);
     surface_set_target(global.motion_blur);
