@@ -23,6 +23,14 @@
       <sprite>sprites\spr_player_crouch</sprite>
       <sprite>sprites\spr_player_roll</sprite>
       <sprite>sprites\spr_player_dash</sprite>
+      <sprites name="Player Dash Version 1">
+        <sprite>sprites\spr_player_dash_rotating</sprite>
+        <sprite>sprites\spr_player_dash_rotated</sprite>
+        <sprite>sprites\spr_player_dash_unrotating</sprite>
+      </sprites>
+      <sprites name="Player Dash Version 2">
+        <sprite>sprites\spr_player_dash_horizontal</sprite>
+      </sprites>
     </sprites>
     <sprites name="Level">
       <sprite>sprites\spr_solid</sprite>
@@ -88,6 +96,9 @@
     <objects name="Helpers">
       <object>objects\obj_debugtext</object>
       <object>objects\obj_delta_tracker</object>
+    </objects>
+    <objects name="Effects">
+      <object>objects\obj_blur</object>
     </objects>
   </objects>
   <rooms name="rooms">

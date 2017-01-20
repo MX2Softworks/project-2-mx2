@@ -41,6 +41,12 @@
     is_sliding = 0;
     is_rolling = 0;
 
+// Wall Jumping
+    wall_slide = false;  
+    wall_jump = false;   
+    wall_jump_counter = 0;
+    wall_jump_counter_max = 7; 
+    
 // Dash variables
     dash_count = 0;
     can_dash = false;
@@ -48,11 +54,19 @@
     dash_frames_v = 0;
     dash_frames_h = 0;
     float_frames = 0;
+    fall_frames = 0;
     v_float = false;
     h_float_left = false;
     h_float_right = false;
+    switch_left = false;
+    switch_right = false;
+    switch_up = false;
     can_float = false;
     dashed = false;
+    dash_held_frames = 0;
+    dash_distance_mod = 0;
+    dash_charge_mode = false;
+    dash_activate = false;
 
 // Input variables
     right = false;
@@ -76,6 +90,11 @@
     
     sprint = false;
     dash = false;
+    dash_held = false;
+    dash_released = false;
+    charge_dash = false;
+    charge_dash_held = false;
+    charge_dash_released = false;
     
     diag_ul = false;
     diag_ul_held = false;
@@ -90,13 +109,49 @@
     diag_dr_held = false;
     diag_dr_released = false;
     
+// Controller only variables
     gp_id = 0;
-    threshold = .95;
+    threshold = .5;
     threshold_diag = 1.05;
     controller_alarm = 1;
     magnitude = 0;
+    x_axis = 0;
+    y_axis = 0;   
     
 state = scr_player_move_state;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="2">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>//Adds motion blur during dashes. 
+if(instance_exists(obj_blur) &amp;&amp; dashed &amp;&amp; (abs(hspd) &gt; 12 || abs(vspd) &gt; 12)){
+    d3d_set_fog(1,c_navy,0,0);
+    surface_set_target(global.motion_blur);
+    draw_sprite_ext(sprite_index,image_index,x-view_xview[0],y-view_yview[0],image_xscale,image_yscale,image_angle,image_blend,image_alpha);
+    surface_reset_target();
+    d3d_set_fog(0,c_navy,0,0);
+    
+}
+
+
 </string>
           </argument>
         </arguments>
@@ -149,7 +204,8 @@ script_execute(state);
     //Switches to idle if hspd and vspd are 0 and we aren't finishing the falling animation.
     //Reset the max speed to normal, in case the player was rolling. 
     if(hspd == 0 &amp;&amp; vspd == 0 &amp;&amp; sprite_index != spr_player_fall &amp;&amp; sprite_index != spr_player_slide 
-       &amp;&amp; sprite_index != spr_player_crouch &amp;&amp; (sprite_index != spr_player_slide_to_crouch &amp;&amp; !down_held &amp;&amp; !down &amp;&amp; !diag_dl &amp;&amp; !diag_dr)){ 
+       &amp;&amp; sprite_index != spr_player_crouch &amp;&amp; (sprite_index != spr_player_slide_to_crouch &amp;&amp; !down_held &amp;&amp; !down &amp;&amp; !diag_dl &amp;&amp; !diag_dr)
+       &amp;&amp; sprite_index != spr_player_dash &amp;&amp; sprite_index != spr_player_dash_rotating  &amp;&amp; sprite_index != spr_player_dash_unrotating &amp;&amp; sprite_index != spr_player_dash_horizontal){ 
         sprite_index = spr_player_idle; 
         maxspd = 8; 
         image_index = 0; 
@@ -160,7 +216,9 @@ script_execute(state);
     //Reset max speed to normal, in case the player was previously rolling.
     else if(hspd != 0 &amp;&amp; vspd == 0 &amp;&amp; !diag_dl_held &amp;&amp; !diag_dr_held &amp;&amp; sprite_index != spr_player_slide 
             &amp;&amp; sprite_index != spr_player_crouch &amp;&amp; sprite_index != spr_player_roll
-            &amp;&amp; sprite_index != spr_player_slide_to_crouch){
+            &amp;&amp; sprite_index != spr_player_slide_to_crouch 
+            &amp;&amp; ((sprite_index != spr_player_dash &amp;&amp; sprite_index != spr_player_dash_rotating &amp;&amp; sprite_index != spr_player_dash_unrotating &amp;&amp; sprite_index != spr_player_dash_horizontal) 
+            /*|| (switch_right || switch_left) */)){
         sprite_index = spr_fahad_player_test_1; 
         maxspd = 8;   
         image_speed = .13*abs(hspd)/4 * (delta_time)/(1/60*1000000); //animation speed is a factor of our speed. 
@@ -171,7 +229,8 @@ script_execute(state);
 //Jumping and falling animation based on previous animation conditions. 
     
     //Switches to jump animation if we are moving upwards and haven't already switched.
-    if(vspd &lt; 0 &amp;&amp; sprite_index != spr_player_jump){
+    if(vspd &lt; 0 &amp;&amp; sprite_index != spr_player_jump &amp;&amp; sprite_index != spr_player_dash 
+       &amp;&amp; sprite_index != spr_player_dash_rotating &amp;&amp; sprite_index != spr_player_dash_unrotating &amp;&amp; sprite_index != spr_player_dash_horizontal){
         sprite_index = spr_player_jump;
         image_index = 0; 
         image_speed = (delta_time)/(1/9*1000000); 
@@ -187,8 +246,13 @@ script_execute(state);
         image_speed = 0; 
         image_index = 0; 
     }
-    //Starts playing the falling animation once the player hits the ground. 
-    else if(vspd == 0 &amp;&amp; sprite_index == spr_player_fall &amp;&amp; image_index == 0){
+    //Starts playing the falling animation once the player hits the ground or if the player has finished a dash. 
+    else if(vspd == 0 
+            &amp;&amp; ((sprite_index == spr_player_fall &amp;&amp; image_index == 0) || 
+               ((sprite_index == spr_player_dash || sprite_index == spr_player_dash_rotating  || sprite_index == spr_player_dash_unrotating
+               || sprite_index == spr_player_dash_rotated || sprite_index == spr_player_dash_horizontal) &amp;&amp; dashed == false &amp;&amp; image_speed == 0))){
+        sprite_index = spr_player_fall;
+        image_index = 0; 
         image_speed = (delta_time)/(1/15*1000000); 
     }
     //Switches back to idle once the falling animation finishes. 
@@ -214,7 +278,8 @@ script_execute(state);
         image_speed = 0; 
     }
     //Reverses the sliding animation if the player lets go of the down key. 
-    if(!down &amp;&amp; !down_held &amp;&amp; !diag_dl_held &amp;&amp; !diag_dr_held &amp;&amp; hspd == 0 &amp;&amp; sprite_index == spr_player_slide &amp;&amp; image_index &lt;= (image_number/2)){
+    if(!down &amp;&amp; !down_held &amp;&amp; !diag_dl_held &amp;&amp; !diag_dr_held &amp;&amp; hspd == 0 
+       &amp;&amp; sprite_index == spr_player_slide &amp;&amp; image_index &lt;= (image_number/2)){
         image_index = image_number-1 - image_index; 
         image_speed = (delta_time)/(1/15*1000000); 
     }
@@ -293,12 +358,39 @@ script_execute(state);
     //If the rolling animation has not finished and the speed is 0, set the speed to 3 times the direction of the previous movement. 
     //Lower max speed to 3 when rolling.
     else if(sprite_index == spr_player_roll &amp;&amp; hspd == 0 &amp;&amp; direction_horizontal == 0 &amp;&amp; image_index &lt;= image_number-1){
-        if(!place_meeting(x+(3*sign(image_xscale)), y, obj_solid) &amp;&amp; !place_meeting(x+(2*sign(image_xscale)), y, obj_solid) &amp;&amp; !place_meeting(x+(1*sign(image_xscale)), y, obj_solid)){ 
+        if(!place_meeting(x+(3*sign(image_xscale)), y, obj_solid) 
+           &amp;&amp; !place_meeting(x+(2*sign(image_xscale)), y, obj_solid) 
+           &amp;&amp; !place_meeting(x+(1*sign(image_xscale)), y, obj_solid)){ 
             x += 3 * sign(image_xscale) * global.delta; 
         }
         is_rolling = 1;
         maxspd = 3; 
     }
+    
+//Dashing Animation
+
+    //Switches to dash animation when the dash movement occurs and we have not already switched.
+    if(dashed &amp;&amp; (dash || charge_dash_released)){
+        
+        if((left_held || right_held)){ 
+            sprite_index = spr_player_dash_horizontal; 
+            image_index = 0;
+            image_speed = (delta_time)/(1/60*1000000);  
+        }
+        else { 
+            sprite_index = spr_player_dash; 
+            image_index = 0;
+            image_speed = (delta_time)/(1/30*1000000);  
+        }
+               
+    }
+    //Slows the dash speed down every frame once the player has switched to the dash animation.
+    else if((sprite_index == spr_player_dash || spr_player_dash_rotated || spr_player_dash_unrotating || spr_player_dash_horizontal)
+        &amp;&amp; !dash &amp;&amp; !charge_dash_released){
+        image_speed *= .955
+    }
+    
+
 </string>
           </argument>
         </arguments>
@@ -321,7 +413,7 @@ script_execute(state);
             <kind>1</kind>
             <string>/// Sound Effects
 
-if(keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W")))
+if(up)
 {
     audio_play_sound(snd_jump_0, 10, false);
 }
@@ -354,6 +446,7 @@ if(keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W")))
 if ((keyboard_check(ord("N")) == true &amp;&amp; !gamepad_is_connected(gp_id)) || (gamepad_is_connected(gp_id) &amp;&amp; gamepad_button_check_pressed(gp_id, gp_select))) {  
     
     audio_play_sound(snd_gong, 10, false);
+    audio_sound_gain(snd_gong, .1, 0); 
     
     if (room = room_last) {
         room_goto(rm_one);
