@@ -43,6 +43,7 @@
 
 // Wall Jumping
     wall_slide = false;  
+    start_slide = false;
     wall_jump = false;   
     wall_jump_counter = 0;
     wall_jump_counter_max = 7;

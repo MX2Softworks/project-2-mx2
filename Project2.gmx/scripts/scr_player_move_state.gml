@@ -77,8 +77,23 @@
         
     //Constantly apply gravity. 
     if(vspd < 15){
-        if(wall_slide == false){vspd += (grav * (jumppeak*3 + 1)) *  global.delta;}
-        else{vspd += grav/2 * global.delta; }
+        if(wall_slide == false) {
+            vspd += (grav * (jumppeak*3 + 1)) *  global.delta;
+            start_slide = true;
+        } else {
+            audio_play_sound(snd_gong, 5, false);
+            if (start_slide) {
+                vspd = 0;
+                start_slide = false;
+            } else {
+                // Elinates sliding until you hit the peak
+                if (jumppeak == 1) {
+                    vspd += grav/2 * global.delta;
+                } else {
+                    vspd += (grav * (jumppeak*3 + 1)) *  global.delta;
+                }
+            }
+        }
     }
     
     //Wall jumping
@@ -98,6 +113,7 @@
         can_dash = false;
         dashed = false;
         wall_slide = false;
+        start_slide = false;
         wall_jump = false; 
         jumppeak = 0;
         dash_held_frames = 0;
@@ -159,6 +175,7 @@
         if (float_frames == 0) {
             fall_frames = 20;
         }
+        start_slide = true;
     } else {
         // Reset switch variables
         switch_left = false;
