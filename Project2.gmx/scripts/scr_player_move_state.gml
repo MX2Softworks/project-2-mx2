@@ -2,8 +2,15 @@
 
 //Horizontal Movement
     
+    if(wall_jump == true){
+        hspd = min(abs(hspd)+((acc*(1+(sprint/2.0)))*global.delta), maxspd*(1+(sprint/2.0))) * sign(hspd); 
+        wall_jump_counter += (1 * global.delta); 
+    }
     //Slide if we have horizontal speed but are holding down. 
-    if(is_sliding == 1){
+    else if(wall_slide == true){
+       // do nothing, but prevent other horizontal accelerations
+    }
+    else if(is_sliding == 1){
         hspd = max(abs(hspd) - ((acc*.25)*global.delta), 0) * sign(hspd);   
     }
     //We check to see if we are attempting to change direction, or if we stop giving input. If so, slow down. 
@@ -13,15 +20,15 @@
     //Otherwise, apply acceleration as normal. 
     else{
         hspd = min(abs(hspd)+((acc*(1+(sprint/2.0)))*global.delta), maxspd*(1+(sprint/2.0))) * direction_horizontal; 
-    } 
-
-//Vertical Movement
-
-     //To prevent hspd from stopping when we jump and slide
-    if(vspd != 0 && is_sliding == 1){
-        hspd = min(abs(hspd)+((acc*(1+(sprint/2.0)))*global.delta), maxspd*(1+(sprint/2.0))) * direction_horizontal;
+    }
+    
+    if(wall_jump_counter >= wall_jump_counter_max && sign(direction_horizontal) == -sign(hspd)){
+        
+        wall_jump = false;
+        wall_jump_counter = 0; 
     }
 
+//Vertical Movement
 
     //Determine whether the player has reached peak jump height.
     if(vspd >= 0) {
@@ -33,18 +40,37 @@
             jumppeak = 1;
         }
     }
-    else if(vspd < 0)
-    {
+    else if(vspd < 0){
         //Variable jump height based off of how long the jump button is held. 
         if(up_held == 0 && dashed == false){ vspd = max(vspd, -jumpheight/4); }
         jumppeak = 0;
     } 
     
+
+    //Wall Sliding
+    //Set wall_sliding to true if we are touching a wall in midair.
+    if((wall_slide || place_meeting(x+sign(direction_horizontal), y, obj_solid)) && !place_meeting(x, y+1, obj_solid)){
+        wall_slide = true;  
+    }
+    //If we are not touching a wall then set wall sliding to false. 
+    else if(!place_meeting(x+sign(direction_horizontal), y, obj_solid) || !place_meeting(x, y+1, obj_solid)){
+        wall_slide = false; 
+    }
+        
     //Constantly apply gravity. 
     if(vspd < 15){
-        vspd += (grav * (jumppeak*3 + 1)) * global.delta;
+        if(wall_slide == false){vspd += (grav * (jumppeak*3 + 1)) *  global.delta;}
+        else{vspd += grav/2 * global.delta; }
     }
     
+    //Wall jumping
+    if(wall_slide && up){
+        vspd = up * -jumpheight*1.2; 
+        hspd =  -1 * sign(image_xscale)
+        wall_slide = false; 
+        wall_jump = true; 
+    }
+
     //Jump only if on a solid object. 
     if(place_meeting(x, y+1, obj_solid)) {
         vspd = up * -jumpheight; 
@@ -53,6 +79,8 @@
         dash_frames_h = 0;
         can_dash = false;
         dashed = false;
+        wall_slide = false;
+        wall_jump = false; 
         jumppeak = 0;
         dash_held_frames = 0;
         dash_distance_mod = 0;
@@ -140,6 +168,8 @@
             }
             h_float_left = false;
             h_float_right = false;
+            wall_jump = false;
+            wall_slide = false; 
         } else {
             // Not dashing up
             if (dash_frames_h > 0) {
@@ -153,6 +183,8 @@
                 }
                 h_float_left = false;
                 v_float = false;
+                wall_jump = false;
+                wall_slide = false; 
             } else if (dash_frames_h < 0) {
                 // Dashing left
                 hspd = -dash_speed;
@@ -164,6 +196,8 @@
                 }
                 v_float = false;
                 h_float_right = false;
+                wall_jump = false;
+                wall_slide = false; 
             } else {
                 // Not dashing at all
                 if (dash_count < 3) {
@@ -177,6 +211,8 @@
                                 hspd = dash_speed;
                                 vspd = 0;
                                 dashed = true;
+                                wall_jump = false;
+                                wall_slide = false; 
                             }
                         } else {
                             // Normal Dash
@@ -186,6 +222,8 @@
                             vspd = 0;
                             dashed = true;
                             dash_charge_mode = false;
+                            wall_jump = false;
+                            wall_slide = false; 
                         }
                     } else if ((((charge_dash_released && dash_charge_mode) || dash) && !(charge_dash_released && dash)) && (left_held || (diag_ul_held && abs(x_axis) >= abs(y_axis)) || (diag_dl_held && abs(x_axis) >= abs(y_axis)))) {
                         // Wants to dash left
@@ -196,6 +234,8 @@
                                 hspd = -dash_speed;
                                 vspd = 0;
                                 dashed = true;
+                                wall_jump = false;
+                                wall_slide = false; 
                             }
                         } else {
                             // Normal Dash
@@ -205,6 +245,8 @@
                             vspd = 0;
                             dashed = true;
                             dash_charge_mode = false;
+                            wall_jump = false;
+                            wall_slide = false; 
                         }
                     } else if ((((charge_dash_released && dash_charge_mode) || dash) && !(charge_dash_released && dash)) && ((up_held && !gamepad_is_connected(0)) || (stick_up_held && gamepad_is_connected(0)) || (diag_ul_held && abs(y_axis) > abs(x_axis)) || (diag_ur_held && abs(y_axis) > abs(x_axis)))) {
                         // Wants to dash up
@@ -215,6 +257,8 @@
                                 vspd = -dash_speed * .6;
                                 hspd = 0;
                                 dashed = true;
+                                wall_jump = false;
+                                wall_slide = false; 
                             }
                         } else {
                             // Normal Dash
@@ -224,6 +268,8 @@
                             hspd = 0;
                             dashed = true;
                             dash_charge_mode = false;
+                            wall_jump = false;
+                            wall_slide = false; 
                         }
                     } else {
                         // Isnt dashing and doesnt want to dash
