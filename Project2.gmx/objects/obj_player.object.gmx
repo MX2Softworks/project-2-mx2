@@ -166,8 +166,7 @@ script_execute(state);
     //Reset the max speed to normal, in case the player was rolling. 
     if(hspd == 0 &amp;&amp; vspd == 0 &amp;&amp; sprite_index != spr_player_fall &amp;&amp; sprite_index != spr_player_slide 
        &amp;&amp; sprite_index != spr_player_crouch &amp;&amp; (sprite_index != spr_player_slide_to_crouch &amp;&amp; !down_held &amp;&amp; !down &amp;&amp; !diag_dl &amp;&amp; !diag_dr)
-       &amp;&amp; sprite_index != spr_player_dash &amp;&amp; sprite_index != spr_player_dash_rotating  &amp;&amp; sprite_index != spr_player_dash_unrotating
-       ){ 
+       &amp;&amp; sprite_index != spr_player_dash &amp;&amp; sprite_index != spr_player_dash_rotating  &amp;&amp; sprite_index != spr_player_dash_unrotating &amp;&amp; sprite_index != spr_player_dash_horizontal){ 
         sprite_index = spr_player_idle; 
         maxspd = 8; 
         image_index = 0; 
@@ -179,8 +178,8 @@ script_execute(state);
     else if(hspd != 0 &amp;&amp; vspd == 0 &amp;&amp; !diag_dl_held &amp;&amp; !diag_dr_held &amp;&amp; sprite_index != spr_player_slide 
             &amp;&amp; sprite_index != spr_player_crouch &amp;&amp; sprite_index != spr_player_roll
             &amp;&amp; sprite_index != spr_player_slide_to_crouch 
-            &amp;&amp; ((sprite_index != spr_player_dash &amp;&amp; sprite_index != spr_player_dash_rotating &amp;&amp; sprite_index != spr_player_dash_unrotating) 
-            || (switch_right || switch_left))){
+            &amp;&amp; ((sprite_index != spr_player_dash &amp;&amp; sprite_index != spr_player_dash_rotating &amp;&amp; sprite_index != spr_player_dash_unrotating &amp;&amp; sprite_index != spr_player_dash_horizontal) 
+            /*|| (switch_right || switch_left) */)){
         sprite_index = spr_fahad_player_test_1; 
         maxspd = 8;   
         image_speed = .13*abs(hspd)/4 * (delta_time)/(1/60*1000000); //animation speed is a factor of our speed. 
@@ -192,7 +191,7 @@ script_execute(state);
     
     //Switches to jump animation if we are moving upwards and haven't already switched.
     if(vspd &lt; 0 &amp;&amp; sprite_index != spr_player_jump &amp;&amp; sprite_index != spr_player_dash 
-       &amp;&amp; sprite_index != spr_player_dash_rotating &amp;&amp; sprite_index != spr_player_dash_unrotating){
+       &amp;&amp; sprite_index != spr_player_dash_rotating &amp;&amp; sprite_index != spr_player_dash_unrotating &amp;&amp; sprite_index != spr_player_dash_horizontal){
         sprite_index = spr_player_jump;
         image_index = 0; 
         image_speed = (delta_time)/(1/9*1000000); 
@@ -212,7 +211,7 @@ script_execute(state);
     else if(vspd == 0 
             &amp;&amp; ((sprite_index == spr_player_fall &amp;&amp; image_index == 0) || 
                ((sprite_index == spr_player_dash || sprite_index == spr_player_dash_rotating  || sprite_index == spr_player_dash_unrotating
-               || sprite_index == spr_player_dash_rotated) &amp;&amp; dashed == false &amp;&amp; image_speed == 0))){
+               || sprite_index == spr_player_dash_rotated || sprite_index == spr_player_dash_horizontal) &amp;&amp; dashed == false &amp;&amp; image_speed == 0))){
         sprite_index = spr_player_fall;
         image_index = 0; 
         image_speed = (delta_time)/(1/15*1000000); 
@@ -320,7 +319,9 @@ script_execute(state);
     //If the rolling animation has not finished and the speed is 0, set the speed to 3 times the direction of the previous movement. 
     //Lower max speed to 3 when rolling.
     else if(sprite_index == spr_player_roll &amp;&amp; hspd == 0 &amp;&amp; direction_horizontal == 0 &amp;&amp; image_index &lt;= image_number-1){
-        if(!place_meeting(x+(3*sign(image_xscale)), y, obj_solid) &amp;&amp; !place_meeting(x+(2*sign(image_xscale)), y, obj_solid) &amp;&amp; !place_meeting(x+(1*sign(image_xscale)), y, obj_solid)){ 
+        if(!place_meeting(x+(3*sign(image_xscale)), y, obj_solid) 
+           &amp;&amp; !place_meeting(x+(2*sign(image_xscale)), y, obj_solid) 
+           &amp;&amp; !place_meeting(x+(1*sign(image_xscale)), y, obj_solid)){ 
             x += 3 * sign(image_xscale) * global.delta; 
         }
         is_rolling = 1;
@@ -330,11 +331,10 @@ script_execute(state);
 //Dashing Animation
 
     //Switches to dash animation when the dash movement occurs and we have not already switched.
-    if(dashed &amp;&amp; (dash || charge_dash_released) &amp;&amp; sprite_index != spr_player_dash &amp;&amp; sprite_index != spr_player_dash_rotating 
-       &amp;&amp; sprite_index != spr_player_dash_rotated){
+    if(dashed &amp;&amp; (dash || charge_dash_released)){
         
-        if(left_held || right_held){ 
-            sprite_index = spr_player_dash_rotating; 
+        if((left_held || right_held)){ 
+            sprite_index = spr_player_dash_horizontal; 
             image_index = 0;
             image_speed = (delta_time)/(1/60*1000000);  
         }
@@ -345,20 +345,9 @@ script_execute(state);
         }
                
     }
-    //Switches to unrotating dash if the dash movement has finished rotating. 
-    if(sprite_index == spr_player_dash_rotating &amp;&amp; image_index &gt;= image_number-1){
-        image_index = 0;
-        sprite_index = spr_player_dash_unrotating; 
-        image_speed = (delta_time)/(1/45*1000000); 
-    }
-    //Switches to the running animation once the unrotating animation has finished.
-    if(sprite_index == spr_player_dash_unrotating &amp;&amp; image_index &gt;= image_number-1){
-        sprite_index = spr_fahad_player_test_1;   
-        image_speed = .13*abs(hspd)/4 * (delta_time)/(1/60*1000000);
-    }
     //Slows the dash speed down every frame once the player has switched to the dash animation.
-    if((sprite_index == spr_player_dash || spr_player_dash_rotated || spr_player_dash_unrotating)
-     &amp;&amp; !dash &amp;&amp; !charge_dash_released){
+    else if((sprite_index == spr_player_dash || spr_player_dash_rotated || spr_player_dash_unrotating || spr_player_dash_horizontal)
+        &amp;&amp; !dash &amp;&amp; !charge_dash_released){
         image_speed *= .955
     }
     
