@@ -112,6 +112,7 @@
         dash_frames_h = 0;
         can_dash = false;
         dashed = false;
+        dashing = false;
         wall_slide = false;
         start_slide = false;
         wall_jump = false; 
@@ -173,6 +174,7 @@
         float_frames -= 1;
         // After the float set fall frames
         if (float_frames == 0) {
+            dashing = false;
             fall_frames = 20;
         }
         start_slide = true;
@@ -246,6 +248,7 @@
                                 hspd = dash_speed;
                                 vspd = 0;
                                 dashed = true;
+                                dashing = true;
                                 wall_jump = false;
                                 wall_slide = false; 
                             }
@@ -256,6 +259,7 @@
                             hspd = dash_speed;
                             vspd = 0;
                             dashed = true;
+                                dashing = true;
                             dash_charge_mode = false;
                             wall_jump = false;
                             wall_slide = false; 
@@ -277,6 +281,7 @@
                                 hspd = -dash_speed;
                                 vspd = 0;
                                 dashed = true;
+                                dashing = true;
                                 wall_jump = false;
                                 wall_slide = false; 
                             }
@@ -287,6 +292,7 @@
                             hspd = -dash_speed;
                             vspd = 0;
                             dashed = true;
+                            dashing = true;
                             dash_charge_mode = false;
                             wall_jump = false;
                             wall_slide = false; 
@@ -308,6 +314,7 @@
                                 vspd = -dash_speed * .6;
                                 hspd = 0;
                                 dashed = true;
+                                dashing = true;
                                 wall_jump = false;
                                 wall_slide = false; 
                             }
@@ -318,6 +325,7 @@
                             vspd = -dash_speed * .6;
                             hspd = 0;
                             dashed = true;
+                            dashing = true;
                             dash_charge_mode = false;
                             wall_jump = false;
                             wall_slide = false; 
