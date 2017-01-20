@@ -1,5 +1,12 @@
 /// scr_player_move_state()
 
+// Edge towards the wall
+    if (place_meeting(x+1, y, obj_solid)) {
+        while (place_meeting(x, y, obj_solid)) {
+            x -= .1;
+        }
+    }
+
 //Horizontal Movement
     
     if(wall_jump == true){
@@ -225,6 +232,14 @@
                             wall_jump = false;
                             wall_slide = false; 
                         }
+                        // Colliding with wall at the start of the dash
+                        if (place_meeting(x+1, y, obj_solid)) {
+                            dash_frames_h = 0;
+                            float_frames = 40;
+                            h_float_right = true;
+                            h_float_left = false;
+                            v_float = false;
+                        }
                     } else if ((((charge_dash_released && dash_charge_mode) || dash) && !(charge_dash_released && dash)) && (left_held || (diag_ul_held && abs(x_axis) >= abs(y_axis)) || (diag_dl_held && abs(x_axis) >= abs(y_axis)))) {
                         // Wants to dash left
                         if (dash_charge_mode) {
@@ -248,6 +263,14 @@
                             wall_jump = false;
                             wall_slide = false; 
                         }
+                        // Colliding with wall at the start of the dash
+                        if (place_meeting(x-1, y, obj_solid)) {
+                            dash_frames_h = 0;
+                            float_frames = 40;
+                            h_float_left = true;
+                            v_float = false;
+                            h_float_right = false;
+                        }
                     } else if ((((charge_dash_released && dash_charge_mode) || dash) && !(charge_dash_released && dash)) && ((up_held && !gamepad_is_connected(0)) || (stick_up_held && gamepad_is_connected(0)) || (diag_ul_held && abs(y_axis) > abs(x_axis)) || (diag_ur_held && abs(y_axis) > abs(x_axis)))) {
                         // Wants to dash up
                         if (dash_charge_mode) {
@@ -270,6 +293,14 @@
                             dash_charge_mode = false;
                             wall_jump = false;
                             wall_slide = false; 
+                        }
+                        // Colliding with wall at the start of the dash
+                        if (place_meeting(x, y-1, obj_solid)) {
+                            dash_frames_v = 0;
+                            float_frames = 40;
+                            v_float = true;
+                            h_float_left = false;
+                            h_float_right = false;
                         }
                     } else {
                         // Isnt dashing and doesnt want to dash
