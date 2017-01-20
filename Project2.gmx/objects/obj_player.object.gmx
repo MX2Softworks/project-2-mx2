@@ -372,7 +372,11 @@ script_execute(state);
 //Dashing Animation
 
     //Switches to dash animation when the dash movement occurs and we have not already switched.
-    if(dashed &amp;&amp; (dash || charge_dash_released)){
+    if(dashed &amp;&amp; (dash || charge_dash_released) &amp;&amp; dash_count &lt;= 3){
+    
+        if (dash_count == 3) {
+            dash_count += 1;
+        }
         
         if((left_held || right_held)){ 
             sprite_index = spr_player_dash_horizontal; 
