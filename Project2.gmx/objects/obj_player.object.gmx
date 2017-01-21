@@ -393,12 +393,19 @@ script_execute(state);
                
     }
     //Slows the dash speed down every frame once the player has switched to the dash animation.
-    else if((sprite_index == spr_player_dash || spr_player_dash_rotated || spr_player_dash_unrotating || spr_player_dash_horizontal)
-        &amp;&amp; !dash &amp;&amp; !charge_dash_released){
+    else if((sprite_index == spr_player_dash || sprite_index == spr_player_dash_rotated 
+            || sprite_index == spr_player_dash_unrotating || sprite_index == spr_player_dash_horizontal)
+            &amp;&amp; !dash &amp;&amp; !charge_dash_released){
         image_speed *= .955
     }
     
-
+//Wall Slide
+    
+    if(wall_slide &amp;&amp; sprite_index == spr_player_fall){
+        sprite_index = spr_player_wall_slide; 
+        image_index = 0;
+        image_speed = 0;
+    }
 </string>
           </argument>
         </arguments>
@@ -421,9 +428,19 @@ script_execute(state);
             <kind>1</kind>
             <string>/// Sound Effects
 
-if(up)
-{
+//Jump
+if((up &amp;&amp; place_meeting(x, y+10, obj_solid)) 
+   || (up &amp;&amp; wall_jump &amp;&amp; wall_jump_counter &lt; wall_jump_counter_max)){
     audio_play_sound(snd_jump_0, 10, false);
+}
+
+//Slide
+if((sprite_index == spr_player_wall_slide || (sprite_index == spr_player_slide &amp;&amp; image_index &gt; 1)) &amp;&amp; !audio_is_playing(snd_slide)){
+    audio_play_sound(snd_slide, 0, false); 
+    audio_sound_gain(snd_slide, .02, 0); 
+}
+else if(sprite_index != spr_player_wall_slide &amp;&amp; sprite_index != spr_player_slide &amp;&amp; audio_is_playing(snd_slide)){
+    audio_stop_sound(snd_slide); 
 }
 
 

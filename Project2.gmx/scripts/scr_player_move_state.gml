@@ -2,11 +2,13 @@
 
 //Horizontal Movement
     
+    //Apply normal acceleration in the direction opposite of the wall if the player wall jumps. 
+    //Also increase the wall jump counter by the delta time.
     if(wall_jump == true){
         hspd = min(abs(hspd)+((acc*(1+(sprint/2.0)))*global.delta), maxspd*(1+(sprint/2.0))) * sign(hspd); 
         wall_jump_counter += (1 * global.delta); 
     }
-    //Slide if we have horizontal speed but are holding down. 
+    //Slide if the player has horizontal speed but is holding down. 
     else if(wall_slide == true){
        // do nothing, but prevent other horizontal accelerations
     }
@@ -21,7 +23,8 @@
     else{
         hspd = min(abs(hspd)+((acc*(1+(sprint/2.0)))*global.delta), maxspd*(1+(sprint/2.0))) * direction_horizontal; 
     }
-    
+    //If the wall jump counter is greater than than the max, stop applying horizontal acceleration in the direction 
+    //opposite of the wall
     if(wall_jump_counter >= wall_jump_counter_max && sign(direction_horizontal) == -sign(hspd)){
         
         wall_jump = false;
@@ -77,17 +80,19 @@
         
     //Constantly apply gravity. 
     if(vspd <= 15){
+    
+        //Apply gravity at the normal rate if the player is not wall sliding. 
         if(wall_slide == false) {
             vspd += (grav * (jumppeak*3 + 1)) *  global.delta;
-            start_slide = true;
+            start_slide = true; 
         } else {
             if (start_slide) {
                 vspd = 0;
                 start_slide = false;
             } else {
-                // Elinates sliding until you hit the peak
+                // Eliminates sliding until you hit the peak, else apply at the normal rate. 
                 if (jumppeak == 1) {
-                    vspd += grav/2 * global.delta;
+                    vspd += grav/2 * global.delta; //wall sliding applies a smaller acceleration
                 } else {
                     vspd += (grav * (jumppeak*3 + 1)) *  global.delta;
                 }
