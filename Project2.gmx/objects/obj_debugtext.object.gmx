@@ -119,7 +119,7 @@ draw_text(10, 404, "dash_held: "+string_format(obj_player.dash_distance_mod, 2, 
     } else {
         draw_text(view_wport[0]/2, 40, "Full Dash Mode");
     }
-    draw_set_halign(fa_left);
+    draw_set_halign(fa_left);    
     if (obj_player.dash_distance_mod &gt;= 1) {
         draw_rectangle_colour(view_wport[0]-120, 20, view_wport[0]-100, 60, c_maroon, c_maroon, c_maroon, c_maroon, false);
     }

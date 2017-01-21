@@ -81,7 +81,6 @@
             vspd += (grav * (jumppeak*3 + 1)) *  global.delta;
             start_slide = true;
         } else {
-            audio_play_sound(snd_gong, 5, false);
             if (start_slide) {
                 vspd = 0;
                 start_slide = false;
@@ -259,7 +258,7 @@
                             hspd = dash_speed;
                             vspd = 0;
                             dashed = true;
-                                dashing = true;
+                            dashing = true;
                             dash_charge_mode = false;
                             wall_jump = false;
                             wall_slide = false; 
@@ -358,9 +357,9 @@
             if (dash_count < 3) {
                 if (charge_dash_held) {
                     // Charge the dash
-                    if (dash_held_frames <= 35) {
+                    if (dash_held_frames < 71) {
                         dash_held_frames += 1;
-                        dash_distance_mod = dash_held_frames div 6;
+                        dash_distance_mod = dash_held_frames div 12;
                         vspd /= 6;
                         hspd /= 1.75;
                     }
