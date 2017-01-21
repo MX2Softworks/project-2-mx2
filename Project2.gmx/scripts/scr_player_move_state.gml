@@ -76,7 +76,7 @@
     }
         
     //Constantly apply gravity. 
-    if(vspd < 15){
+    if(vspd <= 15){
         if(wall_slide == false) {
             vspd += (grav * (jumppeak*3 + 1)) *  global.delta;
             start_slide = true;
