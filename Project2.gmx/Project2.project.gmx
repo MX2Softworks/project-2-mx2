@@ -10,19 +10,21 @@
     <sound>sound\snd_jump_0</sound>
     <sound>sound\snd_gong</sound>
     <sound>sound\snd_fireball</sound>
+    <sound>sound\snd_slide</sound>
   </sounds>
   <sprites name="sprites">
     <sprites name="Player">
+      <sprite>sprites\spr_player_crouch</sprite>
+      <sprite>sprites\spr_player_dash</sprite>
+      <sprite>sprites\spr_player_fall</sprite>
       <sprite>sprites\spr_player_idle</sprite>
       <sprite>sprites\spr_fahad_player_test_1</sprite>
       <sprite>sprites\spr_teddick_player_test_1</sprite>
       <sprite>sprites\spr_player_jump</sprite>
-      <sprite>sprites\spr_player_fall</sprite>
+      <sprite>sprites\spr_player_roll</sprite>
       <sprite>sprites\spr_player_slide</sprite>
       <sprite>sprites\spr_player_slide_to_crouch</sprite>
-      <sprite>sprites\spr_player_crouch</sprite>
-      <sprite>sprites\spr_player_roll</sprite>
-      <sprite>sprites\spr_player_dash</sprite>
+      <sprite>sprites\spr_player_wall_slide</sprite>
       <sprites name="Player Dash Version 1">
         <sprite>sprites\spr_player_dash_rotating</sprite>
         <sprite>sprites\spr_player_dash_rotated</sprite>
@@ -47,10 +49,12 @@
         <sprite>sprites\spr_thrower_throwing</sprite>
         <sprite>sprites\spr_fireball</sprite>
       </sprites>
+      <sprite>sprites\spr_enemy_heavy</sprite>
     </sprites>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_test_forest</background>
+    <background>background\bg_test_lavacave</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -69,7 +73,12 @@
       <script>scripts\scr_enemy_patrol.gml</script>
       <script>scripts\scr_enemy_pathfinder.gml</script>
       <script>scripts\scr_enemy_thrower.gml</script>
+      <script>scripts\scr_enemy_heavy.gml</script>
       <script>scripts\scr_projectile.gml</script>
+    </scripts>
+    <scripts name="Environmental Scripts">
+      <script>scripts\scr_spawn_fireballs.gml</script>
+      <script>scripts\scr_random_fireball.gml</script>
     </scripts>
   </scripts>
   <objects name="objects">
@@ -83,6 +92,8 @@
       <object>objects\obj_next_room</object>
       <object>objects\obj_race_start</object>
       <object>objects\obj_race_end</object>
+      <object>objects\obj_spawn_fireballs</object>
+      <object>objects\obj_random_fireball</object>
     </objects>
     <objects name="Enemies">
       <object>objects\obj_saw_test</object>
@@ -92,6 +103,7 @@
         <object>objects\obj_enemy_thrower</object>
         <object>objects\obj_fireball</object>
       </objects>
+      <object>objects\obj_enemy_heavy</object>
     </objects>
     <objects name="Helpers">
       <object>objects\obj_debugtext</object>
@@ -106,6 +118,7 @@
     <room>rooms\rm_one</room>
     <room>rooms\rm_two</room>
     <room>rooms\rm_three</room>
+    <room>rooms\rm_four</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
