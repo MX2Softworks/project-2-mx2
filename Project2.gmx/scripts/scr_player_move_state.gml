@@ -171,6 +171,10 @@
             }
         }
         float_frames -= 1;
+        // Exit float
+        if (diag_dr_held || diag_dl_held) {
+            float_frames = 0;
+        }
         // After the float set fall frames
         if (float_frames == 0) {
             dashing = false;
