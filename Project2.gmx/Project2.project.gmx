@@ -14,16 +14,17 @@
   </sounds>
   <sprites name="sprites">
     <sprites name="Player">
+      <sprite>sprites\spr_player_crouch</sprite>
+      <sprite>sprites\spr_player_dash</sprite>
+      <sprite>sprites\spr_player_fall</sprite>
       <sprite>sprites\spr_player_idle</sprite>
       <sprite>sprites\spr_fahad_player_test_1</sprite>
       <sprite>sprites\spr_teddick_player_test_1</sprite>
       <sprite>sprites\spr_player_jump</sprite>
-      <sprite>sprites\spr_player_fall</sprite>
+      <sprite>sprites\spr_player_roll</sprite>
       <sprite>sprites\spr_player_slide</sprite>
       <sprite>sprites\spr_player_slide_to_crouch</sprite>
-      <sprite>sprites\spr_player_crouch</sprite>
-      <sprite>sprites\spr_player_roll</sprite>
-      <sprite>sprites\spr_player_dash</sprite>
+      <sprite>sprites\spr_player_wall_slide</sprite>
       <sprites name="Player Dash Version 1">
         <sprite>sprites\spr_player_dash_rotating</sprite>
         <sprite>sprites\spr_player_dash_rotated</sprite>
