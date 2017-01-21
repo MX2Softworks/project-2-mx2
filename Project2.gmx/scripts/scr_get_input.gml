@@ -27,6 +27,8 @@ charge_dash = keyboard_check_pressed(ord("G"));
 charge_dash_held = keyboard_check(ord("G"));
 charge_dash_released = keyboard_check_released(ord("G"));
 
+wall_push = keyboard_check_pressed(ord("H"));
+
 // Override the controls for a gamepad
 gp_id = 0;
 threshold = .5;
@@ -77,6 +79,8 @@ if (gamepad_is_connected(gp_id)) {
     charge_dash = gamepad_button_check_pressed(gp_id, gp_shoulderlb);
     charge_dash_held = gamepad_button_check(gp_id, gp_shoulderlb);
     charge_dash_released = gamepad_button_check_released(gp_id, gp_shoulderlb);
+    
+    wall_push = gamepad_button_check_pressed(gp_id, gp_face3);
     
     up = gamepad_button_check_pressed(gp_id, gp_face1);
     up_held = gamepad_button_check(gp_id, gp_face1);
