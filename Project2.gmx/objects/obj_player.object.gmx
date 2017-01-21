@@ -393,8 +393,9 @@ script_execute(state);
                
     }
     //Slows the dash speed down every frame once the player has switched to the dash animation.
-    else if((sprite_index == spr_player_dash || spr_player_dash_rotated || spr_player_dash_unrotating || spr_player_dash_horizontal)
-        &amp;&amp; !dash &amp;&amp; !charge_dash_released){
+    else if((sprite_index == spr_player_dash || sprite_index == spr_player_dash_rotated 
+            || sprite_index == spr_player_dash_unrotating || sprite_index == spr_player_dash_horizontal)
+            &amp;&amp; !dash &amp;&amp; !charge_dash_released){
         image_speed *= .955
     }
     

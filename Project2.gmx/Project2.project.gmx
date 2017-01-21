@@ -10,6 +10,7 @@
     <sound>sound\snd_jump_0</sound>
     <sound>sound\snd_gong</sound>
     <sound>sound\snd_fireball</sound>
+    <sound>sound\snd_slide</sound>
   </sounds>
   <sprites name="sprites">
     <sprites name="Player">
