@@ -43,9 +43,12 @@
 
 // Wall Jumping
     wall_slide = false;  
+    start_slide = false;
     wall_jump = false;   
     wall_jump_counter = 0;
-    wall_jump_counter_max = 7; 
+    wall_jump_counter_max = 7;
+    wall_push = false;
+    push_frames = 0;
     
 // Dash variables
     dash_count = 0;
@@ -67,6 +70,7 @@
     dash_distance_mod = 0;
     dash_charge_mode = false;
     dash_activate = false;
+    dashing = false;
 
 // Input variables
     right = false;
@@ -141,7 +145,7 @@ state = scr_player_move_state;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Adds motion blur during dashes. 
+            <string>/// Adds motion blur during dashes. 
 if(instance_exists(obj_blur) &amp;&amp; dashed &amp;&amp; (abs(hspd) &gt; 12 || abs(vspd) &gt; 12)){
     d3d_set_fog(1,c_navy,0,0);
     surface_set_target(global.motion_blur);
@@ -370,9 +374,13 @@ script_execute(state);
 //Dashing Animation
 
     //Switches to dash animation when the dash movement occurs and we have not already switched.
-    if(dashed &amp;&amp; (dash || charge_dash_released)){
+    if(dashed &amp;&amp; (dash || charge_dash_released) &amp;&amp; dash_count &lt;= 3){
+    
+        if (dash_count == 3) {
+            dash_count += 1;
+        }
         
-        if((left_held || right_held)){ 
+        if(((left_held || (diag_ul_held &amp;&amp; abs(x_axis) &gt;= abs(y_axis)) || (diag_dl_held &amp;&amp; abs(x_axis) &gt;= abs(y_axis))) || (right_held || (diag_ur_held &amp;&amp; abs(x_axis) &gt;= abs(y_axis)) || (diag_dr_held &amp;&amp; abs(x_axis) &gt;= abs(y_axis))))){ 
             sprite_index = spr_player_dash_horizontal; 
             image_index = 0;
             image_speed = (delta_time)/(1/60*1000000);  

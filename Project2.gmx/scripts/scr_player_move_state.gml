@@ -49,24 +49,57 @@
 
     //Wall Sliding
     //Set wall_sliding to true if we are touching a wall in midair.
-    if((wall_slide || place_meeting(x+sign(direction_horizontal), y, obj_solid)) && !place_meeting(x, y+1, obj_solid)){
-        wall_slide = true;  
+    if((place_meeting(x-1, y, obj_solid) || place_meeting(x+1, y, obj_solid)) && !place_meeting(x, y+1, obj_solid)){
+        wall_slide = true;
     }
     //If we are not touching a wall then set wall sliding to false. 
-    else if(!place_meeting(x+sign(direction_horizontal), y, obj_solid) || !place_meeting(x, y+1, obj_solid)){
+    else {
         wall_slide = false; 
+    }
+    
+    // If sliding you can push off the wall.
+    if (wall_slide == true) {
+        if (wall_push && push_frames <= 0) {
+            push_frames = 5;
+        }
+        if (push_frames > 0) {
+            if (push_frames == 5) {
+                hspd =  -5 * sign(image_xscale);
+            } else {
+                hspd =  5 * sign(image_xscale);
+            }
+            push_frames -= 1;
+            if (push_frames == 0) {
+                wall_slide = false; 
+            }
+        }
     }
         
     //Constantly apply gravity. 
-    if(vspd < 15){
-        if(wall_slide == false){vspd += (grav * (jumppeak*3 + 1)) *  global.delta;}
-        else{vspd += grav/2 * global.delta; }
+    if(vspd <= 15){
+        if(wall_slide == false) {
+            vspd += (grav * (jumppeak*3 + 1)) *  global.delta;
+            start_slide = true;
+        } else {
+            audio_play_sound(snd_gong, 5, false);
+            if (start_slide) {
+                vspd = 0;
+                start_slide = false;
+            } else {
+                // Elinates sliding until you hit the peak
+                if (jumppeak == 1) {
+                    vspd += grav/2 * global.delta;
+                } else {
+                    vspd += (grav * (jumppeak*3 + 1)) *  global.delta;
+                }
+            }
+        }
     }
     
     //Wall jumping
     if(wall_slide && up){
         vspd = up * -jumpheight*1.2; 
-        hspd =  -1 * sign(image_xscale)
+        hspd =  -1 * sign(image_xscale);
         wall_slide = false; 
         wall_jump = true; 
     }
@@ -79,7 +112,9 @@
         dash_frames_h = 0;
         can_dash = false;
         dashed = false;
+        dashing = false;
         wall_slide = false;
+        start_slide = false;
         wall_jump = false; 
         jumppeak = 0;
         dash_held_frames = 0;
@@ -139,8 +174,10 @@
         float_frames -= 1;
         // After the float set fall frames
         if (float_frames == 0) {
+            dashing = false;
             fall_frames = 20;
         }
+        start_slide = true;
     } else {
         // Reset switch variables
         switch_left = false;
@@ -211,6 +248,7 @@
                                 hspd = dash_speed;
                                 vspd = 0;
                                 dashed = true;
+                                dashing = true;
                                 wall_jump = false;
                                 wall_slide = false; 
                             }
@@ -221,9 +259,18 @@
                             hspd = dash_speed;
                             vspd = 0;
                             dashed = true;
+                                dashing = true;
                             dash_charge_mode = false;
                             wall_jump = false;
                             wall_slide = false; 
+                        }
+                        // Colliding with wall at the start of the dash
+                        if (place_meeting(x+1, y, obj_solid)) {
+                            dash_frames_h = 0;
+                            float_frames = 40;
+                            h_float_right = true;
+                            h_float_left = false;
+                            v_float = false;
                         }
                     } else if ((((charge_dash_released && dash_charge_mode) || dash) && !(charge_dash_released && dash)) && (left_held || (diag_ul_held && abs(x_axis) >= abs(y_axis)) || (diag_dl_held && abs(x_axis) >= abs(y_axis)))) {
                         // Wants to dash left
@@ -234,6 +281,7 @@
                                 hspd = -dash_speed;
                                 vspd = 0;
                                 dashed = true;
+                                dashing = true;
                                 wall_jump = false;
                                 wall_slide = false; 
                             }
@@ -244,9 +292,18 @@
                             hspd = -dash_speed;
                             vspd = 0;
                             dashed = true;
+                            dashing = true;
                             dash_charge_mode = false;
                             wall_jump = false;
                             wall_slide = false; 
+                        }
+                        // Colliding with wall at the start of the dash
+                        if (place_meeting(x-1, y, obj_solid)) {
+                            dash_frames_h = 0;
+                            float_frames = 40;
+                            h_float_left = true;
+                            v_float = false;
+                            h_float_right = false;
                         }
                     } else if ((((charge_dash_released && dash_charge_mode) || dash) && !(charge_dash_released && dash)) && ((up_held && !gamepad_is_connected(0)) || (stick_up_held && gamepad_is_connected(0)) || (diag_ul_held && abs(y_axis) > abs(x_axis)) || (diag_ur_held && abs(y_axis) > abs(x_axis)))) {
                         // Wants to dash up
@@ -257,6 +314,7 @@
                                 vspd = -dash_speed * .6;
                                 hspd = 0;
                                 dashed = true;
+                                dashing = true;
                                 wall_jump = false;
                                 wall_slide = false; 
                             }
@@ -267,9 +325,18 @@
                             vspd = -dash_speed * .6;
                             hspd = 0;
                             dashed = true;
+                            dashing = true;
                             dash_charge_mode = false;
                             wall_jump = false;
                             wall_slide = false; 
+                        }
+                        // Colliding with wall at the start of the dash
+                        if (place_meeting(x, y-1, obj_solid)) {
+                            dash_frames_v = 0;
+                            float_frames = 40;
+                            v_float = true;
+                            h_float_left = false;
+                            h_float_right = false;
                         }
                     } else {
                         // Isnt dashing and doesnt want to dash
