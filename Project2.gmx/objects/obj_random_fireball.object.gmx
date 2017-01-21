@@ -27,10 +27,10 @@
             <kind>1</kind>
             <string>/// Initialize the fireball object
 
-ydir = 1;
-maxspd = 10;
-grav = 0.1;
-vspd = 0;
+vsp = -20;
+grav = 0.3;
+
+
 </string>
           </argument>
         </arguments>
@@ -53,23 +53,9 @@ vspd = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// sets up directional variables
-vspd = ydir * maxspd;
+            <string>/// Execute the random fireball script
 
-//apply gravity
-vspd += grav;
-
-if(y &gt; 1000)
-{
-    dir = -1;
-}
-
-if(y &lt; -100)
-{
-    instance_destroy();
-}
-
-y = vspd;
+script_execute(scr_random_fireball);
 
 
 

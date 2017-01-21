@@ -76,6 +76,7 @@
     </scripts>
     <scripts name="Environmental Scripts">
       <script>scripts\scr_spawn_fireballs.gml</script>
+      <script>scripts\scr_random_fireball.gml</script>
     </scripts>
   </scripts>
   <objects name="objects">
