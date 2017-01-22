@@ -146,7 +146,7 @@ state = scr_player_move_state;
           <argument>
             <kind>1</kind>
             <string>/// Adds motion blur during dashes. 
-if(instance_exists(obj_blur) &amp;&amp; (abs(hspd) &gt; 12 || abs(vspd) &gt; 12)){
+if(instance_exists(obj_blur) &amp;&amp; (abs(hspd) &gt; 12 || abs(vspd) &gt; 13)){
     d3d_set_fog(1,c_navy,0,0);
     surface_set_target(global.motion_blur);
     draw_sprite_ext(sprite_index,image_index,x-view_xview[0],y-view_yview[0],image_xscale,image_yscale,image_angle,image_blend,image_alpha);
@@ -453,7 +453,7 @@ script_execute(state);
             <string>/// Sound Effects
 
 //Jump
-if((up &amp;&amp; place_meeting(x, y+10, obj_solid) &amp;&amp; sprite_index == spr_player_jump) 
+if((up &amp;&amp; place_meeting(x, y+10, obj_solid) &amp;&amp; (sprite_index == spr_player_jump || sprite_index == spr_player_fall)) 
    || (up &amp;&amp; wall_jump &amp;&amp; wall_jump_counter &lt; wall_jump_counter_max)
   ){
     audio_play_sound(snd_jump_0, 10, false);
