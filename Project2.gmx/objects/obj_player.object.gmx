@@ -234,6 +234,8 @@ script_execute(state);
     if(vspd &lt; 0 &amp;&amp; (sprite_index == spr_fahad_player_test_1 || sprite_index == spr_player_idle || sprite_index == spr_player_slide
        || ((sprite_index == spr_player_slide_to_crouch || sprite_index == spr_player_roll) &amp;&amp; !place_meeting(x, y-8, obj_solid))) 
       ){
+        is_rolling = 0;
+        is_sliding = 0; 
         sprite_index = spr_player_jump;
         image_index = 0; 
         image_speed = (delta_time)/(1/9*1000000); 
@@ -425,6 +427,8 @@ script_execute(state);
         sprite_index = spr_player_wall_slide; 
         image_index = 0;
         image_speed = 0;
+        is_rolling = 0; 
+        is_sliding = 0; 
     }
 </string>
           </argument>
