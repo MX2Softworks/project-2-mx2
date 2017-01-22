@@ -16,6 +16,7 @@
     <sprites name="Player">
       <sprite>sprites\spr_player_crouch</sprite>
       <sprite>sprites\spr_player_dash</sprite>
+      <sprite>sprites\spr_player_dash_horizontal</sprite>
       <sprite>sprites\spr_player_fall</sprite>
       <sprite>sprites\spr_player_idle</sprite>
       <sprite>sprites\spr_fahad_player_test_1</sprite>
@@ -25,14 +26,6 @@
       <sprite>sprites\spr_player_slide</sprite>
       <sprite>sprites\spr_player_slide_to_crouch</sprite>
       <sprite>sprites\spr_player_wall_slide</sprite>
-      <sprites name="Player Dash Version 1">
-        <sprite>sprites\spr_player_dash_rotating</sprite>
-        <sprite>sprites\spr_player_dash_rotated</sprite>
-        <sprite>sprites\spr_player_dash_unrotating</sprite>
-      </sprites>
-      <sprites name="Player Dash Version 2">
-        <sprite>sprites\spr_player_dash_horizontal</sprite>
-      </sprites>
     </sprites>
     <sprites name="Level">
       <sprite>sprites\spr_solid</sprite>
