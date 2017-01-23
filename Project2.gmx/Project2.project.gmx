@@ -102,6 +102,7 @@
     <objects name="Helpers">
       <object>objects\obj_debugtext</object>
       <object>objects\obj_delta_tracker</object>
+      <object>objects\obj_dynamic_camera</object>
     </objects>
     <objects name="Effects">
       <object>objects\obj_blur</object>
