@@ -27,6 +27,11 @@
             <kind>1</kind>
             <string>/// Initialize the player
 
+// Initialize the motion blur object if it doesn't exist
+    if(!instance_exists(obj_blur)){
+        instance_create(0, 0, obj_blur);
+    } 
+
 // Movement variables
     maxspd = 8;
     minspd = 0;
