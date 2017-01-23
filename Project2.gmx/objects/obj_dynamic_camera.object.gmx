@@ -8,6 +8,31 @@
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
+    <event eventtype="0" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Initialize camera variables
+
+shake = 0; 
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
@@ -29,6 +54,25 @@
 
 var x_to, y_to; 
 
+if(instance_exists(obj_player)){
+    if((obj_player.is_sliding == 1 || obj_player.wall_slide == 1)){ 
+        shake = .4
+    } 
+    else if(obj_player.charge_dash_held &amp;&amp; obj_player.can_dash &amp;&amp; obj_player.dash_count &lt; 3 &amp;&amp; obj_player.dash_charge_mode){
+        if(obj_player.charge_dash){
+            shake = 0;
+        }
+        else{
+            shake = obj_player.dash_held_frames/71
+        }
+    }
+    else{
+        shake *= .9;     
+    }
+}
+
+
+
 x_to = obj_player.x + obj_player.direction_horizontal*abs(obj_player.hspd);
 y_to = obj_player.y + obj_player.direction_vertical*abs(obj_player.vspd);
 x += (x_to-x)/5;
@@ -39,6 +83,10 @@ view_yview = -(view_hview/2) + y;
 
 view_xview = clamp(view_xview, 0, room_width-view_wview);
 view_yview = clamp(view_yview, 0, room_height-view_hview); 
+
+view_xview += random_range(-shake, shake);
+view_yview += random_range(-shake, shake); 
+
 </string>
           </argument>
         </arguments>
