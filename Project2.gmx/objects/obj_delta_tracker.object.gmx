@@ -28,6 +28,7 @@
             <string>/// Initialize delta tracker
 
 global.delta = 1;
+on = true; 
 </string>
           </argument>
         </arguments>
@@ -77,9 +78,13 @@ global.delta = (0.00006*delta_time);
             <kind>1</kind>
             <string>// Draw the delta value to the screen
 
-draw_set_colour(c_red);
-draw_text(10, 132, "delta: "+string_format(global.delta, 2, 2));
-draw_text(10, 144, "delta_time: "+string_format(delta_time, 2, 2));
+if(keyboard_check_pressed(vk_f1)) on = !on; 
+
+if(on){
+    draw_set_colour(c_red);
+    draw_text(10, 132, "delta: "+string_format(global.delta, 2, 2));
+    draw_text(10, 144, "delta_time: "+string_format(delta_time, 2, 2));
+}
 </string>
           </argument>
         </arguments>
