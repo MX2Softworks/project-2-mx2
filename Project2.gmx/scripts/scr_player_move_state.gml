@@ -55,6 +55,11 @@
     if((place_meeting(x-1, y, obj_solid) || place_meeting(x+1, y, obj_solid)) && !place_meeting(x, y+1, obj_solid)){
         wall_slide = true;
     }
+    //If we are no longer wall sliding, swap our sprite's direction. 
+    else if(wall_slide == true && (!place_meeting(x-1, y, obj_solid) || !place_meeting(x+1, y, obj_solid) || place_meeting(x, y+1, obj_solid))){
+        wall_slide = false;
+        hspd = -sign(image_xscale); 
+    }
     //If we are not touching a wall then set wall sliding to false. 
     else {
         wall_slide = false; 
