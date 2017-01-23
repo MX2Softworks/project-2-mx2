@@ -28,10 +28,10 @@
       <sprite>sprites\spr_player_wall_slide</sprite>
     </sprites>
     <sprites name="Level">
-      <sprite>sprites\spr_solid</sprite>
-      <sprite>sprites\spr_platform</sprite>
       <sprite>sprites\spr_moving_platform</sprite>
+      <sprite>sprites\spr_platform</sprite>
       <sprite>sprites\spr_race</sprite>
+      <sprite>sprites\spr_solid</sprite>
     </sprites>
     <sprites name="Enemies">
       <sprite>sprites\spr_saw_test_1</sprite>
@@ -80,6 +80,7 @@
     </objects>
     <objects name="Level">
       <object>objects\obj_solid</object>
+      <object>objects\obj_platform_solid</object>
       <object>objects\obj_platform</object>
       <object>objects\obj_moving_platform</object>
       <object>objects\obj_next_room</object>

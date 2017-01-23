@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>self</parentName>
+  <parentName>obj_solid</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="3" enumb="0">
@@ -26,8 +26,9 @@
           <argument>
             <kind>1</kind>
             <string>if(instance_exists(obj_player)){
-    if(obj_player.vspd &gt; 0 &amp;&amp; !place_meeting(x, y, obj_player)){
-        instance_create(x, y, obj_platform_solid); 
+    if(obj_player.vspd &lt; 0 || place_meeting(x, y, obj_player)){
+    
+        platform = instance_create(x, y, obj_platform); 
         instance_destroy(); 
     }
 }
