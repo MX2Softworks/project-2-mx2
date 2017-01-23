@@ -52,7 +52,7 @@
 
     //Wall Sliding
     //Set wall_sliding to true if we are touching a wall in midair.
-    if((place_meeting(x-1, y, obj_solid) || place_meeting(x+1, y, obj_solid)) && !place_meeting(x, y+1, obj_solid)){
+    if((place_meeting(x-1, y, obj_solid) || place_meeting(x+1, y, obj_solid)) && !place_meeting(x, y+1, obj_solid) && !place_meeting(x, y, obj_solid) && !place_meeting(x, y, obj_platform)){
         wall_slide = true;
     }
     //If we are no longer wall sliding, swap our sprite's direction. 

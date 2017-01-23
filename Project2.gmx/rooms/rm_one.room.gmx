@@ -113,8 +113,6 @@
     <instance objName="obj_solid" x="544" y="352" name="inst_EFEE2372" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_solid" x="576" y="352" name="inst_4BF467A2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_next_room" x="576" y="320" name="inst_225D2086" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_delta_tracker" x="40" y="8" name="inst_A54A6D64" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_debugtext" x="8" y="8" name="inst_643EBD8B" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_platform_solid" x="192" y="256" name="inst_26D12CB0" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_platform_solid" x="224" y="256" name="inst_1DDF73D9" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_platform_solid" x="256" y="256" name="inst_ACF7A9C8" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>

@@ -31,6 +31,14 @@
     if(!instance_exists(obj_blur)){
         instance_create(0, 0, obj_blur);
     } 
+    
+// Iniatialize the debug texts if they do not exist
+    if(!instance_exists(obj_debugtext)){
+        instance_create(0, 0, obj_debugtext);
+    }
+    if(!instance_exists(obj_delta_tracker)){
+        instance_create(0,0, obj_delta_tracker); 
+    }
 
 // Movement variables
     maxspd = 8;
