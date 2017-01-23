@@ -120,6 +120,7 @@
     <instance objName="obj_enemy_pathfinder" x="448" y="64" name="inst_66AC6D3C" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_enemy_pathfinder" x="960" y="512" name="inst_5C4217E4" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_enemy_thrower" x="416" y="384" name="inst_FCCA94D9" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_blur" x="64" y="96" name="inst_07822DF9" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>
