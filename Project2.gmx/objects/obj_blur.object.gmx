@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>1000</depth>
-  <persistent>-1</persistent>
+  <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -66,8 +66,10 @@ dif_Y = cam_last_Y-view_yview[0];
 
 //Copyroutine
 surface_set_target(temp); //This part moves the trail in camera
-draw_surface_ext(global.motion_blur,dif_X,dif_Y,1,1,0,c_white,0.94); 
-surface_copy(global.motion_blur,0,0,temp);
+if(temp){
+    draw_surface_ext(global.motion_blur,dif_X,dif_Y,1,1,0,c_white,0.94); 
+    surface_copy(global.motion_blur,0,0,temp);
+}
 surface_reset_target();
 surface_set_target(temp); //We clear the temp-surface
 draw_clear_alpha(c_white,0);

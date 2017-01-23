@@ -27,11 +27,6 @@
             <kind>1</kind>
             <string>/// Initialize the player
 
-// Initialize the motion blur object if it doesn't exist
-    if(!instance_exists(obj_blur)){
-        instance_create(0, 0, obj_blur);
-    } 
-
 // Initialize the delta_tracker and debug text if they don't exist
     if(!instance_exists(obj_delta_tracker)){
         instance_create(0, 0, obj_delta_tracker);
@@ -159,6 +154,12 @@ state = scr_player_move_state;
           <argument>
             <kind>1</kind>
             <string>/// Adds motion blur during dashes. 
+
+//Creates a blur object if it does not exist. 
+if(!instance_exists(obj_blur)){
+    instance_create(0, 0, obj_blur);   
+}
+//Adds blur
 if(instance_exists(obj_blur) &amp;&amp; (abs(hspd) &gt; 12 || abs(vspd) &gt; 13)){
     d3d_set_fog(1,c_navy,0,0);
     surface_set_target(global.motion_blur);
@@ -167,6 +168,7 @@ if(instance_exists(obj_blur) &amp;&amp; (abs(hspd) &gt; 12 || abs(vspd) &gt; 13)
     d3d_set_fog(0,c_navy,0,0);
     
 }
+
 
 
 </string>
