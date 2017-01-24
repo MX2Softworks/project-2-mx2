@@ -29,6 +29,7 @@
 
 shake = 0; 
 full_screen = false; 
+display_reset(0, true); 
 </string>
           </argument>
         </arguments>
