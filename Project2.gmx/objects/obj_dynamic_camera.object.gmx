@@ -2,7 +2,7 @@
 <object>
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
-  <visible>-1</visible>
+  <visible>0</visible>
   <depth>-10</depth>
   <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
@@ -86,11 +86,13 @@ y += (y_to-y)/2;
 view_xview = -(view_wview/2) + x; 
 view_yview = -(view_hview/2) + y;   
 
-view_xview += random_range(-shake*(view_wview/100), shake*(view_wview/500));
-view_yview += random_range(-shake*(view_hview/100), shake*(view_wview/500)); 
-
 view_xview = clamp(view_xview, 0, room_width-view_wview);
 view_yview = clamp(view_yview, 0, room_height-view_hview); 
+
+view_xview += random_range(-shake*(view_wview/500), shake*(view_wview/500));
+view_yview += random_range(-shake*(view_hview/500), shake*(view_wview/500)); 
+
+
 </string>
           </argument>
         </arguments>
