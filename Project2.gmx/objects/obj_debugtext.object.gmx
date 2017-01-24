@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>-10</depth>
-  <persistent>0</persistent>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -33,6 +33,7 @@ frames1 = 0;
 fps_avg2 = 0;
 fps_total2 = 0;
 frames2 = 0;
+on = true; 
 </string>
           </argument>
         </arguments>
@@ -57,60 +58,67 @@ frames2 = 0;
             <kind>1</kind>
             <string>/// Draw debug text to screen
 
+if(keyboard_check_pressed(vk_f1)) on = !on; 
+
+
+
 draw_set_halign(fa_left); 
 draw_set_valign(fa_left);
-draw_set_color(c_red); 
-
-// Calculations to display a more stable fps
-    frames1 += 1;
-    fps_total1 += round(fps_real);
-    fps_avg1 = fps_total1 div frames1;
-    // Reset if a second passed
-    if (frames1 == 30) {
-        frames1 = 0;
-        fps_total1 = 0;
-        frames2 += 1;
-        fps_total2 += fps_avg1;
-        fps_avg2 = fps_total2 div frames2;
-        // Reset if a minute has passed to avoid out of bounds
-        if (frames2 == 60) {
-            frames2 = 0;
-            fps_total2 = 0;
+draw_set_color(c_red);
+ 
+if(on){
+    // Calculations to display a more stable fps
+        frames1 += 1;
+        fps_total1 += round(fps_real);
+        fps_avg1 = fps_total1 div frames1;
+        // Reset if a second passed
+        if (frames1 == 30) {
+            frames1 = 0;
+            fps_total1 = 0;
+            frames2 += 1;
+            fps_total2 += fps_avg1;
+            fps_avg2 = fps_total2 div frames2;
+            // Reset if a minute has passed to avoid out of bounds
+            if (frames2 == 60) {
+                frames2 = 0;
+                fps_total2 = 0;
+            }
         }
-    }
+        
     
-
-draw_text(10, 12, "fps: "+string_format(fps_avg2, 2, 2));
-
-draw_text(10, 36, "direction: "+string_format(obj_player.direction_horizontal, 1, 0)+","+string_format(obj_player.direction_vertical, 1, 0));
-draw_text(10, 60, "hspeed: "+string_format(obj_player.hspd, 2, 2));
-draw_text(10, 72, "vspeed: "+string_format(obj_player.vspd, 2, 2));
-
-draw_text(10, 96, "xcoor: "+string_format(obj_player.x, 2, 2));
-draw_text(10, 108, "ycoor: "+string_format(obj_player.y, 2, 2));
-
-if(instance_exists(obj_race_start))
-    draw_text(10, 120, "race time"+string_format(global.race_timer, 2, 2)); 
+    draw_text(10, 12, "fps: "+string_format(fps_avg2, 2, 2));
     
-draw_text(10, 156, "dash_count: "+string_format(obj_player.dash_count, 2, 2));
-draw_text(10, 212, "gamepad: "+string_format(gamepad_button_check(0, gp_shoulderrb), 2, 2));
-draw_text(10, 224, "magnitude: "+string_format(obj_player.magnitude, 2, 2));
-draw_text(10, 236, "threshold: "+string_format(obj_player.threshold, 2, 2));
-draw_text(10, 248, "left: "+string_format(obj_player.left, 2, 2));
-draw_text(10, 260, "left_held: "+string_format(obj_player.left_held, 2, 2));
-draw_text(10, 272, "left_released: "+string_format(obj_player.left_released, 2, 2));
-draw_text(10, 284, "x_axis: "+string_format(gamepad_axis_value(0, gp_axislh), 2, 2));
-
-draw_text(10, 296, "ul: "+string_format(obj_player.diag_ul_held, 2, 2));
-draw_text(10, 308, "ur: "+string_format(obj_player.diag_ur_held, 2, 2));
-draw_text(10, 320, "dl: "+string_format(obj_player.diag_dl_held, 2, 2));
-draw_text(10, 332, "dr: "+string_format(obj_player.diag_dr_held, 2, 2));
-draw_text(10, 344, "right: "+string_format(obj_player.right_held, 2, 2));
-draw_text(10, 356, "up: "+string_format(obj_player.stick_up_held, 2, 2));
-draw_text(10, 368, "down: "+string_format(obj_player.down_held, 2, 2));
-draw_text(10, 380, "y_axis: "+string_format(gamepad_axis_value(0, gp_axislv), 2, 2));
-
-draw_text(10, 404, "dash_held: "+string_format(obj_player.dash_distance_mod, 2, 2));
+    draw_text(10, 36, "direction: "+string_format(obj_player.direction_horizontal, 1, 0)+","+string_format(obj_player.direction_vertical, 1, 0));
+    draw_text(10, 60, "hspeed: "+string_format(obj_player.hspd, 2, 2));
+    draw_text(10, 72, "vspeed: "+string_format(obj_player.vspd, 2, 2));
+    
+    draw_text(10, 96, "xcoor: "+string_format(obj_player.x, 2, 2));
+    draw_text(10, 108, "ycoor: "+string_format(obj_player.y, 2, 2));
+    
+    if(instance_exists(obj_race_start))
+        draw_text(10, 120, "race time"+string_format(global.race_timer, 2, 2)); 
+        
+    draw_text(10, 156, "dash_count: "+string_format(obj_player.dash_count, 2, 2));
+    draw_text(10, 212, "gamepad: "+string_format(gamepad_button_check(0, gp_shoulderrb), 2, 2));
+    draw_text(10, 224, "magnitude: "+string_format(obj_player.magnitude, 2, 2));
+    draw_text(10, 236, "threshold: "+string_format(obj_player.threshold, 2, 2));
+    draw_text(10, 248, "left: "+string_format(obj_player.left, 2, 2));
+    draw_text(10, 260, "left_held: "+string_format(obj_player.left_held, 2, 2));
+    draw_text(10, 272, "left_released: "+string_format(obj_player.left_released, 2, 2));
+    draw_text(10, 284, "x_axis: "+string_format(gamepad_axis_value(0, gp_axislh), 2, 2));
+    
+    draw_text(10, 296, "ul: "+string_format(obj_player.diag_ul_held, 2, 2));
+    draw_text(10, 308, "ur: "+string_format(obj_player.diag_ur_held, 2, 2));
+    draw_text(10, 320, "dl: "+string_format(obj_player.diag_dl_held, 2, 2));
+    draw_text(10, 332, "dr: "+string_format(obj_player.diag_dr_held, 2, 2));
+    draw_text(10, 344, "right: "+string_format(obj_player.right_held, 2, 2));
+    draw_text(10, 356, "up: "+string_format(obj_player.stick_up_held, 2, 2));
+    draw_text(10, 368, "down: "+string_format(obj_player.down_held, 2, 2));
+    draw_text(10, 380, "y_axis: "+string_format(gamepad_axis_value(0, gp_axislv), 2, 2));
+    
+    draw_text(10, 404, "dash_held: "+string_format(obj_player.dash_distance_mod, 2, 2));
+    draw_text(10, 416, "sprite_index: "+string_format(obj_player.sprite_index, 1, 0));
+}
 
 // Dash Charge
     draw_set_halign(fa_center);

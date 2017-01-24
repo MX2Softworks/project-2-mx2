@@ -27,7 +27,8 @@
             <kind>1</kind>
             <string>if(instance_exists(obj_player)){
     if(obj_player.vspd &gt; 0 &amp;&amp; !place_meeting(x, y, obj_player)){
-        instance_create(x, y, obj_platform_solid); 
+    
+        platform = instance_create(x, y, obj_platform_solid); 
         instance_destroy(); 
     }
 }
