@@ -6,18 +6,6 @@ NOTE:  THIS ONLY CHECKS COLLISIONS WITH THE ENVIRONMENT NOT OTHER CHARACTERS.
 
 var collision_object = argument0;
 
-/*
-// Pixel Perfect Horizontal Collisions
-if (hspd < 0) {
-    while (collision_rectangle(bbox_left+hspd, bbox_top, bbox_left, bbox_bottom, obj_solid, false, false) != noone) {
-        hspd = (collision_rectangle(bbox_left+hspd, bbox_top, bbox_left, bbox_bottom, obj_solid, false, false)).bbox_right - bbox_left;
-        hspd += 1;
-    }
-    x += hspd * global.delta;
-}
-*/
-
-
 // Check if there is a horizontal collision
 var movedis_x = sign(hspd);
 var pathfree_x = true;
@@ -38,6 +26,10 @@ if (!pathfree_x) {
 } 
 else {
     x += hspd * global.delta;
+    // Collision safety net
+    while (place_meeting(x, y, obj_solid)) {
+        x -= sign(hspd);
+    }
 }
 
 // Check if there is a vertical collision
@@ -59,4 +51,8 @@ if (!pathfree_y) {
     vspd = 0;
 } else {
     y += vspd * global.delta;
+    // Collision safety net
+    while (place_meeting(x, y, obj_solid)) {
+        y -= sign(vspd);
+    }
 }

@@ -5,7 +5,7 @@ if(instance_exists(obj_player))
     {
         if(!soundplayed)
         {
-            audio_emitter_gain(audio_em, .025);
+            audio_emitter_gain(audio_em, .25);
             audio_play_sound_on(audio_em, snd_fireball, false, 5);
             soundplayed = 1;
         }

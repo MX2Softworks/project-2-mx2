@@ -507,13 +507,13 @@ script_execute(state);
 if((up &amp;&amp; place_meeting(x, y+10, obj_solid) &amp;&amp; (sprite_index == spr_player_jump || sprite_index == spr_player_fall)) 
    || (up &amp;&amp; wall_jump &amp;&amp; wall_jump_counter &lt; wall_jump_counter_max)
   ){
-    audio_emitter_gain(audio_em, .1);
+    audio_emitter_gain(audio_em, 1);
     audio_play_sound_on(audio_em, snd_jump_0, false, 10);
 }
 
 //Slide
 if(((sprite_index == spr_player_wall_slide &amp;&amp; image_index &gt; 1) || (sprite_index == spr_player_slide &amp;&amp; image_index &gt; 1)) &amp;&amp; !audio_is_playing(snd_slide)){
-    audio_emitter_gain(audio_em, .01);
+    audio_emitter_gain(audio_em, .1);
     audio_play_sound_on(audio_em, snd_slide, false, 10);
 }
 else if(sprite_index != spr_player_wall_slide &amp;&amp; sprite_index != spr_player_slide &amp;&amp; audio_is_playing(snd_slide)){
@@ -547,7 +547,7 @@ else if(sprite_index != spr_player_wall_slide &amp;&amp; sprite_index != spr_pla
 
 if ((keyboard_check(ord("N")) == true &amp;&amp; !gamepad_is_connected(gp_id)) || (gamepad_is_connected(gp_id) &amp;&amp; gamepad_button_check_pressed(gp_id, gp_select))) {  
     
-    audio_emitter_gain(audio_em, .05);
+    audio_emitter_gain(audio_em, .5);
     audio_play_sound_on(audio_em, snd_gong, false, 8);
     
     if (room = room_last) {
