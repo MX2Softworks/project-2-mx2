@@ -222,7 +222,9 @@ script_execute(state);
     //Switches to idle if hspd and vspd are 0 and the player is in the running animation
     //Reset the max speed to normal, in case the player was rolling. 
     if(hspd == 0 &amp;&amp; vspd == 0 &amp;&amp; ( sprite_index == spr_fahad_player_test_1 
-       || (sprite_index == spr_player_slide_to_crouch &amp;&amp; !down_held &amp;&amp; !down &amp;&amp; !diag_dl &amp;&amp; !diag_dr &amp;&amp; !place_meeting(x, y-8, obj_solid)))
+       || ((sprite_index == spr_player_slide_to_crouch &amp;&amp; !down_held &amp;&amp; !down &amp;&amp; !diag_dl &amp;&amp; !diag_dr)
+       &amp;&amp; !place_meeting(x, y-8, obj_solid))
+       )
       ){ 
         sprite_index = spr_player_idle; 
         maxspd = 8; 
@@ -232,7 +234,7 @@ script_execute(state);
     }
     //Switches to running if we have any hspd but aren't jumping/falling.
     //Reset max speed to normal, in case the player was previously rolling.
-    else if(hspd != 0 &amp;&amp; vspd == 0 &amp;&amp; !diag_dl_held &amp;&amp; !diag_dr_held 
+    else if(hspd != 0 &amp;&amp; vspd == 0 &amp;&amp; !diag_dl_held &amp;&amp; !diag_dr_held
             &amp;&amp; (sprite_index == spr_player_idle || sprite_index == spr_fahad_player_test_1 || sprite_index == spr_player_wall_slide)
            ){
         sprite_index = spr_fahad_player_test_1; 
@@ -334,7 +336,7 @@ script_execute(state);
 //Crouching Animation
 
     //Switches to the crouching animation if the player presses down, isn't moving, and hasn't already been switched.
-    if((down || down_held || diag_dl_held || diag_dr_held || place_meeting(x, y-8, obj_solid)) 
+    if((down || down_held || diag_dl_held || diag_dr_held /*|| place_meeting(x, y-8, obj_solid)*/) 
     &amp;&amp; place_meeting(x, y+1, obj_solid) &amp;&amp; hspd == 0 &amp;&amp; sprite_index != spr_player_crouch 
         &amp;&amp; sprite_index != spr_player_roll &amp;&amp; sprite_index != spr_player_slide &amp;&amp; sprite_index != spr_player_slide_to_crouch 
       ){
