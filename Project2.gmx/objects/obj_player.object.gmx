@@ -27,14 +27,6 @@
             <kind>1</kind>
             <string>/// Initialize the player
 
-// Initialize the delta_tracker and debug text if they don't exist
-    if(!instance_exists(obj_delta_tracker)){
-        instance_create(0, 0, obj_delta_tracker);
-    }
-    if(!instance_exists(obj_debugtext)){
-        instance_create(0, 0, obj_debugtext);
-    }
-
 // Movement variables
     maxspd = 8;
     minspd = 0;
@@ -131,6 +123,9 @@
     y_axis = 0;   
     
 state = scr_player_move_state;
+
+// Create the audio emitter
+    audio_em = audio_emitter_create();
 </string>
           </argument>
         </arguments>
@@ -512,13 +507,14 @@ script_execute(state);
 if((up &amp;&amp; place_meeting(x, y+10, obj_solid) &amp;&amp; (sprite_index == spr_player_jump || sprite_index == spr_player_fall)) 
    || (up &amp;&amp; wall_jump &amp;&amp; wall_jump_counter &lt; wall_jump_counter_max)
   ){
-    audio_play_sound(snd_jump_0, 10, false);
+    audio_emitter_gain(audio_em, 1);
+    audio_play_sound_on(audio_em, snd_jump_0, false, 10);
 }
 
 //Slide
 if(((sprite_index == spr_player_wall_slide &amp;&amp; image_index &gt; 1) || (sprite_index == spr_player_slide &amp;&amp; image_index &gt; 1)) &amp;&amp; !audio_is_playing(snd_slide)){
-    audio_play_sound(snd_slide, 0, false); 
-    audio_sound_gain(snd_slide, .02, 0); 
+    audio_emitter_gain(audio_em, .1);
+    audio_play_sound_on(audio_em, snd_slide, false, 10);
 }
 else if(sprite_index != spr_player_wall_slide &amp;&amp; sprite_index != spr_player_slide &amp;&amp; audio_is_playing(snd_slide)){
     audio_stop_sound(snd_slide); 
@@ -551,8 +547,8 @@ else if(sprite_index != spr_player_wall_slide &amp;&amp; sprite_index != spr_pla
 
 if ((keyboard_check(ord("N")) == true &amp;&amp; !gamepad_is_connected(gp_id)) || (gamepad_is_connected(gp_id) &amp;&amp; gamepad_button_check_pressed(gp_id, gp_select))) {  
     
-    audio_play_sound(snd_gong, 10, false);
-    audio_sound_gain(snd_gong, .1, 0); 
+    audio_emitter_gain(audio_em, .5);
+    audio_play_sound_on(audio_em, snd_gong, false, 8);
     
     if (room = room_last) {
         room_goto(rm_one);
