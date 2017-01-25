@@ -17,7 +17,7 @@ if (wall_on_left || end_of_path_left) {
 }
 
 // Rotate the image
-image_angle += image_rotation;
+//image_angle += image_rotation;
 
 // Move the saw
 if (hspd > -maxspd) {
