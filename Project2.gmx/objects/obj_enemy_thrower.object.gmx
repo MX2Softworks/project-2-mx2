@@ -34,6 +34,8 @@ timer = 0;
 duration = 0;
 soundplayed = 0;
 
+// Create the audio emitter
+    audio_em = audio_emitter_create();
 </string>
           </argument>
         </arguments>
