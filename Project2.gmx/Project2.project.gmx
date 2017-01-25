@@ -54,6 +54,7 @@
     <scripts name="Helper Scripts">
       <script>scripts\scr_get_input.gml</script>
       <script>scripts\scr_move.gml</script>
+      <script>scripts\scr_load_objects.gml</script>
     </scripts>
     <scripts name="Player States">
       <script>scripts\scr_player_move_state.gml</script>
@@ -110,7 +111,6 @@
     </objects>
   </objects>
   <rooms name="rooms">
-    <room>rooms\rm_initialize</room>
     <room>rooms\rm_one</room>
     <room>rooms\rm_two</room>
     <room>rooms\rm_three</room>
