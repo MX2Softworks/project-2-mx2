@@ -33,6 +33,8 @@ grav = 0.2;
 hspd = 0;
 vspd = 0;
 fearofheights = 1;
+
+scr_fix_spawn();
 </string>
           </argument>
         </arguments>

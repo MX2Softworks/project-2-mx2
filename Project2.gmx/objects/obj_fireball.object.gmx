@@ -34,6 +34,8 @@ hspd = 1;
 vspd = 1;
 thrown = 0;
 duration = 0;
+
+scr_fix_spawn();
 </string>
           </argument>
         </arguments>

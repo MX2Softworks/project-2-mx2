@@ -126,6 +126,8 @@ state = scr_player_move_state;
 
 // Create the audio emitter
     audio_em = audio_emitter_create();
+    
+scr_fix_spawn();
 </string>
           </argument>
         </arguments>

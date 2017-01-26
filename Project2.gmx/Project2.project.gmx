@@ -90,6 +90,7 @@
       <object>objects\obj_race_end</object>
       <object>objects\obj_spawn_fireballs</object>
       <object>objects\obj_random_fireball</object>
+      <object>objects\obj_all</object>
     </objects>
     <objects name="Enemies">
       <object>objects\obj_saw_test</object>

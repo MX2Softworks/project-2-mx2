@@ -37,6 +37,7 @@ soundplayed = 0;
 startx = x;
 starty = y;
 
+scr_fix_spawn();
 </string>
           </argument>
         </arguments>
