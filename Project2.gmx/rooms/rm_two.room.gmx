@@ -315,7 +315,7 @@ script_execute(scr_load_objects);</code>
     <instance objName="obj_solid" x="1696" y="512" name="inst_5866642D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_solid" x="1728" y="512" name="inst_A9557729" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_solid" x="1760" y="512" name="inst_05180D09" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_saw_test" x="192" y="496" name="inst_E9E9838C" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_saw_test" x="224" y="512" name="inst_E9E9838C" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_saw_test" x="496" y="496" name="inst_CEF99D19" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_saw_test" x="704" y="496" name="inst_3F80E55C" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_saw_test" x="816" y="496" name="inst_8BEF9EDF" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
