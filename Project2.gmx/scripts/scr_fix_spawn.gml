@@ -49,18 +49,31 @@ if (place_meeting(x, y, obj_all)) {
     // Spawned  with center out of wall
     if (move_x == 0) {
         if (!place_meeting(x+16, y, obj_all)) {
-            x += 16;
+            while (place_meeting(x, y, obj_all)) {
+                x += 1;
+            }
+            x += 1;
         } else {
-            x -= 16;
+            while (place_meeting(x, y, obj_all)) {
+                x -= 1;
+            }
+            x -= 1;
         }
     } else {
         x += move_x + (sign(move_x)*16);
     }
     if (move_y == 0) {
+        audio_play_sound(snd_gong, 5, false);
         if (!place_meeting(x, y+16, obj_all)) {
-            y += 16;
+            while (place_meeting(x, y, obj_all)) {
+                y += 1;
+            }
+            y += 1;
         } else {
-            y -= 16;
+            while (place_meeting(x, y, obj_all)) {
+                y -= 1;
+            }
+            y -= 1;
         }
     } else {
         y += move_y + (sign(move_y)*16);
