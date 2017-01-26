@@ -45,6 +45,24 @@ if (place_meeting(x, y, obj_all)) {
             move_y = y_plus;
         }
     }
-    x += move_x + (sign(move_x)*16);
-    y += move_y + (sign(move_y)*16);
+    
+    // Spawned  with center out of wall
+    if (move_x == 0) {
+        if (!place_meeting(x+16, y, obj_all)) {
+            x += 16;
+        } else {
+            x -= 16;
+        }
+    } else {
+        x += move_x + (sign(move_x)*16);
+    }
+    if (move_y == 0) {
+        if (!place_meeting(x, y+16, obj_all)) {
+            y += 16;
+        } else {
+            y -= 16;
+        }
+    } else {
+        y += move_y + (sign(move_y)*16);
+    }
 }
