@@ -55,6 +55,7 @@
       <script>scripts\scr_get_input.gml</script>
       <script>scripts\scr_move.gml</script>
       <script>scripts\scr_load_objects.gml</script>
+      <script>scripts\scr_fix_spawn.gml</script>
     </scripts>
     <scripts name="Player States">
       <script>scripts\scr_player_move_state.gml</script>
@@ -89,6 +90,7 @@
       <object>objects\obj_race_end</object>
       <object>objects\obj_spawn_fireballs</object>
       <object>objects\obj_random_fireball</object>
+      <object>objects\obj_all</object>
     </objects>
     <objects name="Enemies">
       <object>objects\obj_saw_test</object>

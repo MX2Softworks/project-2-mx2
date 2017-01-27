@@ -33,6 +33,7 @@ vdir = 0;
 hdir = 0;
 maxspd = 1;
 
+scr_fix_spawn();
 </string>
           </argument>
         </arguments>
