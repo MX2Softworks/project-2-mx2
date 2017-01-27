@@ -1,81 +1,51 @@
 /// scr_fix_spawn();
 
-if (place_meeting(x, y, obj_all)) {
-    var y_minus = 0;
-    var y_plus = 0;
-    var x_minus = 0;
-    var x_plus = 0;
-    var move_x = 0;
-    var move_y = 0;
-    while(position_meeting(x+x_minus, y, obj_all)) {
-        x_minus -= 1;
+var incr = 1;
+var out_of_wall = false;
+while (place_meeting(x, y, obj_all)) {
+    // Check up
+    if ((!place_meeting(x, y-incr, obj_all)) && !out_of_wall && (x > 16) && (x < room_width-16) && (y-incr > 16) && (y-incr < room_height-16)) {
+        y -= (incr + 1);
+        out_of_wall = true;
     }
-    while(position_meeting(x+x_plus, y, obj_all)) {
-        x_plus += 1;
+    // Check right
+    if ((!place_meeting(x+incr, y, obj_all)) && !out_of_wall && (x+incr > 16) && (x+incr < room_width-16) && (y > 16) && (y < room_height-16)) {
+        x += (incr + 1);
+        out_of_wall = true;
     }
-    while(position_meeting(x, y+y_minus, obj_all)) {
-        y_minus -= 1;
+    // Check down
+    if ((!place_meeting(x, y+incr, obj_all)) && !out_of_wall && (x > 16) && (x < room_width-16) && (y+incr > 16) && (y+incr < room_height-16)) {
+        y += (incr + 1);
+        out_of_wall = true;
     }
-    while(position_meeting(x, y+y_plus, obj_all)) {
-        y_plus += 1;
+    // Check left
+    if ((!place_meeting(x-incr, y, obj_all)) && !out_of_wall && (x-incr > 16) && (x-incr < room_width-16) && (y > 16) && (y < room_height-16)) {
+        x -= (incr + 1);
+        out_of_wall = true;
     }
-    if (abs(x_minus) <= abs(x_plus)) {
-        // Move to the left out of the object
-        if ((x + x_minus) > 16) {
-            // Not out of the room
-            move_x = x_minus;
-        }
-    } else {
-        // Move to the right out of the object
-        if ((x + x_plus) < (room_width-16)) {
-            // Not out of the room
-            move_x = x_plus;
-        }
+    // Check up-right
+    if ((!place_meeting(x+incr, y-incr, obj_all)) && !out_of_wall && (x+incr > 16) && (x+incr < room_width-16) && (y-incr > 16) && (y-incr < room_height-16)) {
+        y -= (incr + 1);
+        x += (incr + 1);
+        out_of_wall = true;
     }
-    if (abs(y_minus) <= abs(y_plus)) {
-        // Move up out of the object
-        if ((y + y_minus) > 16) {
-            // Not out of the room
-            move_y = y_minus;
-        }
-    } else {
-        // Move to the right out of the object
-        if ((y + y_plus) < (room_height-16)) {
-            // Not out of the room
-            move_y = y_plus;
-        }
+    // Check down-right
+    if ((!place_meeting(x+incr, y+incr, obj_all)) && !out_of_wall && (x+incr > 16) && (x+incr < room_width-16) && (y+incr > 16) && (y+incr < room_height-16)) {
+        y += (incr + 1);
+        x += (incr + 1);
+        out_of_wall = true;
     }
-    
-    // Spawned  with center out of wall
-    if (move_x == 0) {
-        if (!place_meeting(x+16, y, obj_all)) {
-            while (place_meeting(x, y, obj_all)) {
-                x += 1;
-            }
-            x += 1;
-        } else {
-            while (place_meeting(x, y, obj_all)) {
-                x -= 1;
-            }
-            x -= 1;
-        }
-    } else {
-        x += move_x + (sign(move_x)*16);
+    // Check down-left
+    if ((!place_meeting(x-incr, y+incr, obj_all)) && !out_of_wall && (x-incr > 16) && (x-incr < room_width-16) && (y+incr > 16) && (y+incr < room_height-16)) {
+        y += (incr + 1);
+        x -= (incr + 1);
+        out_of_wall = true;
     }
-    if (move_y == 0) {
-        audio_play_sound(snd_gong, 5, false);
-        if (!place_meeting(x, y+16, obj_all)) {
-            while (place_meeting(x, y, obj_all)) {
-                y += 1;
-            }
-            y += 1;
-        } else {
-            while (place_meeting(x, y, obj_all)) {
-                y -= 1;
-            }
-            y -= 1;
-        }
-    } else {
-        y += move_y + (sign(move_y)*16);
+    // Check up-left
+    if ((!place_meeting(x-incr, y-incr, obj_all)) && !out_of_wall && (x-incr > 16) && (x-incr < room_width-16) && (y-incr > 16) && (y-incr < room_height-16)) {
+        y -= (incr + 1);
+        x -= (incr + 1);
+        out_of_wall = true;
     }
+    incr += 1;
 }
