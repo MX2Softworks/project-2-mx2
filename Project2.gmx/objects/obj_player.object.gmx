@@ -554,33 +554,104 @@ switch(room) {
         // In hub room
         if (place_meeting(x, y, obj_door_1) &amp;&amp; open_door) {
             room_goto(rm_two);
+            global.last_room = rm_one;
         }
         if (place_meeting(x, y, obj_door_2) &amp;&amp; open_door) {
             room_goto(rm_three);
+            global.last_room = rm_one;
         }
         if (place_meeting(x, y, obj_door_3) &amp;&amp; open_door) {
             room_goto(rm_four);
+            global.last_room = rm_one;
         }
         break;
     case rm_two:
         // In room two
         if (place_meeting(x, y, obj_door_0) &amp;&amp; open_door) {
             room_goto(rm_one);
+            global.last_room = rm_two;
         }
         break;
     case rm_three:
         // In room three
         if (place_meeting(x, y, obj_door_0) &amp;&amp; open_door) {
             room_goto(rm_one);
+            global.last_room = rm_three;
         }
         break;
     case rm_four:
         // In room four
         if (place_meeting(x, y, obj_door_0) &amp;&amp; open_door) {
             room_goto(rm_one);
+            global.last_room = rm_four;
         }
         break;
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="4">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Spawn
+
+switch(global.last_room) {
+    case rm_two:
+        obj_player.x = obj_door_1.x+16;
+        obj_player.y = obj_door_1.y;
+        break;
+    case rm_three:
+        obj_player.x = obj_door_2.x+16;
+        obj_player.y = obj_door_2.y;
+        break;
+    case rm_four:
+        obj_player.x = obj_door_3.x+16;
+        obj_player.y = obj_door_3.y;
+        break;
+    default:
+        break;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="2">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Initialize globals
+
+global.last_room = rm_one;
 </string>
           </argument>
         </arguments>
