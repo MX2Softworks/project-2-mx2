@@ -32,6 +32,10 @@
       <sprite>sprites\spr_platform</sprite>
       <sprite>sprites\spr_race</sprite>
       <sprite>sprites\spr_solid</sprite>
+      <sprite>sprites\spr_door_0</sprite>
+      <sprite>sprites\spr_door_1</sprite>
+      <sprite>sprites\spr_door_2</sprite>
+      <sprite>sprites\spr_door_3</sprite>
     </sprites>
     <sprites name="Enemies">
       <sprite>sprites\spr_saw_test_1</sprite>
@@ -91,6 +95,10 @@
       <object>objects\obj_spawn_fireballs</object>
       <object>objects\obj_random_fireball</object>
       <object>objects\obj_all</object>
+      <object>objects\obj_door_0</object>
+      <object>objects\obj_door_1</object>
+      <object>objects\obj_door_2</object>
+      <object>objects\obj_door_3</object>
     </objects>
     <objects name="Enemies">
       <object>objects\obj_saw_test</object>

@@ -529,8 +529,6 @@ else if(sprite_index != spr_player_wall_slide &amp;&amp; sprite_index != spr_pla
           </argument>
         </arguments>
       </action>
-    </event>
-    <event eventtype="4" ename="obj_next_room">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -547,20 +545,41 @@ else if(sprite_index != spr_player_wall_slide &amp;&amp; sprite_index != spr_pla
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Move to the next room if 'N' or 'Select' is pressed
+            <string>/// Door Collision Events
 
-if ((keyboard_check(ord("N")) == true &amp;&amp; !gamepad_is_connected(gp_id)) || (gamepad_is_connected(gp_id) &amp;&amp; gamepad_button_check_pressed(gp_id, gp_select))) {  
-    
-    audio_emitter_gain(audio_em, .5);
-    audio_play_sound_on(audio_em, snd_gong, false, 8);
-    
-    if (room = room_last) {
-        room_goto(rm_one);
-    } else {
-        room_goto_next();
-    }
-    
-  
+var open_door = (keyboard_check(ord("N")) == true &amp;&amp; !gamepad_is_connected(gp_id)) || (gamepad_is_connected(gp_id) &amp;&amp; gamepad_button_check_pressed(gp_id, gp_select));
+
+switch(room) {
+    case rm_one:
+        // In hub room
+        if (place_meeting(x, y, obj_door_1) &amp;&amp; open_door) {
+            room_goto(rm_two);
+        }
+        if (place_meeting(x, y, obj_door_2) &amp;&amp; open_door) {
+            room_goto(rm_three);
+        }
+        if (place_meeting(x, y, obj_door_3) &amp;&amp; open_door) {
+            room_goto(rm_four);
+        }
+        break;
+    case rm_two:
+        // In room two
+        if (place_meeting(x, y, obj_door_0) &amp;&amp; open_door) {
+            room_goto(rm_one);
+        }
+        break;
+    case rm_three:
+        // In room three
+        if (place_meeting(x, y, obj_door_0) &amp;&amp; open_door) {
+            room_goto(rm_one);
+        }
+        break;
+    case rm_four:
+        // In room four
+        if (place_meeting(x, y, obj_door_0) &amp;&amp; open_door) {
+            room_goto(rm_one);
+        }
+        break;
 }
 </string>
           </argument>
