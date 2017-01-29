@@ -28,7 +28,11 @@ else {
     x += hspd * global.delta;
     // Collision safety net
     while (place_meeting(x, y, obj_solid)) {
-        x -= sign(hspd);
+        if (hspd != 0) {
+            x -= sign(hspd);
+        } else {
+            scr_fix_spawn(obj_solid);
+        }
     }
 }
 
@@ -53,6 +57,10 @@ if (!pathfree_y) {
     y += vspd * global.delta;
     // Collision safety net
     while (place_meeting(x, y, obj_solid)) {
-        y -= sign(vspd);
+        if (vspd != 0) {
+            y -= sign(vspd);
+        } else {
+            scr_fix_spawn(obj_solid);
+        }
     }
 }

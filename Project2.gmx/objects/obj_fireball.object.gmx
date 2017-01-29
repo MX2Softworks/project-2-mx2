@@ -35,7 +35,7 @@ vspd = 1;
 thrown = 0;
 duration = 0;
 
-scr_fix_spawn();
+scr_fix_spawn(obj_all);
 </string>
           </argument>
         </arguments>

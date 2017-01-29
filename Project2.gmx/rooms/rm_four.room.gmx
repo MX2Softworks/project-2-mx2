@@ -224,6 +224,7 @@ script_execute(scr_load_objects);</code>
     <instance objName="obj_solid" x="992" y="736" name="inst_822EBACF" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_solid" x="992" y="640" name="inst_BAC68740" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_spawn_fireballs" x="288" y="64" name="inst_75862960" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_door_0" x="928" y="640" name="inst_67A6D6CA" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>
