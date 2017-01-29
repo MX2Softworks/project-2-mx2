@@ -9,6 +9,10 @@
         instance_create(0, 0, obj_debugtext);
     }
     
+    if(!instance_exists(obj_game_mode)){
+        instance_create(0, 0, obj_game_mode); 
+    }
+    
     if (!instance_exists(obj_sound_player)) {
         instance_create(0, 0, obj_sound_player);
     }

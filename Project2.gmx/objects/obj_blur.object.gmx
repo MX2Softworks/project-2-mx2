@@ -25,8 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>screen_width = view_wview[view_current];
-screen_height = view_hview[view_current];
+            <string>screen_width = window_get_width();  //view_xview[view_current];
+screen_height = window_get_height(); //view_yview[view_current];
 global.motion_blur = surface_create(screen_width,screen_height);
 temp = surface_create(screen_width,screen_height);
 

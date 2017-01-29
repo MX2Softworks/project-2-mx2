@@ -29,9 +29,9 @@ charge_dash_released = keyboard_check_released(ord("G"));
 
 wall_push = keyboard_check_pressed(ord("H"));
 
-open_door = keyboard_check(ord("N"));
+open_door = keyboard_check_pressed(ord("N"));
 
-pickup_item = keyboard_check(ord("C"));
+pickup_item = keyboard_check_pressed(ord("C"));
 
 // Override the controls for a gamepad
 gp_id = 0;

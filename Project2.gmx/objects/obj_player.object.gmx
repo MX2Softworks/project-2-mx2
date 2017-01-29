@@ -136,6 +136,28 @@ scr_fix_spawn(obj_all);
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Pause related variables
+speed_before_pause = 0; 
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="3" enumb="2">
       <action>
@@ -178,6 +200,42 @@ if(instance_exists(obj_blur) &amp;&amp; (abs(hspd) &gt; 12 || abs(vspd) &gt; 13)
       </action>
     </event>
     <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///If Game is Paused
+
+//Pause Animations if Pause Game
+if(instance_exists(obj_game_mode) &amp;&amp; global.pauseActive == true){
+    if(image_speed != 0){
+        speed_before_pause = image_speed;
+        image_speed = 0;
+    }
+    exit;  
+}
+else{
+    if(image_speed == 0 &amp;&amp; speed_before_pause != 0){
+        image_speed = speed_before_pause; 
+        speed_before_pause = 0; 
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -631,17 +689,18 @@ if((up &amp;&amp; place_meeting(x, y+10, obj_solid) &amp;&amp; vspd &lt; 0)
    || (up &amp;&amp; wall_jump &amp;&amp; wall_jump_counter &lt; wall_jump_counter_max)
   ){
     audio_emitter_gain(audio_em, 1);
-    audio_play_sound_on(audio_em, snd_jump_0, false, 10);
+    obj_sound_player.audio_em = audio_play_sound_on(audio_em, snd_jump_0, false, 10);
 }
 
 //Slide
 if(((sprite_index == spr_player_wall_slide &amp;&amp; image_index &gt; 1) || (sprite_index == spr_player_slide &amp;&amp; image_index &gt; 1)) &amp;&amp; !audio_is_playing(snd_slide)){
     audio_emitter_gain(audio_em, .1);
-    audio_play_sound_on(audio_em, snd_slide, false, 10);
+    obj_sound_player.audio_em = audio_play_sound_on(audio_em, snd_slide, false, 10);
 }
 else if(sprite_index != spr_player_wall_slide &amp;&amp; sprite_index != spr_player_slide &amp;&amp; audio_is_playing(snd_slide)){
     audio_stop_sound(snd_slide); 
 }
+
 
 
 </string>

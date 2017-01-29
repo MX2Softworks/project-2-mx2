@@ -53,7 +53,7 @@
             <kind>1</kind>
             <string>///Pause Music if Paused
 if(instance_exists(obj_game_mode) &amp;&amp; global.pauseActive == true){
-    audio_pause_sound(audio_em);
+    audio_em = audio_pause_sound(audio_em);
     exit;  
 }
 else{
