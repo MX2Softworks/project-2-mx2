@@ -122,6 +122,10 @@
     x_axis = 0;
     y_axis = 0;   
     
+// Hub world
+    pickup_item = false;
+    open_door = false;
+
 state = scr_player_move_state;
 
 // Create the audio emitter
@@ -194,6 +198,121 @@ if(instance_exists(obj_blur) &amp;&amp; (abs(hspd) &gt; 12 || abs(vspd) &gt; 13)
 
 scr_get_input();
 script_execute(state);
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Key Collection
+
+// Pick up key 1
+if (place_meeting(x, y, obj_key_1) &amp;&amp; pickup_item) {
+    global.key_1_collected = true;
+    with (instance_find(obj_key_1, 0)) {
+        instance_destroy();
+    }
+}
+// Pick up key 2
+if (place_meeting(x, y, obj_key_2) &amp;&amp; pickup_item) {
+    global.key_2_collected = true;
+    with (instance_find(obj_key_2, 0)) {
+        instance_destroy();
+    }
+}
+// Pick up key 4
+if (place_meeting(x, y, obj_key_3) &amp;&amp; pickup_item) {
+    global.key_3_collected = true;
+    with (instance_find(obj_key_3, 0)) {
+        instance_destroy();
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Door Collision Events
+
+switch(room) {
+    case rm_one:
+        // In hub room
+        if (place_meeting(x, y, obj_door_1) &amp;&amp; open_door &amp;&amp; global.key_1_collected) {
+            room_goto(rm_two);
+            audio_emitter_gain(audio_em, .5);
+            audio_play_sound_on(audio_em, snd_gong, false, 8);
+            global.last_room = rm_one;
+        }
+        if (place_meeting(x, y, obj_door_2) &amp;&amp; open_door &amp;&amp; global.key_2_collected) {
+            room_goto(rm_three);
+            audio_emitter_gain(audio_em, .5);
+            audio_play_sound_on(audio_em, snd_gong, false, 8);
+            global.last_room = rm_one;
+        }
+        if (place_meeting(x, y, obj_door_3) &amp;&amp; open_door &amp;&amp; global.key_3_collected) {
+            room_goto(rm_four);
+            audio_emitter_gain(audio_em, .5);
+            audio_play_sound_on(audio_em, snd_gong, false, 8);
+            global.last_room = rm_one;
+        }
+        break;
+    case rm_two:
+        // In room two
+        if (place_meeting(x, y, obj_door_0) &amp;&amp; open_door) {
+            room_goto(rm_one);
+            audio_emitter_gain(audio_em, .5);
+            audio_play_sound_on(audio_em, snd_gong, false, 8);
+            global.last_room = rm_two;
+        }
+        break;
+    case rm_three:
+        // In room three
+        if (place_meeting(x, y, obj_door_0) &amp;&amp; open_door) {
+            room_goto(rm_one);
+            audio_emitter_gain(audio_em, .5);
+            audio_play_sound_on(audio_em, snd_gong, false, 8);
+            global.last_room = rm_three;
+        }
+        break;
+    case rm_four:
+        // In room four
+        if (place_meeting(x, y, obj_door_0) &amp;&amp; open_door) {
+            room_goto(rm_one);
+            audio_emitter_gain(audio_em, .5);
+            audio_play_sound_on(audio_em, snd_gong, false, 8);
+            global.last_room = rm_four;
+        }
+        break;
+}
 </string>
           </argument>
         </arguments>
@@ -529,68 +648,6 @@ else if(sprite_index != spr_player_wall_slide &amp;&amp; sprite_index != spr_pla
           </argument>
         </arguments>
       </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>/// Door Collision Events
-
-var open_door = (keyboard_check(ord("N")) == true &amp;&amp; !gamepad_is_connected(gp_id)) || (gamepad_is_connected(gp_id) &amp;&amp; gamepad_button_check_pressed(gp_id, gp_select));
-
-switch(room) {
-    case rm_one:
-        // In hub room
-        if (place_meeting(x, y, obj_door_1) &amp;&amp; open_door) {
-            room_goto(rm_two);
-            global.last_room = rm_one;
-        }
-        if (place_meeting(x, y, obj_door_2) &amp;&amp; open_door) {
-            room_goto(rm_three);
-            global.last_room = rm_one;
-        }
-        if (place_meeting(x, y, obj_door_3) &amp;&amp; open_door) {
-            room_goto(rm_four);
-            global.last_room = rm_one;
-        }
-        break;
-    case rm_two:
-        // In room two
-        if (place_meeting(x, y, obj_door_0) &amp;&amp; open_door) {
-            room_goto(rm_one);
-            global.last_room = rm_two;
-        }
-        break;
-    case rm_three:
-        // In room three
-        if (place_meeting(x, y, obj_door_0) &amp;&amp; open_door) {
-            room_goto(rm_one);
-            global.last_room = rm_three;
-        }
-        break;
-    case rm_four:
-        // In room four
-        if (place_meeting(x, y, obj_door_0) &amp;&amp; open_door) {
-            room_goto(rm_one);
-            global.last_room = rm_four;
-        }
-        break;
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
     </event>
     <event eventtype="7" enumb="4">
       <action>
@@ -627,6 +684,24 @@ switch(global.last_room) {
     default:
         break;
 }
+
+switch(room) {
+    case rm_one:
+        if (!instance_exists(obj_key_1) &amp;&amp; global.key_1_collected != true) {
+            instance_create(640, 320, obj_key_1);
+        }
+        break;
+    case rm_two:
+        if (!instance_exists(obj_key_2) &amp;&amp; global.key_2_collected != true) {
+            instance_create(992, 192, obj_key_2);
+        }
+        break;
+    case rm_three:
+        if (!instance_exists(obj_key_3) &amp;&amp; global.key_3_collected != true) {
+            instance_create(128, 384, obj_key_3);
+        }
+        break;
+}
 </string>
           </argument>
         </arguments>
@@ -652,6 +727,9 @@ switch(global.last_room) {
             <string>/// Initialize globals
 
 global.last_room = rm_one;
+global.key_1_collected = false;
+global.key_2_collected = false;
+global.key_3_collected = false;
 </string>
           </argument>
         </arguments>
