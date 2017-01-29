@@ -51,43 +51,13 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Pause Music if Paused
-if(instance_exists(obj_game_mode) &amp;&amp; global.pauseActive == true){
-    audio_em = audio_pause_sound(audio_em);
-    exit;  
-}
-else{
-    audio_resume_sound(audio_em); 
-}
-
-
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
             <string>/// Play background music
 
 // Start soundtrack
 
 if (!audio_is_playing(snd_soundtrack)) {
     audio_emitter_gain(audio_em, .15);
-    audio_em = audio_play_sound_on(audio_em, snd_soundtrack, true, 12);
+    audio_play_sound_on(audio_em, snd_soundtrack, true, 12);
     
 }
 </string>

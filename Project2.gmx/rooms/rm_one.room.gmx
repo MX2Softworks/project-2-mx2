@@ -165,6 +165,10 @@ script_execute(scr_load_objects);</code>
     <instance objName="obj_door_1" x="768" y="320" name="inst_1F068BD8" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_door_2" x="928" y="320" name="inst_B9304A66" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_door_3" x="1088" y="320" name="inst_828D4F7C" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_solid" x="0" y="-32" name="inst_96CCD46F" locked="0" code="" scaleX="41" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_solid" x="-32" y="384" name="inst_6A448142" locked="0" code="" scaleX="41" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_solid" x="-32" y="-32" name="inst_31B49489" locked="0" code="" scaleX="1" scaleY="13" colour="4294967295" rotation="0"/>
+    <instance objName="obj_solid" x="1280" y="0" name="inst_CE9B3EEF" locked="0" code="" scaleX="1" scaleY="13" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

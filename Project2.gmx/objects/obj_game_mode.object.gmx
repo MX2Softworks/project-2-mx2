@@ -62,6 +62,12 @@ if(keyboard_check_pressed(vk_escape) || (gamepad_is_connected(gp_id) &amp;&amp; 
     global.pauseActive = !global.pauseActive;     
 }
 
+if(global.pauseActive){
+    audio_pause_all();
+}
+else{
+    audio_resume_all();
+}
 
 </string>
           </argument>
