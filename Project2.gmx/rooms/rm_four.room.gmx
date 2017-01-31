@@ -225,6 +225,10 @@ script_execute(scr_load_objects);</code>
     <instance objName="obj_solid" x="992" y="640" name="inst_BAC68740" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_spawn_fireballs" x="288" y="64" name="inst_75862960" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_door_0" x="928" y="640" name="inst_67A6D6CA" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_solid" x="-32" y="0" name="inst_7B4E4F2A" locked="0" code="" scaleX="1" scaleY="24.7741928100586" colour="4294967295" rotation="0"/>
+    <instance objName="obj_solid" x="1024" y="0" name="inst_1BE866A4" locked="0" code="" scaleX="1" scaleY="24.7741928100586" colour="4294967295" rotation="0"/>
+    <instance objName="obj_solid" x="-32" y="-32" name="inst_507A8938" locked="0" code="" scaleX="34" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_solid" x="-32" y="768" name="inst_BAA5ED8D" locked="0" code="" scaleX="34" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

@@ -113,8 +113,9 @@
         wall_jump = true; 
     }
 
-    //Jump only if on a solid object. 
-    if(place_meeting(x, y+1, obj_solid)) {
+    //Jump only if on a solid object. If our sprite is not standing, then check to make sure that we have atleast 8 pixels of headroom before we allow a jump. 
+    if(place_meeting(x, y+1, obj_solid) 
+    && !(place_meeting(x, y-8, obj_solid) && (sprite_index == spr_player_roll || sprite_index == spr_player_slide || sprite_index == spr_player_crouch || sprite_index == spr_player_slide_to_crouch))) {
         vspd = up * -jumpheight; 
         dash_count = 0;
         dash_frames_v = 0;
