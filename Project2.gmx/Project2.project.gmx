@@ -124,6 +124,7 @@
       <object>objects\obj_blur</object>
     </objects>
     <object>objects\obj_game_mode</object>
+    <object>objects\obj_pause_menu</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_one</room>
