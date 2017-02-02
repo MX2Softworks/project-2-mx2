@@ -28,32 +28,45 @@
             <string>///Initialize variables.
 
 //Pause Options
-    enum pause_options{
-        continue_game,
-        options_game,
-        quit_game 
-    }; 
-    
-    enum quit_options{
-        yes,
-        no
-    }; 
-    
+
+    //menu_options determines which nested layer the player is in. 
     enum menu_options{
         pause_menu,
         options_menu,
         quit_menu 
     };
     
+    //First layer: pause
+    enum pause_options{
+        continue_game,
+        options_game,
+        quit_game 
+    }; 
+    
+    //Second layer: options
+    enum options_options{
+        fullscreen,
+        vsync, 
+        debug
+    }; 
+    
+    //Third layer: quit
+    enum quit_options{
+        yes,
+        no
+    }; 
+    
+// Display variables    
     wind_w = window_get_width()/2;
     wind_h = window_get_height()/3;
 
     string_w = string_width("Game Paused")/2; 
     string_h = string_height("Game Paused")/2;
     
+// Navigation variables    
     menu = menu_options.pause_menu;
     cursor = pause_options.continue_game; 
-    
+
 // Input variables
     right = false;
     right_held = false;
@@ -130,6 +143,15 @@
             <kind>1</kind>
             <string>scr_get_input(); 
 
+//Reassign variables if display size changes. 
+if(wind_w != window_get_width()/2){
+    wind_w = window_get_width()/2;
+}
+if(wind_h != window_get_height()/3){
+    wind_h = window_get_height()/3;
+}
+
+
 //Keyboard Selection Highlight
     if((!gamepad_is_connected(gp_id) &amp;&amp; up) || (gamepad_is_connected(gp_id) &amp;&amp; stick_up)){
             cursor = floor(cursor -  1); 
@@ -170,7 +192,8 @@
         else if((floor(cursor) == pause_options.options_game &amp;&amp; keyboard_check_pressed(vk_enter))
                || (gamepad_is_connected(gp_id) &amp;&amp; (floor(cursor) == pause_options.options_game &amp;&amp; up))
                || (floor(cursor) == pause_options.options_game &amp;&amp; mouse_check_button_pressed(mb_left))){
-              //TBD  
+              menu = menu_options.options_menu; 
+              cursor = options_options.fullscreen;  
         }
         //Quit
         else if((floor(cursor) == pause_options.quit_game &amp;&amp; keyboard_check_pressed(vk_enter))
@@ -188,15 +211,72 @@
             cursor = pause_options.continue_game; 
         }
     }
-    //Quit Menu
+//Options Menu
+    else if(menu == menu_options.options_menu){
+        string_w = string_width("Options")/2;
+        string_h = string_height("Options")/2;
+        
+        //Mouse Cursor selection Highlight
+        if(window_mouse_get_x() &gt; wind_w - string_w &amp;&amp; window_mouse_get_x() &lt; wind_w + string_w  + string_width("Show Debug: ") + 10){
+            //Fullscreen
+            if(window_mouse_get_y() &gt; wind_h - string_h + string_h * 2 + 10 &amp;&amp; window_mouse_get_y() &lt; wind_h - string_h + string_h * 4 + 20){
+                cursor = options_options.fullscreen;  
+            } 
+            //Vsync
+            else if(window_mouse_get_y() &gt; wind_h - string_h + string_h * 4 + 20 &amp;&amp; window_mouse_get_y() &lt; wind_h - string_h + string_h * 6 + 30){
+                cursor = options_options.vsync;  
+            }
+            //Debug
+            else if(window_mouse_get_y() &gt; wind_h - string_h + string_h * 6 + 30 &amp;&amp; window_mouse_get_y() &lt; wind_h - string_h + string_h * 8 + 40){
+                cursor = options_options.debug;  
+            }
+        }
+        
+        //Fullscreen
+        if((floor(cursor) == options_options.fullscreen &amp;&amp; keyboard_check_pressed(vk_enter))
+               || (gamepad_is_connected(gp_id) &amp;&amp; (floor(cursor) == options_options.fullscreen &amp;&amp; up))
+               || (floor(cursor) == options_options.fullscreen &amp;&amp; mouse_check_button_pressed(mb_left))){
+            if(instance_exists(obj_game_mode)){
+                global.fullscreen = !global.fullscreen;     
+            } 
+        }
+        //Vsync
+        else if((floor(cursor) == options_options.vsync &amp;&amp; keyboard_check_pressed(vk_enter))
+               || (gamepad_is_connected(gp_id) &amp;&amp; (floor(cursor) == options_options.vsync &amp;&amp; up))
+               || (floor(cursor) == options_options.vsync &amp;&amp; mouse_check_button_pressed(mb_left))){
+            if(instance_exists(obj_game_mode)){
+                global.vsync = !global.vsync;     
+            } 
+        }
+        //Debug
+        else if((floor(cursor) == options_options.debug &amp;&amp; keyboard_check_pressed(vk_enter))
+               || (gamepad_is_connected(gp_id) &amp;&amp; (floor(cursor) == options_options.debug &amp;&amp; up))
+               || (floor(cursor) == options_options.debug &amp;&amp; mouse_check_button_pressed(mb_left))){
+            if(instance_exists(obj_game_mode)){
+                global.debug = !global.debug;     
+            } 
+        }
+        
+        //Cursor wrapping 
+        if(cursor &lt; options_options.fullscreen){
+            cursor = options_options.debug; 
+        }
+        else if(cursor &gt; options_options.debug){
+            cursor = options_options.fullscreen; 
+        }
+    }
+//Quit Menu
     else if(menu == menu_options.quit_menu){
         string_w = string_width("Are you sure you want to quit?")/2;
         string_h = string_height("Are you sure you want to quit?")/2;
         
+        //Mouse Cursor selection Highlight
         if(window_mouse_get_x() &gt; wind_w - string_w &amp;&amp; window_mouse_get_x() &lt; wind_w + string_w){
+            //Yes
             if(window_mouse_get_y() &gt; wind_h - string_h + string_h * 2 + 10 &amp;&amp; window_mouse_get_y() &lt; wind_h - string_h + string_h * 4 + 20){
                 cursor = quit_options.yes;  
-            } 
+            }
+            //No 
             else if(window_mouse_get_y() &gt; wind_h - string_h + string_h * 4 + 20 &amp;&amp; window_mouse_get_y() &lt; wind_h - string_h + string_h * 6 + 30){
                 cursor = quit_options.no;  
             }
@@ -288,6 +368,98 @@ if(menu == menu_options.pause_menu){
         draw_circle_colour(wind_w - string_w + 6, wind_h - string_h + string_h*6 + 30 +6, 6, c_yellow, c_white, false); 
     }
 }
+else if(menu == menu_options.options_menu){
+    string_w = string_width("Options")/2;
+    string_h = string_height("Options")/2;
+    
+    //Draw title
+    draw_text_colour(wind_w - string_w, wind_h - string_h, "Options", c_white, c_white, c_ltgray, c_ltgray, 1);
+    
+    //Draw all options and the option the player is over as highlighted. 
+    if(floor(cursor) == options_options.fullscreen){
+    /**/draw_text_colour(wind_w - string_w + 20, wind_h - string_h + string_h*2 + 10, "Fullscreen: ", c_yellow, c_white, c_yellow, c_white, 1);
+        //Fullscreen
+        if(instance_exists(obj_game_mode) &amp;&amp; global.fullscreen == true){
+            draw_text_colour(wind_w - string_w + 20 + string_width("Show Debug: ") + 10, wind_h - string_h + string_h*2 + 10, "Yes", c_yellow, c_white, c_yellow, c_white, 1);
+        }
+        else if(instance_exists(obj_game_mode) &amp;&amp; global.fullscreen == false){
+            draw_text_colour(wind_w - string_w + 20 + string_width("Show Debug: ") + 10, wind_h - string_h + string_h*2 + 10, "No", c_yellow, c_white, c_yellow, c_white, 1);
+        }
+        draw_circle_colour(wind_w - string_w + 6, wind_h - string_h + string_h*2 + 10 +6, 6, c_yellow, c_white, false);
+        //Vsync
+        draw_text_colour(wind_w - string_w + 20, wind_h - string_h + string_h*4 + 20, "Vsync: ", c_white, c_white, c_ltgray, c_ltgray, 1);
+        if(instance_exists(obj_game_mode) &amp;&amp; global.vsync == true){
+            draw_text_colour(wind_w - string_w + 20 + string_width("Show Debug: ") + 10, wind_h - string_h + string_h*4 + 20, "Yes", c_white, c_white, c_ltgray, c_ltgray, 1);
+        }
+        else if(instance_exists(obj_game_mode) &amp;&amp; global.vsync == false){
+            draw_text_colour(wind_w - string_w + 20 + string_width("Show Debug: ") + 10, wind_h - string_h + string_h*4 + 20, "No", c_white, c_white, c_ltgray, c_ltgray, 1);
+        }
+        //Debug
+        draw_text_colour(wind_w - string_w + 20, wind_h - string_h + string_h*6 + 30, "Show Debug: ", c_white, c_white, c_ltgray, c_ltgray, 1);
+        if(instance_exists(obj_game_mode) &amp;&amp; global.debug == true){
+            draw_text_colour(wind_w - string_w + 20 + string_width("Show Debug: ") + 10, wind_h - string_h + string_h*6 + 30, "Yes", c_white, c_white, c_ltgray, c_ltgray, 1);
+        }
+        else if(instance_exists(obj_game_mode) &amp;&amp; global.debug == false){
+            draw_text_colour(wind_w - string_w + 20 + string_width("Show Debug: ") + 10, wind_h - string_h + string_h*6 + 30, "No", c_white, c_white, c_ltgray, c_ltgray, 1);
+        }
+        
+    }
+    else if(floor(cursor) == options_options.vsync){
+        draw_text_colour(wind_w - string_w + 20, wind_h - string_h + string_h*2 + 10, "Fullscreen: ", c_white, c_white, c_ltgray, c_ltgray, 1);
+        //Fullscreen
+        if(instance_exists(obj_game_mode) &amp;&amp; global.fullscreen == true){
+            draw_text_colour(wind_w - string_w + 20 + string_width("Show Debug: ") + 10, wind_h - string_h + string_h*2 + 10, "Yes", c_white, c_white, c_ltgray, c_ltgray, 1);
+        }
+        else if(instance_exists(obj_game_mode) &amp;&amp; global.fullscreen == false){
+            draw_text_colour(wind_w - string_w + 20 + string_width("Show Debug: ") + 10, wind_h - string_h + string_h*2 + 10, "No", c_white, c_white, c_ltgray, c_ltgray, 1);
+        }
+        //Vsync
+    /**/draw_text_colour(wind_w - string_w + 20, wind_h - string_h + string_h*4 + 20, "Vsync: ", c_yellow, c_white, c_yellow, c_white, 1);
+        if(instance_exists(obj_game_mode) &amp;&amp; global.vsync == true){
+            draw_text_colour(wind_w - string_w + 20 + string_width("Show Debug: ") + 10, wind_h - string_h + string_h*4 + 20, "Yes", c_yellow, c_white, c_yellow, c_white, 1);
+        }
+        else if(instance_exists(obj_game_mode) &amp;&amp; global.vsync == false){
+            draw_text_colour(wind_w - string_w + 20 + string_width("Show Debug: ") + 10, wind_h - string_h + string_h*4 + 20, "No", c_yellow, c_white, c_yellow, c_white, 1);
+        }
+        draw_circle_colour(wind_w - string_w + 6, wind_h - string_h + string_h*4 + 20 +6, 6, c_yellow, c_white, false);
+        //Debug
+        draw_text_colour(wind_w - string_w + 20, wind_h - string_h + string_h*6 + 30, "Show Debug: ", c_white, c_white, c_ltgray, c_ltgray, 1);
+        if(instance_exists(obj_game_mode) &amp;&amp; global.debug == true){
+            draw_text_colour(wind_w - string_w + 20 + string_width("Show Debug: ") + 10, wind_h - string_h + string_h*6 + 30, "Yes", c_white, c_white, c_ltgray, c_ltgray, 1);
+        }
+        else if(instance_exists(obj_game_mode) &amp;&amp; global.debug == false){
+            draw_text_colour(wind_w - string_w + 20 + string_width("Show Debug: ") + 10, wind_h - string_h + string_h*6 + 30, "No", c_white, c_white, c_ltgray, c_ltgray, 1);
+        }  
+    }
+    else if(floor(cursor) == options_options.debug){
+        draw_text_colour(wind_w - string_w + 20, wind_h - string_h + string_h*2 + 10, "Fullscreen: ", c_white, c_white, c_ltgray, c_ltgray, 1);
+        //Fullscreen
+        if(instance_exists(obj_game_mode) &amp;&amp; global.fullscreen == true){
+            draw_text_colour(wind_w - string_w + 20 + string_width("Show Debug: ") + 10, wind_h - string_h + string_h*2 + 10, "Yes", c_white, c_white, c_ltgray, c_ltgray, 1);
+        }
+        else if(instance_exists(obj_game_mode) &amp;&amp; global.fullscreen == false){
+            draw_text_colour(wind_w - string_w + 20 + string_width("Show Debug: ") + 10, wind_h - string_h + string_h*2 + 10, "No", c_white, c_white, c_ltgray, c_ltgray, 1);
+        }
+        //Vsync
+        draw_text_colour(wind_w - string_w + 20, wind_h - string_h + string_h*4 + 20, "Vsync: ", c_white, c_white, c_ltgray, c_ltgray, 1);
+        if(instance_exists(obj_game_mode) &amp;&amp; global.vsync == true){
+            draw_text_colour(wind_w - string_w + 20 + string_width("Show Debug: ") + 10, wind_h - string_h + string_h*4 + 20, "Yes", c_white, c_white, c_ltgray, c_ltgray, 1);
+        }
+        else if(instance_exists(obj_game_mode) &amp;&amp; global.vsync == false){
+            draw_text_colour(wind_w - string_w + 20 + string_width("Show Debug: ") + 10, wind_h - string_h + string_h*4 + 20, "No", c_white, c_white, c_ltgray, c_ltgray, 1);
+        }
+        //Debug
+    /**/draw_text_colour(wind_w - string_w + 20, wind_h - string_h + string_h*6 + 30, "Show Debug: ", c_yellow, c_white, c_yellow, c_white, 1);
+        if(instance_exists(obj_game_mode) &amp;&amp; global.debug == true){
+            draw_text_colour(wind_w - string_w + 20 + string_width("Show Debug: ") + 10, wind_h - string_h + string_h*6 + 30, "Yes",  c_yellow, c_white, c_yellow, c_white, 1);
+        }
+        else if(instance_exists(obj_game_mode) &amp;&amp; global.debug == false){
+            draw_text_colour(wind_w - string_w + 20 + string_width("Show Debug: ") + 10, wind_h - string_h + string_h*6 + 30, "No",  c_yellow, c_white, c_yellow, c_white, 1);
+        }
+        draw_circle_colour(wind_w - string_w + 6, wind_h - string_h + string_h*6 + 30 +6, 6, c_yellow, c_white, false);
+    } 
+    
+}
 else if(menu == menu_options.quit_menu){
     string_w = string_width("Are you sure you want to quit?")/2;
     string_h = string_height("Are you sure you want to quit?")/2;
@@ -310,9 +482,6 @@ else if(menu == menu_options.quit_menu){
     } 
 }
 
-draw_set_color(c_white)
-draw_text(10, 10, "top:"+string_format(wind_w - string_w, 2, 2));
-draw_text(10, 25, "mouse_x:"+string_format(window_mouse_get_x(), 2, 2)); 
 
 </string>
           </argument>
