@@ -256,6 +256,12 @@ if(wind_h != window_get_height()/3){
                 global.debug = !global.debug;     
             } 
         }
+        //Back
+        else if((keyboard_check_pressed(vk_escape) || mouse_check_button_pressed(mb_right))
+          ||(gamepad_is_connected(gp_id) &amp;&amp; (gamepad_button_check_pressed(gp_id, gp_face2)))){ 
+            menu = menu_options.pause_menu; 
+            cursor = pause_options.continue_game; 
+        }
         
         //Cursor wrapping 
         if(cursor &lt; options_options.fullscreen){
