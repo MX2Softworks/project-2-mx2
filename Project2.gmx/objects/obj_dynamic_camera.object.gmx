@@ -103,14 +103,13 @@ if(instance_exists(obj_player)){
     else{
         shake *= .9;     
     }
+    
+    x_to = obj_player.x + obj_player.direction_horizontal*abs(obj_player.hspd);
+    y_to = obj_player.y + obj_player.direction_vertical*abs(obj_player.vspd);
+    
+    x += (x_to-x)/5;
+    y += (y_to-y)/2;
 }
-
-
-
-x_to = obj_player.x + obj_player.direction_horizontal*abs(obj_player.hspd);
-y_to = obj_player.y + obj_player.direction_vertical*abs(obj_player.vspd);
-x += (x_to-x)/5;
-y += (y_to-y)/2;
 
 view_xview = -(view_wview/2) + x; 
 view_yview = -(view_hview/2) + y;   
