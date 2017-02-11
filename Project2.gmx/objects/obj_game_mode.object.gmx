@@ -26,6 +26,11 @@
           <argument>
             <kind>1</kind>
             <string>global.pauseActive = false; 
+
+global.fullscreen = true;
+global.vsync = true; 
+global.debug = true; 
+ 
 draw_blend_max = .85; 
 draw_blend_counter = 0; 
 </string>
@@ -63,10 +68,18 @@ if(keyboard_check_pressed(vk_escape) || (gamepad_is_connected(gp_id) &amp;&amp; 
 }
 
 if(global.pauseActive){
-    audio_pause_all();
+    if(!instance_exists(obj_pause_menu)){
+        instance_create(0, 0, obj_pause_menu); 
+        audio_pause_all();
+    } 
 }
 else{
-    audio_resume_all();
+    if(instance_exists(obj_pause_menu)){
+        with(obj_pause_menu){
+            instance_destroy(); 
+        }
+        audio_resume_all();
+    }
 }
 
 </string>
@@ -97,8 +110,7 @@ else{
     }
     draw_set_alpha(draw_blend_counter); 
     draw_rectangle_colour(0, 0, window_get_width(), window_get_height(), c_black, 0, 0, 0, 0);
-    draw_set_alpha(1); 
-    draw_text_colour(window_get_width()/2 - string_width("Game Paused")/2, window_get_height()/2 - string_height("Game Paused")/2, "Game Paused", c_white, c_white, c_ltgray, c_ltgray, 1); 
+    draw_set_alpha(1);  
 }
 else{
     draw_blend_counter = 0; 

@@ -35,7 +35,7 @@ pickup_item = keyboard_check_pressed(ord("C"));
 
 // Override the controls for a gamepad
 gp_id = 0;
-threshold = .5;
+threshold = .8;
 
 if (gamepad_is_connected(gp_id)) {
 
@@ -46,6 +46,7 @@ if (gamepad_is_connected(gp_id)) {
 
     // Alarm is called so reset pressed and released
     if (controller_alarm <= 0) {
+        
         left = false;
         right = false;
         up = false;
@@ -70,7 +71,7 @@ if (gamepad_is_connected(gp_id)) {
         diag_ur_released = false;
         diag_dl_released = false;
         diag_dr_released = false;
-        
+
         // Reset alarm
         controller_alarm = 1;
     }

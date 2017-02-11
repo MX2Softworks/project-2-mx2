@@ -100,6 +100,9 @@
     charge_dash_held = false;
     charge_dash_released = false;
     
+    direction_horizontal = 0;
+    direction_vertical = 0; 
+    
     diag_ul = false;
     diag_ul_held = false;
     diag_ul_released = false;
