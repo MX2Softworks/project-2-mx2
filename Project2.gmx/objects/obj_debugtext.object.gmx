@@ -58,7 +58,17 @@ on = true;
             <kind>1</kind>
             <string>/// Draw debug text to screen
 
-if(keyboard_check_pressed(vk_f1)) on = !on; 
+if(instance_exists(obj_game_mode)){
+    //Debug
+    if((keyboard_check_pressed(vk_f1) || global.debug == true) &amp;&amp; on == false){
+        on = true; 
+        global.debug = true; 
+    }
+    else if((keyboard_check_pressed(vk_f1) || global.debug == false) &amp;&amp; on == true){
+        on = false; 
+        global.debug = false;
+    }
+}
 
 
 

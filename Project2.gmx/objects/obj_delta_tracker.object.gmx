@@ -78,7 +78,18 @@ global.delta = (0.00006*delta_time);
             <kind>1</kind>
             <string>// Draw the delta value to the screen
 
-if(keyboard_check_pressed(vk_f1)) on = !on; 
+if(instance_exists(obj_game_mode)){
+    //Debug
+    if((keyboard_check_pressed(vk_f1) || global.debug == true) &amp;&amp; on == false){
+        on = true; 
+        global.debug = true; 
+    }
+    else if((keyboard_check_pressed(vk_f1) || global.debug == false) &amp;&amp; on == true){
+        on = false; 
+        global.debug = false;
+    }
+}
+
 
 if(on){
     draw_set_colour(c_red);
