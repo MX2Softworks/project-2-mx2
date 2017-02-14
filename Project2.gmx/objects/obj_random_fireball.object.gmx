@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>/// Initialize the fireball object
 
-vsp = -20;
+vsp = random_range(-20, -25);
 grav = 0.3;
 
 
