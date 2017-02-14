@@ -38,6 +38,7 @@
       <sprite>sprites\spr_key_1</sprite>
       <sprite>sprites\spr_key_2</sprite>
       <sprite>sprites\spr_key_3</sprite>
+      <sprite>sprites\spr_moving_platform_bound</sprite>
     </sprites>
     <sprites name="Enemies">
       <sprite>sprites\spr_saw_test_1</sprite>
@@ -114,6 +115,7 @@
       <object>objects\obj_platform_solid</object>
       <object>objects\obj_platform</object>
       <object>objects\obj_moving_platform</object>
+      <object>objects\obj_moving_platform_bound</object>
       <object>objects\obj_race_start</object>
       <object>objects\obj_race_end</object>
       <object>objects\obj_spawn_fireballs</object>
