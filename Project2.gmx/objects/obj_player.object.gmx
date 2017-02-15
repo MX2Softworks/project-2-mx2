@@ -34,6 +34,8 @@
     jumppeak = 0;  
     hspd = 0;
     vspd = 0;
+    hspd_platform = 0;
+    vspd_platform = 0; 
     xrem = 0;
     yrem = 0;
     acc = .5;
@@ -462,7 +464,7 @@ switch(room) {
 //Jumping and falling animation based on previous animation conditions. 
     
     //Switches to jump animation if we are moving upwards and haven't already switched.
-    if(vspd &lt; 0 &amp;&amp; (sprite_index == spr_fahad_player_test_1 || sprite_index == spr_player_idle || sprite_index == spr_player_slide 
+    if(vspd &lt; 0 &amp;&amp; (sprite_index == spr_fahad_player_test_1 || sprite_index == spr_player_idle || sprite_index == spr_player_slide || sprite_index == spr_player_fall
         || sprite_index == spr_player_wall_slide || ((sprite_index == spr_player_slide_to_crouch || sprite_index == spr_player_roll) 
         &amp;&amp; !place_meeting(x, y-8, obj_solid))) 
       ){
