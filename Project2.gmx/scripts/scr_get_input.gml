@@ -29,7 +29,7 @@ charge_dash_released = keyboard_check_released(ord("G"));
 
 wall_push = keyboard_check_pressed(ord("H"));
 
-open_door = keyboard_check_pressed(ord("N"));
+open_door = keyboard_check_pressed(ord("C"));
 
 pickup_item = keyboard_check_pressed(ord("C"));
 
@@ -87,7 +87,7 @@ if (gamepad_is_connected(gp_id)) {
     
     wall_push = gamepad_button_check_pressed(gp_id, gp_face3);
     
-    open_door = gamepad_button_check_pressed(gp_id, gp_select);
+    open_door = gamepad_button_check_pressed(gp_id, gp_face4);
     
     pickup_item = gamepad_button_check_pressed(gp_id, gp_face4);
     

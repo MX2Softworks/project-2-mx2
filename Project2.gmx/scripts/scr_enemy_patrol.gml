@@ -1,11 +1,11 @@
 // sets up directional variables
-hspd = dir * maxspd;
+hspd = dir * maxspd * (0.00006*delta_time);
 
 var hspd_total = hspd + hspd_platform;
 var vspd_total = vspd + vspd_platform; 
 
 // apply gravity
-vspd += grav;
+vspd_total += grav;
 
 // horizontal collision
     // checks to see if wall in front
@@ -45,5 +45,5 @@ hspd_platform = 0;
 vspd_platform = 0; 
     
 // apply movement
-x += hspd_total;
-y += vspd_total;
+x += hspd_total
+y += vspd_total

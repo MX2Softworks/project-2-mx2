@@ -85,7 +85,7 @@ if(instance_exists(obj_game_mode) &amp;&amp; global.pauseActive == true){
             <string>/// Execute the script
 
 // sets up directional variables
-hspd = dir * maxspd;
+hspd = dir * maxspd * (0.00006*delta_time);
 if(place_meeting(x + hspd, y, obj_moving_platform_bound))
 {
      // pixel perfect collision

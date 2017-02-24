@@ -295,7 +295,7 @@ else if(instance_exists(obj_game_mode) &amp;&amp; global.pauseActive == false){
           <argument>
             <kind>1</kind>
             <string>/// Execute the state
-
+scr_fix_spawn(obj_solid)
 scr_get_input();
 script_execute(state);
 </string>
