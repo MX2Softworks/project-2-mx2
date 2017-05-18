@@ -103,15 +103,7 @@ script_execute(scr_load_objects);</code>
     <instance objName="obj_solid" x="512" y="352" name="inst_9B67EFED" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_solid" x="544" y="352" name="inst_EFEE2372" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_solid" x="576" y="352" name="inst_4BF467A2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_platform" x="256" y="288" name="inst_6D9CCE18" locked="0" code="" scaleX="10" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_solid" x="96" y="288" name="inst_F4F773D2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_solid" x="384" y="288" name="inst_95C3D22C" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_solid" x="256" y="288" name="inst_B9D98D5F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_solid" x="224" y="288" name="inst_359113E5" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_player" x="128" y="128" name="inst_2FFFC296" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_solid" x="448" y="294" name="inst_59EFB1D9" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_solid" x="480" y="294" name="inst_961798D7" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_solid" x="512" y="294" name="inst_5D7F48D7" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_player" x="128" y="320" name="inst_2FFFC296" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_solid" x="640" y="0" name="inst_453DBA0D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_solid" x="672" y="0" name="inst_B715143A" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_solid" x="704" y="0" name="inst_A030E340" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
@@ -165,6 +157,16 @@ script_execute(scr_load_objects);</code>
     <instance objName="obj_door_1" x="768" y="320" name="inst_1F068BD8" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_door_2" x="928" y="320" name="inst_B9304A66" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_door_3" x="1088" y="320" name="inst_828D4F7C" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_solid" x="0" y="-32" name="inst_96CCD46F" locked="0" code="" scaleX="41" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_solid" x="-32" y="384" name="inst_6A448142" locked="0" code="" scaleX="41" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_solid" x="-32" y="-32" name="inst_31B49489" locked="0" code="" scaleX="1" scaleY="13" colour="4294967295" rotation="0"/>
+    <instance objName="obj_solid" x="1280" y="0" name="inst_CE9B3EEF" locked="0" code="" scaleX="1" scaleY="13" colour="4294967295" rotation="0"/>
+    <instance objName="obj_moving_platform" x="212" y="237" name="inst_CDA0FE2E" locked="0" code="" scaleX="6" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_moving_platform_bound" x="80" y="240" name="inst_711C56ED" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_moving_platform_bound" x="720" y="240" name="inst_8DC5460A" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_enemy_patrol" x="214" y="216" name="inst_0E7A0F58" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_solid" x="514" y="319" name="inst_EB633200" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_platform" x="535" y="291" name="inst_CA7B936A" locked="0" code="" scaleX="4.55999994277954" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

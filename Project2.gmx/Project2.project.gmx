@@ -38,6 +38,7 @@
       <sprite>sprites\spr_key_1</sprite>
       <sprite>sprites\spr_key_2</sprite>
       <sprite>sprites\spr_key_3</sprite>
+      <sprite>sprites\spr_moving_platform_bound</sprite>
     </sprites>
     <sprites name="Enemies">
       <sprite>sprites\spr_saw_test_1</sprite>
@@ -83,6 +84,29 @@
     </scripts>
   </scripts>
   <objects name="objects">
+    <objects name="Effects">
+      <object>objects\obj_blur</object>
+    </objects>
+    <objects name="Enemies">
+      <object>objects\obj_saw_test</object>
+      <object>objects\obj_enemy_patrol</object>
+      <object>objects\obj_enemy_pathfinder</object>
+      <objects name="Enemy Thrower">
+        <object>objects\obj_enemy_thrower</object>
+        <object>objects\obj_fireball</object>
+      </objects>
+      <object>objects\obj_enemy_heavy</object>
+    </objects>
+    <objects name="Game Mode">
+      <object>objects\obj_game_mode</object>
+      <object>objects\obj_pause_menu</object>
+    </objects>
+    <objects name="Helpers">
+      <object>objects\obj_debugtext</object>
+      <object>objects\obj_delta_tracker</object>
+      <object>objects\obj_dynamic_camera</object>
+      <object>objects\obj_sound_player</object>
+    </objects>
     <objects name="Player">
       <object>objects\obj_player</object>
     </objects>
@@ -91,6 +115,7 @@
       <object>objects\obj_platform_solid</object>
       <object>objects\obj_platform</object>
       <object>objects\obj_moving_platform</object>
+      <object>objects\obj_moving_platform_bound</object>
       <object>objects\obj_race_start</object>
       <object>objects\obj_race_end</object>
       <object>objects\obj_spawn_fireballs</object>
@@ -103,25 +128,6 @@
       <object>objects\obj_key_1</object>
       <object>objects\obj_key_2</object>
       <object>objects\obj_key_3</object>
-    </objects>
-    <objects name="Enemies">
-      <object>objects\obj_saw_test</object>
-      <object>objects\obj_enemy_patrol</object>
-      <object>objects\obj_enemy_pathfinder</object>
-      <objects name="Enemy Thrower">
-        <object>objects\obj_enemy_thrower</object>
-        <object>objects\obj_fireball</object>
-      </objects>
-      <object>objects\obj_enemy_heavy</object>
-    </objects>
-    <objects name="Helpers">
-      <object>objects\obj_debugtext</object>
-      <object>objects\obj_delta_tracker</object>
-      <object>objects\obj_dynamic_camera</object>
-      <object>objects\obj_sound_player</object>
-    </objects>
-    <objects name="Effects">
-      <object>objects\obj_blur</object>
     </objects>
   </objects>
   <rooms name="rooms">

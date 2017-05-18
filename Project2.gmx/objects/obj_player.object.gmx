@@ -34,6 +34,8 @@
     jumppeak = 0;  
     hspd = 0;
     vspd = 0;
+    hspd_platform = 0;
+    vspd_platform = 0; 
     xrem = 0;
     yrem = 0;
     acc = .5;
@@ -100,6 +102,9 @@
     charge_dash_held = false;
     charge_dash_released = false;
     
+    direction_horizontal = 0;
+    direction_vertical = 0; 
+    
     diag_ul = false;
     diag_ul_held = false;
     diag_ul_released = false;
@@ -136,8 +141,67 @@ scr_fix_spawn(obj_all);
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Pause related variables
+speed_before_pause = 0;
+
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="3" enumb="2">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///If Game is Paused
+
+//Pause Animations if Pause Game
+if(instance_exists(obj_game_mode) &amp;&amp; global.pauseActive == true){
+    if(image_speed != 0){
+        speed_before_pause = image_speed;
+        image_speed = 0;
+    }
+    exit;  
+}
+else{
+    if(image_speed == 0 &amp;&amp; speed_before_pause != 0){
+        image_speed = speed_before_pause; 
+        speed_before_pause = 0; 
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -194,8 +258,44 @@ if(instance_exists(obj_blur) &amp;&amp; (abs(hspd) &gt; 12 || abs(vspd) &gt; 13)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Execute the state
+            <string>///If Game is Paused
 
+//Pause Animations if Pause Game
+if(instance_exists(obj_game_mode) &amp;&amp; global.pauseActive == true){
+    if(image_speed != 0){
+        speed_before_pause = image_speed;
+        image_speed = 0;
+    }
+    exit;  
+}
+else if(instance_exists(obj_game_mode) &amp;&amp; global.pauseActive == false){
+    if(image_speed == 0 &amp;&amp; speed_before_pause != 0){
+        image_speed = speed_before_pause; 
+        speed_before_pause = 0; 
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Execute the state
+scr_fix_spawn(obj_solid)
 scr_get_input();
 script_execute(state);
 </string>
@@ -364,7 +464,7 @@ switch(room) {
 //Jumping and falling animation based on previous animation conditions. 
     
     //Switches to jump animation if we are moving upwards and haven't already switched.
-    if(vspd &lt; 0 &amp;&amp; (sprite_index == spr_fahad_player_test_1 || sprite_index == spr_player_idle || sprite_index == spr_player_slide 
+    if(vspd &lt; 0 &amp;&amp; (sprite_index == spr_fahad_player_test_1 || sprite_index == spr_player_idle || sprite_index == spr_player_slide || sprite_index == spr_player_fall
         || sprite_index == spr_player_wall_slide || ((sprite_index == spr_player_slide_to_crouch || sprite_index == spr_player_roll) 
         &amp;&amp; !place_meeting(x, y-8, obj_solid))) 
       ){
@@ -636,12 +736,13 @@ if((up &amp;&amp; place_meeting(x, y+10, obj_solid) &amp;&amp; vspd &lt; 0)
 
 //Slide
 if(((sprite_index == spr_player_wall_slide &amp;&amp; image_index &gt; 1) || (sprite_index == spr_player_slide &amp;&amp; image_index &gt; 1)) &amp;&amp; !audio_is_playing(snd_slide)){
-    audio_emitter_gain(audio_em, .1);
+    audio_emitter_gain(audio_em, .06);
     audio_play_sound_on(audio_em, snd_slide, false, 10);
 }
 else if(sprite_index != spr_player_wall_slide &amp;&amp; sprite_index != spr_player_slide &amp;&amp; audio_is_playing(snd_slide)){
     audio_stop_sound(snd_slide); 
 }
+
 
 
 </string>
