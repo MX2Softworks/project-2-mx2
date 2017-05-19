@@ -154,7 +154,7 @@ if(wind_h != window_get_height()/3){
 
 //Keyboard Selection Highlight
     if((!gamepad_is_connected(gp_id) &amp;&amp; up) || (gamepad_is_connected(gp_id) &amp;&amp; stick_up)){
-            cursor = floor(cursor -  1); 
+            cursor = floor(cursor) - 1; 
     }
     else if(down){
             cursor = floor(cursor) + 1; 
@@ -185,7 +185,9 @@ if(wind_h != window_get_height()/3){
         //Continue
         if((keyboard_check_pressed(vk_escape) || mouse_check_button_pressed(mb_right) || (floor(cursor) == pause_options.continue_game &amp;&amp; keyboard_check_pressed(vk_enter)))
           ||(gamepad_is_connected(gp_id) &amp;&amp; (gamepad_button_check_pressed(gp_id, gp_face2) || (floor(cursor) == pause_options.continue_game &amp;&amp; up)))
-          ||(floor(cursor) == pause_options.continue_game &amp;&amp; mouse_check_button_pressed(mb_left))){ 
+          ||(floor(cursor) == pause_options.continue_game &amp;&amp; mouse_check_button_pressed(mb_left))){
+            // Wait 1/12 of a second before resuming input.
+            global.resume_frames = 5;
             global.pauseActive = false; 
         }
         //Options
