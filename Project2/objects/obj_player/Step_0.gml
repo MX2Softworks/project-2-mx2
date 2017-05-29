@@ -1,5 +1,7 @@
 /// @description If Game is Paused
 
+accumulator += global.frame_time;
+
 //Pause Animations if Pause Game
 if(instance_exists(obj_game_mode) && global.pauseActive == true){
     if(image_speed != 0){

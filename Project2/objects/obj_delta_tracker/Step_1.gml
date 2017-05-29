@@ -1,6 +1,14 @@
 /// @description  Calculate the delta value
 
-global.delta = (0.00006*delta_time);
+// Time passed since the last frame in seconds.
+// delta_time / 1000000 = 1 / framerate
+global.frame_time = delta_time / 1000000;
+
+// Limit the lowest framerate to 4 fps.
+if (global.frame_time > .25) {
+	// 1 / 4 = .25 = 4 frames per second
+	global.frame_time = .25;
+}
 
 ///Manual Room Speed Control
 

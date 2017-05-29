@@ -1,5 +1,7 @@
 /// @description  scr_player_move_state()
 /// @function  scr_player_move_state
+    
+scr_move(obj_solid);
 
 //Horizontal Movement
     
@@ -404,8 +406,6 @@
     if (hspd != 0) {
         image_xscale = sign(hspd);
     }
-    
-scr_move(obj_solid);
 
 
 

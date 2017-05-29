@@ -1,20 +1,31 @@
 /// @description  Initialize the player
 
 // Movement variables
+	previous_hspd = 0;
+    current_hspd = 0;
+	previous_vspd = 0;
+    current_vspd = 0;
+	previous_x = x;
+	current_x = x;
+	previous_y = y;
+	current_y = y;
+	previous_acc = .5;
+    current_acc = .5;
+	
     maxspd = 8;
     minspd = 0;
     jumpheight = 8;
-    jumppeak = 0;  
-    hspd = 0;
-    vspd = 0;
+    jumppeak = 0;
     hspd_platform = 0;
     vspd_platform = 0; 
     xrem = 0;
     yrem = 0;
-    acc = .5;
     grav = .30;
     is_sliding = 0;
     is_rolling = 0;
+	
+// Timestep
+	accumulator = 0;
 
 // Wall Jumping
     wall_slide = false;  
