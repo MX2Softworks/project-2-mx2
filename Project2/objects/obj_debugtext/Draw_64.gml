@@ -37,8 +37,7 @@ if(on){
             }
         }
         
-    
-    draw_text(10, 12, string_hash_to_newline("fps: "+string_format(fps_avg2, 2, 2)));
+	draw_text(10, 12, string_hash_to_newline("fps: "+string_format(fps_avg2, 2, 2)));
     
     draw_text(10, 36, string_hash_to_newline("direction: "+string_format(obj_player.direction_horizontal, 1, 0)+","+string_format(obj_player.direction_vertical, 1, 0)));
     draw_text(10, 60, string_hash_to_newline("hspeed: "+string_format(obj_player.hspd, 2, 2)));

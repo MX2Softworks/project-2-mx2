@@ -9,8 +9,10 @@
 	current_x = x;
 	previous_y = y;
 	current_y = y;
-	previous_acc = .5;
-    current_acc = .5;
+	previous_xacc = .5;
+    current_xacc = .5;
+	previous_yacc = .3;
+    current_yacc = .3;
 	
     maxspd = 8;
     minspd = 0;
@@ -20,7 +22,6 @@
     vspd_platform = 0; 
     xrem = 0;
     yrem = 0;
-    grav = .30;
     is_sliding = 0;
     is_rolling = 0;
 	
