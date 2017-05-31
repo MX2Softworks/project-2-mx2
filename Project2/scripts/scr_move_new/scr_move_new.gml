@@ -30,15 +30,16 @@ if (sign(movedis_x) == 1) {
 	movedis_x = ceil(movedis_x);
 }
 var increment = 0;
+var mask_width = sprite_get_bbox_right(sprite_index) - sprite_get_bbox_left(sprite_index);
 while (abs(increment) < abs(movedis_x)) {
 	// Check to see if less than half of the sprite is left to check.
-	if ((abs(movedis_x)-abs(increment)) < (floor(sprite_width / 2))) {
+	if ((abs(movedis_x)-abs(increment)) < (floor(mask_width / 2))) {
 		// Can check the full distance.
 		increment = movedis_x;
 	} else {
 		// Use floor in case of an odd sprite width to avoid missing a pixel.
 		// Ex: 1.5 -> 1 -> 3 skipping 2.
-		increment += (floor(sprite_width / 2)) * sign(movedis_x);
+		increment += (floor(mask_width / 2)) * sign(movedis_x);
 	}
 	if (place_meeting(previous_x+increment, previous_y, obj_solid)) {
 		// If the path is not free, walk the increment back until it is.
@@ -51,7 +52,11 @@ while (abs(increment) < abs(movedis_x)) {
 	// else path is still free check further.
 }
 // movedis_x now has the full distance you can travel stored in it.
+current_x = previous_x + movedis_x;
 
 // IMPORTANT:	DO ALL Y CHECKS AT THE NEW X POSITION!!!
 //				THINK OF WHAT TO DO WITH REMAINDERS!!!
 //				THINK OF HOW TO TREAT DIAGONAL COLLISIONS!!!
+
+
+var mask_height = sprite_get_bbox_top(sprite_index) - sprite_get_bbox_bottom(sprite_index);
