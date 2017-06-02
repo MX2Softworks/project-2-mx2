@@ -1,4 +1,4 @@
-/// @function  scr_move_new
+/// @function  scr_update_position
 /// @param collision_object
 
 // Called at the beginning of the step.
@@ -48,6 +48,7 @@ while (abs(increment) < abs(movedis_x)) {
 		}
 		// Moving by increment will no longer collide. Set new movedis_x.
 		movedis_x = increment;
+		collision_x = true;
 	}
 	// else path is still free check further.
 }
@@ -56,7 +57,6 @@ current_x = previous_x + movedis_x;
 
 // IMPORTANT:	DO ALL Y CHECKS AT THE NEW X POSITION!!!
 //				THINK OF WHAT TO DO WITH REMAINDERS!!!
-//				THINK OF HOW TO TREAT DIAGONAL COLLISIONS!!!
 
 
 var mask_height = sprite_get_bbox_top(sprite_index) - sprite_get_bbox_bottom(sprite_index);

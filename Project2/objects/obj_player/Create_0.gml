@@ -14,6 +14,9 @@
 	previous_yacc = .3;
     current_yacc = .3;
 	
+	collision_x = false;
+	collision_y = false;
+	
     maxspd = 8;
     minspd = 0;
     jumpheight = 8;
