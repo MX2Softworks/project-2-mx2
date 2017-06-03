@@ -40,8 +40,6 @@ if(on){
 	draw_text(10, 12, string_hash_to_newline("fps: "+string_format(fps_avg2, 2, 2)));
     
     draw_text(10, 36, string_hash_to_newline("direction: "+string_format(obj_player.direction_horizontal, 1, 0)+","+string_format(obj_player.direction_vertical, 1, 0)));
-    draw_text(10, 60, string_hash_to_newline("hspeed: "+string_format(obj_player.hspd, 2, 2)));
-    draw_text(10, 72, string_hash_to_newline("vspeed: "+string_format(obj_player.vspd, 2, 2)));
     
     draw_text(10, 96, string_hash_to_newline("xcoor: "+string_format(obj_player.x, 2, 2)));
     draw_text(10, 108, string_hash_to_newline("ycoor: "+string_format(obj_player.y, 2, 2)));

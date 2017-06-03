@@ -1,0 +1,23 @@
+/// @description Update the object's position in the room.
+/// @param {obj} collision The object you are checking collisions against.
+/// @param {str} scr_accel The script name of the acceleration update for the current object.
+
+var collision = argument0;
+var scr_accel = argument1;
+
+// Add delta time to the accumulator.
+	accumulator += global.frame_time;
+	
+// Update physics potentially multiple times to keep up to date.
+	while (accumulator >= global.dt) {
+		scr_physics_update(collision, scr_accel);
+		
+		accumulator -= global.dt;
+	}
+	
+// Calculate interpolation value based on the leftover time in accumulator.
+	var interp_alpha = accumulator / global.dt;
+	
+// Update position of the object in the room.
+	x = lerp(previous_x, current_x, interp_alpha);
+	y = lerp(previous_y, current_y, interp_alpha);

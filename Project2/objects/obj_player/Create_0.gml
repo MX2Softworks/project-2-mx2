@@ -119,8 +119,6 @@
     pickup_item = false;
     open_door = false;
 
-state = scr_player_move_state;
-
 // Create the audio emitter
     audio_em = audio_emitter_create();
     
