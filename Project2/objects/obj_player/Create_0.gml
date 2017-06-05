@@ -9,10 +9,10 @@
 	current_x = x;
 	previous_y = y;
 	current_y = y;
-	previous_xacc = .5;
-    current_xacc = .5;
-	previous_yacc = .3;
-    current_yacc = .3;
+	previous_xacc = 0;
+    current_xacc = 0;
+	previous_yacc = 0;
+    current_yacc = 0;
 	
 	collision_x = false;
 	collision_y = false;

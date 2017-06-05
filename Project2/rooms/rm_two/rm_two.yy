@@ -7800,7 +7800,7 @@
             "hspeed": -1,
             "hview": 576,
             "inherit": false,
-            "objId": "00000000-0000-0000-0000-000000000000",
+            "objId": "89f5ea2a-2712-4df5-9111-fa6384b85321",
             "vborder": 405,
             "visible": true,
             "vspeed": -1,

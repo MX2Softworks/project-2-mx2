@@ -41,6 +41,9 @@ if(on){
     
     draw_text(10, 36, string_hash_to_newline("direction: "+string_format(obj_player.direction_horizontal, 1, 0)+","+string_format(obj_player.direction_vertical, 1, 0)));
     
+	draw_text(10, 48, "XACC: " + string_format(obj_player.current_xacc, 5, 2));
+	draw_text(10, 60, "XSPD: " + string_format(obj_player.current_hspd, 5, 2));
+	
     draw_text(10, 96, string_hash_to_newline("xcoor: "+string_format(obj_player.x, 2, 2)));
     draw_text(10, 108, string_hash_to_newline("ycoor: "+string_format(obj_player.y, 2, 2)));
     
