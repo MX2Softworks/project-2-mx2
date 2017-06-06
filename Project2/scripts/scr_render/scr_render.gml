@@ -1,16 +1,18 @@
 /// @description Update the object's position in the room.
 /// @param {obj} collision The object you are checking collisions against.
 /// @param {str} scr_accel The script name of the acceleration update for the current object.
+/// @param {str} scr_velo_mod The script name of the optional script to modify the velocity after verlet.
 
 var collision = argument0;
 var scr_accel = argument1;
+var scr_velo_mod = argument2;
 
 // Add delta time to the accumulator.
 	accumulator += global.frame_time;
 	
 // Update physics potentially multiple times to keep up to date.
 	while (accumulator >= global.dt) {
-		scr_physics_update(collision, scr_accel);
+		scr_physics_update(collision, scr_accel, scr_velo_mod);
 		
 		accumulator -= global.dt;
 	}

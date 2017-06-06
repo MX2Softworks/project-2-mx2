@@ -18,7 +18,7 @@ else if(instance_exists(obj_game_mode) && global.pauseActive == false){
 /// Execute the state
 scr_fix_spawn(obj_solid)
 scr_get_input();
-script_execute(scr_render, obj_solid, scr_player_accel);
+script_execute(scr_render, obj_solid, scr_player_accel, scr_player_velo_mod);
 
 /// Key Collection
 

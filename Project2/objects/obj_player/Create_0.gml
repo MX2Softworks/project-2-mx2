@@ -17,6 +17,8 @@
 	collision_x = false;
 	collision_y = false;
 	
+	on_ground = true;
+	
     maxspd = 8;
     minspd = 0;
     jumpheight = 8;
