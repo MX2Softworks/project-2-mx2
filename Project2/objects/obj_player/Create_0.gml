@@ -11,8 +11,8 @@
 	current_y = y;
 	previous_xacc = 0;
     current_xacc = 0;
-	previous_yacc = 0;
-    current_yacc = 0;
+	previous_yacc = 1200;
+    current_yacc = 1200;
 	
 	collision_x = false;
 	collision_y = false;

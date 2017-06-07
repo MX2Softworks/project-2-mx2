@@ -8,3 +8,5 @@ fps_total2 = 0;
 frames2 = 0;
 on = true; 
 
+player_path_id = 0;
+draw_debug_line = false;

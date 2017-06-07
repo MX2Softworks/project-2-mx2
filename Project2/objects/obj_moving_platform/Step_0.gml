@@ -58,8 +58,8 @@ if(instance_exists(obj_enemy_patrol)){
     }*/
     
 // apply movement
-x += hspd;
-y += vspd;
+//x += hspd;
+//y += vspd;
 
 /* */
 /*  */

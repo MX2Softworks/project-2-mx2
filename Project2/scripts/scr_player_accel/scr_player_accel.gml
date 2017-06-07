@@ -1,21 +1,10 @@
 /// Calculates the players acceleration based on the state of the player.
 
 // Horizontal Acceleration
-// cur = prev + 120
 	current_xacc = previous_xacc + (115200 * global.dt) * direction_horizontal;
-	if (!on_ground) {
-		current_yacc = previous_yacc + (720 * global.dt);
-	} else {
-		current_yacc = 0;
-	}
 
 // Limit acceleration when running normally.
-	if (current_xacc > 2880) {
-		current_xacc = 2880;
-	}
-	if (current_xacc < -2880) {
-		current_xacc = -2880;
-	}
+	current_xacc = clamp(current_xacc, -2800, 2800);
 
 // Slow the player down if they stop giving input.
 	if (direction_horizontal == 0) {
@@ -31,10 +20,15 @@
 
 
 // Vertical Acceleration
-// 
-	if (current_yacc > 600) {
-		current_yacc = 600;
-	}
-	if (current_yacc < -600) {
-		current_yacc = -600;
+	if (!on_ground) {
+		if (!jumppeak) {
+			// In the air not at the jump peak
+			current_yacc = 1200;
+		} else {
+			// In the air at the jump peak
+			current_yacc = previous_yacc + (12000 * global.dt);
+			current_yacc = clamp(current_yacc, 0, 4800);
+		}
+	} else {
+		current_yacc = 1200;
 	}
