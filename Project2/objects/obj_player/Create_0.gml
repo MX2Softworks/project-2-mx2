@@ -18,6 +18,7 @@
 	collision_y = false;
 	
 	on_ground = true;
+	jump_hold_stop = false;
 	
     maxspd = 8;
     minspd = 0;

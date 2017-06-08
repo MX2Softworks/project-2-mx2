@@ -21,13 +21,16 @@
 
 // Vertical Acceleration
 	if (!on_ground) {
-		if (!jumppeak) {
+		if (up_released) {
+			jump_hold_stop = true;
+		}
+		if (!jumppeak && !jump_hold_stop) {
 			// In the air not at the jump peak
 			current_yacc = 1200;
 		} else {
 			// In the air at the jump peak
 			current_yacc = previous_yacc + (12000 * global.dt);
-			current_yacc = clamp(current_yacc, 0, 4800);
+			current_yacc = clamp(current_yacc, 0, 3600);
 		}
 	} else {
 		current_yacc = 1200;
