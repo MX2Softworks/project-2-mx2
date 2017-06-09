@@ -13,35 +13,40 @@
     current_xacc = 0;
 	previous_yacc = 1200;
     current_yacc = 1200;
+    xrem = 0;
+    yrem = 0;
 	
 	collision_x = false;
 	collision_y = false;
 	
 	on_ground = true;
 	jump_hold_stop = false;
+	fast_fall = false;
+    wall_slide = false; 
+    start_slide = true;
+    jumppeak = false;
+	wall_grab = false;
+	wall_push = false;
 	
-    maxspd = 8;
-    minspd = 0;
-    jumpheight = 8;
-    jumppeak = 0;
-    hspd_platform = 0;
-    vspd_platform = 0; 
-    xrem = 0;
-    yrem = 0;
-    is_sliding = 0;
-    is_rolling = 0;
+	room_start_x = x;
+	room_start_y = y;
 	
 // Timestep
 	accumulator = 0;
 
-// Wall Jumping
-    wall_slide = false;  
-    start_slide = false;
+// Wall Jumping 
     wall_jump = false;   
     wall_jump_counter = 0;
     wall_jump_counter_max = 7;
-    wall_push = false;
     push_frames = 0;
+	
+    hspd_platform = 0;
+    vspd_platform = 0; 
+    is_sliding = 0;
+    is_rolling = 0;
+    maxspd = 8;
+    minspd = 0;
+    jumpheight = 8;
     
 // Dash variables
     dash_count = 0;
