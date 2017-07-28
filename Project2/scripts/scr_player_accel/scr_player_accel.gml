@@ -1,15 +1,14 @@
 /// Calculates the players acceleration based on the state of the player.
 
-// Horizontal Acceleration
+/// Horizontal Acceleration
 // Determine how to accelerate when wall sliding.
 	if (wall_slide) {
-		if ((direction_horizontal == 1 && place_meeting(current_x-1, current_y, obj_solid)) 
-		|| (direction_horizontal == -1 && place_meeting(current_x+1, current_y, obj_solid))) {
-			// Wall push
-			
+		if ((wall_push && place_meeting(current_x-1, current_y, obj_solid)) 
+		|| (wall_push && place_meeting(current_x+1, current_y, obj_solid))) {
+			// Wall push (unneccesary)
 			wall_grab = false;
-		} else if (((direction_horizontal == 1 && place_meeting(current_x+1, current_y, obj_solid)) 
-		|| (direction_horizontal == -1 && place_meeting(current_x-1, current_y, obj_solid))) 
+		} else if (((grab && place_meeting(current_x+1, current_y, obj_solid)) 
+		|| (grab && place_meeting(current_x-1, current_y, obj_solid))) 
 		&& !fast_fall) {
 			// Wall grab
 			wall_grab = true;
@@ -19,10 +18,17 @@
 			current_xacc = 0;
 		}
 	} else {
-		// Not wall sliding, can move normally
+		// Not wall sliding, can move normally horizontally.
 		current_xacc = previous_xacc + (115200 * global.dt) * direction_horizontal;
 		// Limit acceleration when running normally.
 		current_xacc = clamp(current_xacc, -2800, 2800);
+		// Do not allow acceleration when colliding with a wall.
+		if (place_meeting(current_x-1, current_y, obj_solid)) {
+			current_xacc = clamp(current_xacc, 0, 2800);
+		}
+		if (place_meeting(current_x+1, current_y, obj_solid)) {
+			current_xacc = clamp(current_xacc, -2800, 0);
+		}
 		
 		// Slow the player down if they stop giving input.
 		if (direction_horizontal == 0) {
@@ -38,7 +44,7 @@
 	}
 
 
-// Vertical Acceleration
+/// Vertical Acceleration
 	if (!on_ground) {
 		// Directional input while in mid-air
 		if (up_released) {

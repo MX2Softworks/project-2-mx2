@@ -55,60 +55,60 @@
     } 
     
 
-    //Wall Sliding
-    //Set wall_sliding to true if we are touching a wall in midair.
-    if((place_meeting(x-1, y, obj_solid) || place_meeting(x+1, y, obj_solid)) && !place_meeting(x, y+1, obj_solid) && !place_meeting(x, y, obj_solid) && !place_meeting(x, y, obj_platform)){
-        wall_slide = true;
-    }
-    //If we are no longer wall sliding, swap our sprite's direction. 
-    else if(wall_slide == true && (!place_meeting(x-1, y, obj_solid) || !place_meeting(x+1, y, obj_solid) || place_meeting(x, y+1, obj_solid))){
-        wall_slide = false;
-        hspd = -sign(image_xscale); 
-    }
-    //If we are not touching a wall then set wall sliding to false. 
-    else {
-        wall_slide = false; 
-    }
+    ////Wall Sliding
+    ////Set wall_sliding to true if we are touching a wall in midair.
+    //if((place_meeting(x-1, y, obj_solid) || place_meeting(x+1, y, obj_solid)) && !place_meeting(x, y+1, obj_solid) && !place_meeting(x, y, obj_solid) && !place_meeting(x, y, obj_platform)){
+    //    wall_slide = true;
+    //}
+    ////If we are no longer wall sliding, swap our sprite's direction. 
+    //else if(wall_slide == true && (!place_meeting(x-1, y, obj_solid) || !place_meeting(x+1, y, obj_solid) || place_meeting(x, y+1, obj_solid))){
+    //    wall_slide = false;
+    //    hspd = -sign(image_xscale); 
+    //}
+    ////If we are not touching a wall then set wall sliding to false. 
+    //else {
+    //    wall_slide = false; 
+    //}
     
-    // If sliding you can push off the wall.
-    if (wall_slide == true) {
-        if (wall_push && push_frames <= 0) {
-            push_frames = 5;
-        }
-        if (push_frames > 0) {
-            if (push_frames == 5) {
-                hspd =  -5 * sign(image_xscale);
-            } else {
-                hspd =  5 * sign(image_xscale);
-            }
-            push_frames -= 1;
-            if (push_frames == 0) {
-                wall_slide = false; 
-            }
-        }
-    }
+    //// If sliding you can push off the wall.
+    //if (wall_slide == true) {
+    //    if (wall_push && push_frames <= 0) {
+    //        push_frames = 5;
+    //    }
+    //    if (push_frames > 0) {
+    //        if (push_frames == 5) {
+    //            hspd =  -5 * sign(image_xscale);
+    //        } else {
+    //            hspd =  5 * sign(image_xscale);
+    //        }
+    //        push_frames -= 1;
+    //        if (push_frames == 0) {
+    //            wall_slide = false; 
+    //        }
+    //    }
+    //}
         
-    //Constantly apply gravity. 
-    if(vspd <= 15){
+    ////Constantly apply gravity. 
+    //if(vspd <= 15){
     
-        //Apply gravity at the normal rate if the player is not wall sliding. 
-        if(wall_slide == false) {
-            vspd += (grav * (jumppeak*3 + 1)) *  global.delta;
-            start_slide = true; 
-        } else {
-            if (start_slide) {
-                vspd = 0;
-                start_slide = false;
-            } else {
-                // Eliminates sliding until you hit the peak, else apply at the normal rate. 
-                if (jumppeak == 1) {
-                    vspd += grav/2 * global.delta; //wall sliding applies a smaller acceleration
-                } else {
-                    vspd += (grav * (jumppeak*3 + 1)) *  global.delta;
-                }
-            }
-        }
-    }
+    //    //Apply gravity at the normal rate if the player is not wall sliding. 
+    //    if(wall_slide == false) {
+    //        vspd += (grav * (jumppeak*3 + 1)) *  global.delta;
+    //        start_slide = true; 
+    //    } else {
+    //        if (start_slide) {
+    //            vspd = 0;
+    //            start_slide = false;
+    //        } else {
+    //            // Eliminates sliding until you hit the peak, else apply at the normal rate. 
+    //            if (jumppeak == 1) {
+    //                vspd += grav/2 * global.delta; //wall sliding applies a smaller acceleration
+    //            } else {
+    //                vspd += (grav * (jumppeak*3 + 1)) *  global.delta;
+    //            }
+    //        }
+    //    }
+    //}
     
     //Wall jumping
     if(wall_slide && up){

@@ -34,6 +34,7 @@ if (global.resume_frames <= 0) {
         charge_dash = keyboard_check_pressed(ord("G"));
         charge_dash_held = keyboard_check(ord("G"));
         charge_dash_released = keyboard_check_released(ord("G"));
+		grab = keyboard_check(ord("T"));
         
         wall_push = keyboard_check_pressed(ord("H"));
         

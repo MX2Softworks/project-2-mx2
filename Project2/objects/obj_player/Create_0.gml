@@ -97,6 +97,7 @@
     charge_dash = false;
     charge_dash_held = false;
     charge_dash_released = false;
+	grab = false;
     
     direction_horizontal = 0;
     direction_vertical = 0; 
