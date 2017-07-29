@@ -11,13 +11,13 @@
 //        hspd = min(abs(hspd)+((acc*(1+(sprint/2.0)))*global.delta), maxspd*(1+(sprint/2.0))) * sign(hspd); 
 //        wall_jump_counter += (1 * global.delta); 
 //    }
-//    //Slide if the player has horizontal speed but is holding down. 
-//    else if(wall_slide == true){
-//       // do nothing, but prevent other horizontal accelerations
-//    }
-//    else if(is_sliding == 1){
-//        hspd = max(abs(hspd) - ((acc*.25)*global.delta), 0) * sign(hspd);   
-//    }
+    ////Slide if the player has horizontal speed but is holding down. 
+    //else if(wall_slide == true){
+    //   // do nothing, but prevent other horizontal accelerations
+    //}
+    //else if(is_sliding == 1){
+    //    hspd = max(abs(hspd) - ((acc*.25)*global.delta), 0) * sign(hspd);   
+    //}
     //We check to see if we are attempting to change direction, or if we stop giving input. If so, slow down. 
     //else if(direction_horizontal == 0 || (hspd > 0 && direction_horizontal == -1) || (hspd < 0 && direction_horizontal == 1)){ 
     //    hspd = max(abs(hspd) - ((acc*1.5)*global.delta), 0) * sign(hspd);
@@ -110,13 +110,13 @@
     //    }
     //}
     
-    //Wall jumping
-    if(wall_slide && up){
-        vspd = up * -jumpheight*1.2; 
-        hspd =  -1 * sign(image_xscale);
-        wall_slide = false; 
-        wall_jump = true; 
-    }
+    ////Wall jumping
+    //if(wall_slide && up){
+    //    vspd = up * -jumpheight*1.2; 
+    //    hspd =  -1 * sign(image_xscale);
+    //    wall_slide = false; 
+    //    wall_jump = true; 
+    //}
 
     //Jump only if on a solid object. If our sprite is not standing, then check to make sure that we have atleast 8 pixels of headroom before we allow a jump. 
     if(place_meeting(x, y+1, obj_solid) 

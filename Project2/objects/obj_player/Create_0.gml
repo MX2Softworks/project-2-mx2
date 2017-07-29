@@ -27,6 +27,9 @@
     jumppeak = false;
 	wall_grab = false;
 	wall_push = false;
+	sliding = false;
+	rolling = false;
+    wall_jump = false; 
 	
 	room_start_x = x;
 	room_start_y = y;
@@ -34,8 +37,7 @@
 // Timestep
 	accumulator = 0;
 
-// Wall Jumping 
-    wall_jump = false;   
+// Wall Jumping   
     wall_jump_counter = 0;
     wall_jump_counter_max = 7;
     push_frames = 0;

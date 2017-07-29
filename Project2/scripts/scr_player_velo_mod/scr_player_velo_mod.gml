@@ -2,18 +2,31 @@
 
 /// Horizontal Speed
 // Limit max speed.
-	current_hspd = clamp(current_hspd, -500, 500);
+	if (rolling) {
+		current_hspd = clamp(current_hspd, -100, 100);
+	} else {
+		current_hspd = clamp(current_hspd, -500, 500);
+	}
 // Do not allow horizontal speed when colliding with a wall.
 	if (place_meeting(current_x-1, current_y, obj_solid)) {
-		current_hspd = clamp(current_hspd, 0, 500);
+		if (rolling) {
+			current_hspd = clamp(current_hspd, 0, 100);
+		} else {
+			current_hspd = clamp(current_hspd, 0, 500);
+		}
 	}
 	if (place_meeting(current_x+1, current_y, obj_solid)) {
-		current_hspd = clamp(current_hspd, -500, 0);
+		if (rolling) {
+			current_hspd = clamp(current_hspd, -100, 0);
+		} else {
+			current_hspd = clamp(current_hspd, -500, 0);
+		}
 	}
 
 // Input stopped and player slowed down so set speed to 0.
-	if (direction_horizontal == 0 && sign(previous_hspd) != sign(current_hspd)) {
+	if ((direction_horizontal == 0 || sliding) && sign(previous_hspd) != sign(current_hspd)) {
 		current_hspd = 0;
+		sliding = false;
 	}
 
 // Make sure the sprite is facing the direction of movement.
@@ -27,6 +40,18 @@
 			current_hspd = 350;
 		} else if (place_meeting(current_x+1, current_y, obj_solid)) {
 			current_hspd = -350;
+		}
+	}
+	
+// Player jumped off the wall.
+	if (!on_ground 
+	&& (place_meeting(current_x-1, current_y, obj_solid) || place_meeting(current_x+1, current_y, obj_solid)) 
+	&& up) {
+		wall_jump = true;
+		if (place_meeting(current_x-1, current_y, obj_solid)) {
+			current_hspd = 500;
+		} else if (place_meeting(current_x+1, current_y, obj_solid)) {
+			current_hspd = -500;
 		}
 	}
 
@@ -44,15 +69,18 @@
 		jump_hold_stop = false;
 		fast_fall = false;
 		wall_grab = false;
+		wall_jump = false;
 	}
 
 // Player jumped so set current vspd to jump speed.
-	if (up && on_ground == true) {
+	if (up && on_ground) {
 		current_vspd = -450;
 	}
 
 // Player wall jumped.
-	if (wall_slide && up) {
+	if (!on_ground 
+	&& (place_meeting(current_x-1, current_y, obj_solid) || place_meeting(current_x+1, current_y, obj_solid)) 
+	&& up) {
 		wall_jump = true;
 		jumppeak = false;
 		jump_hold_stop = false;

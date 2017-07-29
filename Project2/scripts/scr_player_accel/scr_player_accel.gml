@@ -30,12 +30,40 @@
 			current_xacc = clamp(current_xacc, -2800, 0);
 		}
 		
+		// Player is sliding or rolling.
+		if (on_ground && direction_horizontal != 0 && down_held) {
+			if (sign(current_hspd) == 1 && !rolling) {
+				// Sliding.
+				sliding = true;
+				current_xacc = -1400;
+			} else if (sign(current_hspd) == -1 && !rolling) {
+				// Sliding.
+				sliding = true;
+				current_xacc = 1400;
+			} else {
+				// Rolling.
+				sliding = false;
+				rolling = true;
+			}
+		} else {
+			sliding = false;
+			rolling = false;
+		}
+		
 		// Slow the player down if they stop giving input.
 		if (direction_horizontal == 0) {
 			if (sign(current_hspd) == 1) {
-				current_xacc = -2800;
+				if (wall_jump) {
+					current_xacc = -150;
+				} else {
+					current_xacc = -2800;
+				}
 			} else if (sign(current_hspd) == -1) {
-				current_xacc = 2800;
+				if (wall_jump) {
+					current_xacc = 150;
+				} else {
+					current_xacc = 2800;
+				}
 			} else {
 				// current_hspd = 0
 				current_xacc = 0;
