@@ -74,6 +74,8 @@ if(on){
     
     draw_text(10, 404, string_hash_to_newline("dash_held: "+string_format(obj_player.dash_distance_mod, 2, 2)));
     draw_text(10, 416, string_hash_to_newline("sprite_index: "+string_format(obj_player.sprite_index, 1, 0)));
+	
+	draw_text(10, 428, string_hash_to_newline("on_ground: "+string_format(obj_player.on_ground, 2, 2)));
 }
 
 // Dash Charge

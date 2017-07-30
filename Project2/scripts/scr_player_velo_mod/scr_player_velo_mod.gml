@@ -23,9 +23,10 @@
 		}
 	}
 
-// Input stopped and player slowed down so set speed to 0.
+// Input stopped and player stopped so set speed to 0.
 	if ((direction_horizontal == 0 || sliding) && sign(previous_hspd) != sign(current_hspd)) {
 		current_hspd = 0;
+		current_xacc = 0;
 		sliding = false;
 	}
 
@@ -70,6 +71,8 @@
 		fast_fall = false;
 		wall_grab = false;
 		wall_jump = false;
+		dash_count = 0;
+		dashing = false;
 	}
 
 // Player jumped so set current vspd to jump speed.
@@ -98,6 +101,9 @@
 	if (current_vspd >= 0) {
 		jumppeak = true;
 		wall_jump = false;
+		if (dash_up) {
+			dashing = false;
+		}
 	}
 
 // Check to see if we are about to wall slide.
@@ -122,4 +128,13 @@
 	if (on_ground || (!place_meeting(current_x+1, current_y, obj_solid) && !place_meeting(current_x-1, current_y, obj_solid))) {
 		wall_slide = false;
 		start_slide = true;
+	}
+	
+// Check to see if we are dashing.
+	if (!on_ground && dash && dash_count < 3) {
+		dashing = true;
+		script_execute(scr_dash_direction);
+		if (dash_right || dash_left || dash_up) {
+			dash_count++;
+		}
 	}

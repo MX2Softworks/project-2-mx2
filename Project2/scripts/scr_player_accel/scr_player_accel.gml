@@ -2,7 +2,7 @@
 
 /// Horizontal Acceleration
 // Determine how to accelerate when wall sliding.
-	if (wall_slide) {
+	if (wall_slide && !dashing) {
 		if ((wall_push && place_meeting(current_x-1, current_y, obj_solid)) 
 		|| (wall_push && place_meeting(current_x+1, current_y, obj_solid))) {
 			// Wall push (unneccesary)
@@ -22,12 +22,26 @@
 		current_xacc = previous_xacc + (115200 * global.dt) * direction_horizontal;
 		// Limit acceleration when running normally.
 		current_xacc = clamp(current_xacc, -2800, 2800);
-		// Do not allow acceleration when colliding with a wall.
-		if (place_meeting(current_x-1, current_y, obj_solid)) {
-			current_xacc = clamp(current_xacc, 0, 2800);
-		}
-		if (place_meeting(current_x+1, current_y, obj_solid)) {
-			current_xacc = clamp(current_xacc, -2800, 0);
+		if (!dashing) {
+			// Do not allow acceleration when colliding with a wall.
+			if (place_meeting(current_x-1, current_y, obj_solid)) {
+				current_xacc = clamp(current_xacc, 0, 2800);
+			}
+			if (place_meeting(current_x+1, current_y, obj_solid)) {
+				current_xacc = clamp(current_xacc, -2800, 0);
+			}
+		} else {
+			if (dash_up) {
+				current_xacc = 0;
+			}
+			// Do not allow acceleration when colliding with a wall.
+			// REPLACE WITH WALL BOUNCE.
+			if (place_meeting(current_x-1, current_y, obj_solid)) {
+				current_xacc = 0;
+			}
+			if (place_meeting(current_x+1, current_y, obj_solid)) {
+				current_xacc = 0;
+			}
 		}
 		
 		// Player is sliding or rolling.
@@ -51,7 +65,7 @@
 		}
 		
 		// Slow the player down if they stop giving input.
-		if (direction_horizontal == 0) {
+		if ((direction_horizontal == 0 && !dashing) || (dashing && !dash_up)) {
 			if (sign(current_hspd) == 1) {
 				if (wall_jump) {
 					current_xacc = -150;
@@ -87,6 +101,13 @@
 			// Increase gravity to pull faster
 			current_yacc = previous_yacc + (96000 * global.dt);
 			current_yacc = clamp(current_yacc, 0, 7200);
+		} else if (dashing) {
+			// Dashing.
+			if (dash_right || dash_left) {
+				current_yacc = 0;
+			} else {
+				current_yacc = 1200;
+			}
 		} else if (wall_slide) {
 			if (wall_grab) {
 				// Stop any acceleration when sliding.

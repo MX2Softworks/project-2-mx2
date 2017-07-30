@@ -30,6 +30,12 @@
 	sliding = false;
 	rolling = false;
     wall_jump = false; 
+	slowing = false;
+    dashing = false;
+	dash_up = false;
+	dash_right = false;
+	dash_left = false;
+    dash_count = 0;
 	
 	room_start_x = x;
 	room_start_y = y;
@@ -51,7 +57,6 @@
     jumpheight = 8;
     
 // Dash variables
-    dash_count = 0;
     can_dash = false;
     dash_speed = 30;
     dash_frames_v = 0;
@@ -70,7 +75,6 @@
     dash_distance_mod = 0;
     dash_charge_mode = false;
     dash_activate = false;
-    dashing = false;
 
 // Input variables
     right = false;
