@@ -8,7 +8,11 @@ var scr_accel = argument1;
 var scr_velo_mod = argument2;
 
 // Add delta time to the accumulator.
-	accumulator += global.frame_time;
+	if (charging) {
+		accumulator += global.frame_time / 10;
+	} else {
+		accumulator += global.frame_time;
+	}
 	
 // Update physics potentially multiple times to keep up to date.
 	while (accumulator >= global.dt) {

@@ -32,10 +32,16 @@
     wall_jump = false; 
 	slowing = false;
     dashing = false;
+	dash_init_hspd = false;
+	dash_init_vspd = false;
 	dash_up = false;
 	dash_right = false;
 	dash_left = false;
     dash_count = 0;
+	charging = false;
+	charge_time = 0;
+	charge_power = 0;
+	charge_start_time = 0;
 	
 	room_start_x = x;
 	room_start_y = y;

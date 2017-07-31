@@ -76,6 +76,9 @@ if(on){
     draw_text(10, 416, string_hash_to_newline("sprite_index: "+string_format(obj_player.sprite_index, 1, 0)));
 	
 	draw_text(10, 428, string_hash_to_newline("on_ground: "+string_format(obj_player.on_ground, 2, 2)));
+	
+	draw_text(10, 440, string_hash_to_newline("charge_time: "+string_format(obj_player.charge_time, 2, 2)));
+	draw_text(10, 452, string_hash_to_newline("frame_time: "+string_format(delta_time/1000000, 6, 6)));
 }
 
 // Dash Charge
@@ -86,22 +89,22 @@ if(on){
         draw_text(window_get_width()/2, 40, string_hash_to_newline("Full Dash Mode"));
     }
     draw_set_halign(fa_left);    
-    if (obj_player.dash_distance_mod >= 1) {
+    if (obj_player.charge_time >= 500000) {
         draw_rectangle_colour(window_get_width()-120, 20, window_get_width()-100, 60, c_maroon, c_maroon, c_maroon, c_maroon, false);
     }
-    if (obj_player.dash_distance_mod >= 2) {
+    if (obj_player.charge_time >= 1000000) {
         draw_rectangle_colour(window_get_width()-100, 20, window_get_width()-80, 60, c_red, c_red, c_red, c_red, false);
     }
-    if (obj_player.dash_distance_mod >= 3) {
+    if (obj_player.charge_time >= 1500000) {
         draw_rectangle_colour(window_get_width()-80, 20, window_get_width()-60, 60, c_yellow, c_yellow, c_yellow, c_yellow, false);
     }
-    if (obj_player.dash_distance_mod >= 4) {
+    if (obj_player.charge_time >= 2000000) {
         draw_rectangle_colour(window_get_width()-60, 20, window_get_width()-40, 60, c_lime, c_lime, c_lime, c_lime, false);
     }
-    if (obj_player.dash_distance_mod >= 5) {
+    if (obj_player.charge_time >= 2500000) {
         draw_rectangle_colour(window_get_width()-40, 20, window_get_width()-20, 60, c_green, c_green, c_green, c_green, false);
     }
-    if (obj_player.dash_held_frames >= 155 && obj_player.dash_held_frames <= 170) {
+    if (obj_player.charge_time >= 2000000) {
         draw_set_colour(c_red);
         draw_rectangle(window_get_width()-150, 25, window_get_width()-145, 45, false);
         draw_rectangle(window_get_width()-150, 50, window_get_width()-145, 55, false);

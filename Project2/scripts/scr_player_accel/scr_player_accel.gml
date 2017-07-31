@@ -33,14 +33,12 @@
 		} else {
 			if (dash_up) {
 				current_xacc = 0;
+				previous_xacc = 0;
 			}
-			// Do not allow acceleration when colliding with a wall.
-			// REPLACE WITH WALL BOUNCE.
-			if (place_meeting(current_x-1, current_y, obj_solid)) {
-				current_xacc = 0;
-			}
-			if (place_meeting(current_x+1, current_y, obj_solid)) {
-				current_xacc = 0;
+			// Bounced off the wall from a dash.
+			if ((dash_right || dash_left) 
+			&& (place_meeting(current_x+1, current_y, obj_solid) || place_meeting(current_x-1, current_y, obj_solid))) {
+				current_xacc = current_xacc * -1;
 			}
 		}
 		
@@ -105,6 +103,7 @@
 			// Dashing.
 			if (dash_right || dash_left) {
 				current_yacc = 0;
+				previous_yacc = 0;
 			} else {
 				current_yacc = 1200;
 			}
@@ -127,4 +126,11 @@
 	} else {
 		// Apply normal gravity.
 		current_yacc = 1200;
+	}
+
+// Limit acceleration if colliding with the ceiling.
+	if (!dashing) {
+		if (place_meeting(current_x, current_y-1, obj_solid)) {
+			current_yacc = max(current_yacc, 0);
+		}
 	}
