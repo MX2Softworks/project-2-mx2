@@ -1,7 +1,5 @@
-/// @description  scr_get_input()
-/// @function  scr_get_input
+/// Sets input variables for the current step.
 
-// Override the controls for a gamepad
 gp_id = 0;
 threshold = .8;
 

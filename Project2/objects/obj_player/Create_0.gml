@@ -1,5 +1,6 @@
 /// @description  Initialize the player
 
+// Refactor variables
 // Movement variables
 	previous_hspd = 0;
     current_hspd = 0;
@@ -15,10 +16,9 @@
     current_yacc = 1200;
     xrem = 0;
     yrem = 0;
-	
+	accumulator = 0;
 	collision_x = false;
 	collision_y = false;
-	
 	on_ground = true;
 	jump_hold_stop = false;
 	fast_fall = false;
@@ -42,67 +42,24 @@
 	charge_time = 0;
 	charge_power = 0;
 	charge_start_time = 0;
-	
-	room_start_x = x;
-	room_start_y = y;
-	
-// Timestep
-	accumulator = 0;
-
-// Wall Jumping   
-    wall_jump_counter = 0;
-    wall_jump_counter_max = 7;
-    push_frames = 0;
-	
-    hspd_platform = 0;
-    vspd_platform = 0; 
-    is_sliding = 0;
-    is_rolling = 0;
-    maxspd = 8;
-    minspd = 0;
-    jumpheight = 8;
-    
-// Dash variables
-    can_dash = false;
-    dash_speed = 30;
-    dash_frames_v = 0;
-    dash_frames_h = 0;
-    float_frames = 0;
-    fall_frames = 0;
-    v_float = false;
-    h_float_left = false;
-    h_float_right = false;
-    switch_left = false;
-    switch_right = false;
-    switch_up = false;
-    can_float = false;
-    dashed = false;
-    dash_held_frames = 0;
-    dash_distance_mod = 0;
-    dash_charge_mode = false;
-    dash_activate = false;
-
 // Input variables
+    direction_horizontal = 0;
+    direction_vertical = 0;
     right = false;
     right_held = false;
     right_released = false;
-    
     left = false;
     left_held = false;
     left_released = false;
-    
     up = false; 
     up_held = false;
     up_released = false;
     stick_up_held = false;
     stick_up = false;
     stick_up_released = false;
-    
     down = false;
     down_held = false;
     down_released = false;
-    
-    sprint = false;
     dash = false;
     dash_held = false;
     dash_released = false;
@@ -110,10 +67,6 @@
     charge_dash_held = false;
     charge_dash_released = false;
 	grab = false;
-    
-    direction_horizontal = 0;
-    direction_vertical = 0; 
-    
     diag_ul = false;
     diag_ul_held = false;
     diag_ul_released = false;
@@ -126,15 +79,29 @@
     diag_dr = false;
     diag_dr_held = false;
     diag_dr_released = false;
-    
-// Controller only variables
+// Controller only input variables
     gp_id = 0;
     threshold = .5;
     threshold_diag = 1.05;
     controller_alarm = 1;
     magnitude = 0;
     x_axis = 0;
-    y_axis = 0;   
+    y_axis = 0;
+
+
+// Reset
+	room_start_x = x;
+	room_start_y = y;
+	
+    hspd_platform = 0;
+    vspd_platform = 0; 
+    is_sliding = 0;
+    is_rolling = 0;
+    maxspd = 8;
+    minspd = 0;
+    jumpheight = 8;
+    
+    sprint = false; 
     
 // Hub world
     pickup_item = false;
