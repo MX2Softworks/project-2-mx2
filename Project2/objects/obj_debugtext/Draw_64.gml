@@ -72,7 +72,6 @@ if(on){
     draw_text(10, 368, string_hash_to_newline("down: "+string_format(obj_player.down, 2, 2)));
     draw_text(10, 380, string_hash_to_newline("y_axis: "+string_format(gamepad_axis_value(0, gp_axislv), 2, 2)));
     
-    draw_text(10, 404, string_hash_to_newline("dash_held: "+string_format(obj_player.dash_distance_mod, 2, 2)));
     draw_text(10, 416, string_hash_to_newline("sprite_index: "+string_format(obj_player.sprite_index, 1, 0)));
 	
 	draw_text(10, 428, string_hash_to_newline("on_ground: "+string_format(obj_player.on_ground, 2, 2)));
@@ -82,12 +81,6 @@ if(on){
 }
 
 // Dash Charge
-    draw_set_halign(fa_center);
-    if (obj_player.dash_charge_mode == true) {
-        draw_text(window_get_width()/2, 40, string_hash_to_newline("Dash Charge Mode"));
-    } else {
-        draw_text(window_get_width()/2, 40, string_hash_to_newline("Full Dash Mode"));
-    }
     draw_set_halign(fa_left);    
     if (obj_player.charge_time >= 500000) {
         draw_rectangle_colour(window_get_width()-120, 20, window_get_width()-100, 60, c_maroon, c_maroon, c_maroon, c_maroon, false);

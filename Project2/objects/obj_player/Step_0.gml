@@ -1,101 +1,14 @@
-/// @description If Game is Paused
+// Executed each timestep.
 
-//Pause Animations if Pause Game
-if(instance_exists(obj_game_mode) && global.pauseActive == true){
-    if(image_speed != 0){
-        speed_before_pause = image_speed;
-        image_speed = 0;
-    }
-    exit;  
-}
-else if(instance_exists(obj_game_mode) && global.pauseActive == false){
-    if(image_speed == 0 && speed_before_pause != 0){
-        image_speed = speed_before_pause; 
-        speed_before_pause = 0; 
-    }
-}
+// Move the player out of any walls, if they are stuck in them.
+scr_fix_spawn(obj_solid);
 
-/// Execute the state
-scr_fix_spawn(obj_solid)
+// Get the keyboard or gamepad input.
 scr_get_input();
-script_execute(scr_render, obj_solid, scr_player_accel, scr_player_velo_mod);
 
-/// Key Collection
+// Call the render script for the player.
+script_execute(scr_render, obj_solid, scr_player_accel, scr_player_velo_mod, scr_player_anim);
 
-// Pick up key 1
-if (place_meeting(x, y, obj_key_1) && pickup_item) {
-    global.key_1_collected = true;
-    with (instance_find(obj_key_1, 0)) {
-        instance_destroy();
-    }
-}
-// Pick up key 2
-if (place_meeting(x, y, obj_key_2) && pickup_item) {
-    global.key_2_collected = true;
-    with (instance_find(obj_key_2, 0)) {
-        instance_destroy();
-    }
-}
-// Pick up key 4
-if (place_meeting(x, y, obj_key_3) && pickup_item) {
-    global.key_3_collected = true;
-    with (instance_find(obj_key_3, 0)) {
-        instance_destroy();
-    }
-}
-
-/// Door Collision Events
-
-switch(room) {
-    case rm_one:
-        // In hub room
-        if (place_meeting(x, y, obj_door_1) && open_door && global.key_1_collected) {
-            room_goto(rm_two);
-            audio_emitter_gain(audio_em, .5);
-            audio_play_sound_on(audio_em, snd_gong, false, 8);
-            global.last_room = rm_one;
-        }
-        if (place_meeting(x, y, obj_door_2) && open_door && global.key_2_collected) {
-            room_goto(rm_three);
-            audio_emitter_gain(audio_em, .5);
-            audio_play_sound_on(audio_em, snd_gong, false, 8);
-            global.last_room = rm_one;
-        }
-        if (place_meeting(x, y, obj_door_3) && open_door && global.key_3_collected) {
-            room_goto(rm_four);
-            audio_emitter_gain(audio_em, .5);
-            audio_play_sound_on(audio_em, snd_gong, false, 8);
-            global.last_room = rm_one;
-        }
-        break;
-    case rm_two:
-        // In room two
-        if (place_meeting(x, y, obj_door_0) && open_door) {
-            room_goto(rm_one);
-            audio_emitter_gain(audio_em, .5);
-            audio_play_sound_on(audio_em, snd_gong, false, 8);
-            global.last_room = rm_two;
-        }
-        break;
-    case rm_three:
-        // In room three
-        if (place_meeting(x, y, obj_door_0) && open_door) {
-            room_goto(rm_one);
-            audio_emitter_gain(audio_em, .5);
-            audio_play_sound_on(audio_em, snd_gong, false, 8);
-            global.last_room = rm_three;
-        }
-        break;
-    case rm_four:
-        // In room four
-        if (place_meeting(x, y, obj_door_0) && open_door) {
-            room_goto(rm_one);
-            audio_emitter_gain(audio_em, .5);
-            audio_play_sound_on(audio_em, snd_gong, false, 8);
-            global.last_room = rm_four;
-        }
-        break;
-}
 
 /////Animations
 ////Horizontal animations if no vertical speed. 

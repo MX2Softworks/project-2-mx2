@@ -26,7 +26,7 @@ var scr_velo_mod = argument2;
 	// Also update whether our new position is on the ground or not.
 	script_execute(scr_on_ground_check, current_x, current_y);
 
-// NEED TO CLEAR REMAINDERS SOOOOOOON!!!!!!!!
+// REMEMBER TO CLEAR REMAINDERS!!!!!!!!
 
 // Calculate the new accelerations.
 // Will be used to calculate position next update.

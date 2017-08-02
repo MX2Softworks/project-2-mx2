@@ -1,4 +1,4 @@
-/// Determines the direction of the dash.
+/// @description Determines the direction of the dash.
 
 // Dashing up.
 	if (((up_held && !gamepad_is_connected(0)) || (stick_up_held && gamepad_is_connected(0))) 

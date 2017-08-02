@@ -6,9 +6,10 @@
     draw_rectangle_colour(obj_player.x-10, obj_player.y-15, obj_player.x+10, obj_player.y+14, c_fuchsia, c_fuchsia, c_fuchsia, c_fuchsia, true);
 
 // Dash indicator
-    if (dash_distance_mod > 0) {
+    if (charge_time > 0) {
         var charge_color;
-        switch (dash_distance_mod) {
+		var charge_mod = charge_time % 500000;
+        switch (charge_mod) {
             case 1:
                 charge_color = c_maroon;
                 break;

@@ -1,4 +1,4 @@
-/// Calculates the players acceleration based on the state of the player.
+/// @description Calculates the players acceleration based on the state of the player.
 
 /// Horizontal Acceleration
 // Determine how to accelerate when wall sliding.

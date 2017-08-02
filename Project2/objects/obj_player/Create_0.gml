@@ -1,4 +1,7 @@
-/// @description  Initialize the player
+/// Initialize the player.
+
+// Move the player out of all objects, if any, when they are spawned.
+scr_fix_spawn(obj_all);
 
 // Refactor variables
 // Movement variables
@@ -42,6 +45,8 @@
 	charge_time = 0;
 	charge_power = 0;
 	charge_start_time = 0;
+	charge_slow = 20;
+	sprinting = false;
 // Input variables
     direction_horizontal = 0;
     direction_vertical = 0;
@@ -66,6 +71,7 @@
     charge_dash = false;
     charge_dash_held = false;
     charge_dash_released = false;
+    sprint = false;
 	grab = false;
     diag_ul = false;
     diag_ul_held = false;
@@ -88,31 +94,16 @@
     x_axis = 0;
     y_axis = 0;
 
-
-// Reset
-	room_start_x = x;
-	room_start_y = y;
-	
-    hspd_platform = 0;
-    vspd_platform = 0; 
-    is_sliding = 0;
-    is_rolling = 0;
-    maxspd = 8;
-    minspd = 0;
-    jumpheight = 8;
-    
-    sprint = false; 
-    
+// Temp
 // Hub world
     pickup_item = false;
     open_door = false;
-
+// Reset
+	room_start_x = x;
+	room_start_y = y;
+    hspd_platform = 0;
+    vspd_platform = 0;
 // Create the audio emitter
     audio_em = audio_emitter_create();
-    
-scr_fix_spawn(obj_all);
-
-///Pause related variables
-speed_before_pause = 0;
-
-
+// Pause related variables
+	speed_before_pause = 0;

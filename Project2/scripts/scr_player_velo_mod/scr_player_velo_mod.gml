@@ -1,11 +1,15 @@
-/// Modifies the velocity after the verlet calculation.
+/// @description Modifies the velocity after the verlet calculation.
 
 /// Horizontal Speed
 // Limit max speed.
 	if (rolling) {
 		current_hspd = clamp(current_hspd, -100, 100);
 	} else if (!dashing) {
-		current_hspd = clamp(current_hspd, -500, 500);
+		if (sprinting) {
+			current_hspd = clamp(current_hspd, -750, 750);
+		} else {
+			current_hspd = clamp(current_hspd, -500, 500);
+		}
 	}
 // Do not allow horizontal speed when colliding with a wall.
 	if (!dashing) {
@@ -13,14 +17,22 @@
 			if (rolling) {
 				current_hspd = clamp(current_hspd, 0, 100);
 			} else {
-				current_hspd = clamp(current_hspd, 0, 500);
+				if (sprinting) {
+					current_hspd = clamp(current_hspd, 0, 750);
+				} else {
+					current_hspd = clamp(current_hspd, 0, 500);
+				}
 			}
 		}
 		if (place_meeting(current_x+1, current_y, obj_solid)) {
 			if (rolling) {
 				current_hspd = clamp(current_hspd, -100, 0);
 			} else {
-				current_hspd = clamp(current_hspd, -500, 0);
+				if (sprinting) {
+					current_hspd = clamp(current_hspd, -750, 0);
+				} else {
+					current_hspd = clamp(current_hspd, -500, 0);
+				}
 			}
 		}
 	}
@@ -29,14 +41,12 @@
 	if ((((direction_horizontal == 0 || sliding) && !dashing) || (dashing && !dash_up)) && sign(previous_hspd) != sign(current_hspd)) {
 		current_hspd = 0;
 		current_xacc = 0;
+		xrem = 0;
 		sliding = false;
 		dashing = false;
+		dash_right = false;
+		dash_left = false;
 		dash_init_hspd = false;
-	}
-
-// Make sure the sprite is facing the direction of movement.
-	if (previous_hspd != 0) {
-		image_xscale = sign(previous_hspd);
 	}
 
 // Player pushed off the wall.
@@ -90,6 +100,7 @@
 // Player is on the ground. Can reset variables.
 	if (on_ground) {
 		current_vspd = 0;
+		yrem = 0;
 		jumppeak = false;
 		jump_hold_stop = false;
 		fast_fall = false;
@@ -105,6 +116,7 @@
 	if (!dashing) {
 		if (place_meeting(current_x, current_y-1, obj_solid)) {
 			current_vspd = max(current_vspd, 0);
+			yrem = 0;
 		}
 	}
 
@@ -155,6 +167,7 @@
 		wall_jump = false;
 		if (dash_up) {
 			dashing = false;
+			dash_up = false;
 			dash_init_vspd = false;
 		}
 	}
@@ -182,10 +195,18 @@
 		wall_slide = false;
 		start_slide = true;
 	}
+
+// Check to see if we are sprinting.
+	if (sprint) {
+		sprinting = true;
+	} else {
+		sprinting = false;
+	}
 	
 // Check to see if we are dashing.
 	if (!on_ground && dash && dash_count < 3) {
 		dashing = true;
+		dash = false;
 		charge_power = 1;
 		dash_init_hspd = false;
 		dash_init_vspd = false;
@@ -197,12 +218,13 @@
 
 // If we are charging accumulate frame time.
 	if (charging) {
-		charge_time += delta_time*10;
+		charge_time += delta_time*charge_slow;
 	}
 
 // Check to see if we are charge dashing.
 	if (!on_ground && charge_dash && dash_count < 3) {
 		charging = true;
+		charge_dash = false;
 		dash_count++;
 	}
 
