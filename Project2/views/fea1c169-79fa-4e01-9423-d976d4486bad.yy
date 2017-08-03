@@ -13,7 +13,8 @@
         "00ccdfa6-3af4-4714-8d85-850974e617c5",
         "68961094-3d97-4dc3-9eff-01cd684e1a52",
         "cdb3dd6e-f823-4313-8b53-bfdf23fb0044",
-        "5d6eb9ea-621a-47e7-8a1c-f3d9b454eb64"
+        "5d6eb9ea-621a-47e7-8a1c-f3d9b454eb64",
+        "b5e358f9-4a83-45a6-8a29-a9c5e9d0fbd2"
     ],
     "filterType": "GMScript",
     "folderName": "Refactored Scripts",

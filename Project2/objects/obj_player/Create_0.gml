@@ -47,6 +47,9 @@ scr_fix_spawn(obj_all);
 	charge_start_time = 0;
 	charge_slow = 20;
 	sprinting = false;
+	anim_loop = false;
+	prev_sprite = spr_player_idle;
+	anim_transition = false;
 // Input variables
     direction_horizontal = 0;
     direction_vertical = 0;

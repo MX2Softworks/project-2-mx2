@@ -2,12 +2,14 @@
 /// @param {obj} collision The object you are checking collisions against.
 /// @param {str} scr_accel The script name of the acceleration update for the current object.
 /// @param {str} scr_velo_mod The script name of the optional script to modify the velocity after verlet.
+/// @param {str} scr_state The script name of the state update code.
 
 // Uses velocities and accelerations calculated from the prior update.
 
 var collision = argument0;
 var scr_accel = argument1;
 var scr_velo_mod = argument2;
+var scr_state = argument3;
 
 // First calculate the new position and check for collisions.
 
@@ -42,6 +44,10 @@ var scr_velo_mod = argument2;
 	current_vspd = previous_vspd + (current_yacc + previous_yacc) / 2 * global.dt;
 	
 	script_execute(scr_velo_mod);
+
+
+// Update our state variables.
+	script_execute(scr_state);
 
 
 // Set previous acceleration to current acceleration.

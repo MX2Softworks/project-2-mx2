@@ -78,6 +78,8 @@ if(on){
 	
 	draw_text(10, 440, string_hash_to_newline("charge_time: "+string_format(obj_player.charge_time, 2, 2)));
 	draw_text(10, 452, string_hash_to_newline("frame_time: "+string_format(delta_time/1000000, 6, 6)));
+	draw_text(10, 464, string_hash_to_newline("down_held: "+string_format(obj_player.down_held, 6, 6)));
+	draw_text(10, 476, string_hash_to_newline("image_index: "+string_format(obj_player.image_index, 6, 6)));
 }
 
 // Dash Charge
