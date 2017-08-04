@@ -1,4 +1,4 @@
-/// 
+/// Reset the debug path.
 
 if (path_exists(player_path_id)) {
 	path_delete(player_path_id);

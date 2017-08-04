@@ -106,7 +106,5 @@ scr_fix_spawn(obj_all);
 	room_start_y = y;
     hspd_platform = 0;
     vspd_platform = 0;
-// Create the audio emitter
-    audio_em = audio_emitter_create();
 // Pause related variables
 	speed_before_pause = 0;

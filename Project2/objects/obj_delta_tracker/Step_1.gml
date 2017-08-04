@@ -1,4 +1,4 @@
-/// @description  Calculate the delta value
+/// Calculate the delta value.
 
 // Time passed since the last frame in seconds.
 // delta_time / 1000000 = 1 / framerate
@@ -11,23 +11,22 @@ if (global.frame_time > .25) {
 }
 
 ///Manual Room Speed Control
-
 if(keyboard_check_pressed(vk_numpad0)){
-    room_speed = 5
+    room_speed = 5;
 }
 else if(keyboard_check_pressed(vk_numpad1)){
-    room_speed = 10
+    room_speed = 10;
 }
 else if(keyboard_check_pressed(vk_numpad2)){
-    room_speed = 30
+    room_speed = 30;
 }
 else if(keyboard_check_pressed(vk_numpad3)){
-    room_speed = 60
+    room_speed = 60;
 }
 else if(keyboard_check_pressed(vk_numpad4)){
-    room_speed = 120
+    room_speed = 120;
 }
 else if(keyboard_check_pressed(vk_numpad5)){
-    room_speed = 240
+    room_speed = 240;
 }
 
