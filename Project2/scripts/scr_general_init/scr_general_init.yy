@@ -1,8 +1,8 @@
 {
-    "id": "e8dc8a8f-b716-4445-af31-c09f9b32a368",
+    "id": "0f5dac7c-1c0c-490d-8219-2570c8f185f1",
     "modelName": "GMScript",
     "mvc": "1.0",
-    "name": "macros",
+    "name": "scr_general_init",
     "IsCompatibility": false,
     "IsDnD": false
 }

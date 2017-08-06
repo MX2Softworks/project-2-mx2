@@ -3,25 +3,10 @@
 // Move the player out of all objects, if any, when they are spawned.
 scr_fix_spawn(obj_all);
 
-// Refactor variables
-// Movement variables
-	previous_hspd = 0;
-    current_hspd = 0;
-	previous_vspd = 0;
-    current_vspd = 0;
-	previous_x = x;
-	current_x = x;
-	previous_y = y;
-	current_y = y;
-	previous_xacc = 0;
-    current_xacc = 0;
-	previous_yacc = 1200;
-    current_yacc = 1200;
-    xrem = 0;
-    yrem = 0;
-	accumulator = 0;
-	collision_x = false;
-	collision_y = false;
+// General initialization.
+script_execute(scr_general_init);
+
+// Movement.
 	on_ground = true;
 	jump_hold_stop = false;
 	fast_fall = false;
@@ -47,9 +32,12 @@ scr_fix_spawn(obj_all);
 	charge_start_time = 0;
 	charge_slow = 20;
 	sprinting = false;
+// Animation.
 	anim_loop = false;
 	prev_sprite = spr_player_idle;
 	anim_transition = false;
+	anim_accumulator = 0;
+	anim_framerate = 0;
 // Input variables
     direction_horizontal = 0;
     direction_vertical = 0;
@@ -88,7 +76,7 @@ scr_fix_spawn(obj_all);
     diag_dr = false;
     diag_dr_held = false;
     diag_dr_released = false;
-// Controller only input variables
+// Controller only input variables.
     gp_id = 0;
     threshold = .5;
     threshold_diag = 1.05;
@@ -97,14 +85,7 @@ scr_fix_spawn(obj_all);
     x_axis = 0;
     y_axis = 0;
 
-// Temp
-// Hub world
-    pickup_item = false;
-    open_door = false;
-// Reset
+// Temp.
+// Reset.
 	room_start_x = x;
 	room_start_y = y;
-    hspd_platform = 0;
-    vspd_platform = 0;
-// Pause related variables
-	speed_before_pause = 0;
