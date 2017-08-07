@@ -21,7 +21,7 @@ if (abs(xrem) >= 1) {
 	xrem -= sign(xrem);
 }
 var increment = 0;
-var mask_width = sprite_get_bbox_right(sprite_index) - sprite_get_bbox_left(sprite_index);
+var mask_width = (sprite_get_bbox_right(sprite_index) + 1) - sprite_get_bbox_left(sprite_index);
 while (abs(increment) < abs(movedis_x)) {
 	// Check to see if less than half of the sprite is left to check.
 	if ((abs(movedis_x)-abs(increment)) < mask_width) {
@@ -58,7 +58,7 @@ if (abs(yrem) >= 1) {
 	yrem -= sign(yrem);
 }
 increment = 0;
-var mask_height = sprite_get_bbox_bottom(sprite_index) - sprite_get_bbox_top(sprite_index);
+var mask_height = (sprite_get_bbox_bottom(sprite_index) + 1) - sprite_get_bbox_top(sprite_index);
 while (abs(increment) < abs(movedis_y)) {
 	// Check to see if less than half of the sprite is left to check.
 	if ((abs(movedis_y)-abs(increment)) < mask_height) {

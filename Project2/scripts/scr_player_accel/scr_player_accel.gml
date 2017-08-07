@@ -65,13 +65,13 @@
 		// Slow the player down if they stop giving input.
 		if ((direction_horizontal == 0 && !dashing) || (dashing && !dash_up)) {
 			if (sign(current_hspd) == 1) {
-				if (wall_jump) {
+				if (wall_jump && !dashing) {
 					current_xacc = -150;
 				} else {
 					current_xacc = -2800;
 				}
 			} else if (sign(current_hspd) == -1) {
-				if (wall_jump) {
+				if (wall_jump && !dashing) {
 					current_xacc = 150;
 				} else {
 					current_xacc = 2800;

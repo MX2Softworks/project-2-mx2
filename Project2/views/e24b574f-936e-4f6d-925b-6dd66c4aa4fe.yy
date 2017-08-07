@@ -4,10 +4,11 @@
     "mvc": "1.1",
     "name": "e24b574f-936e-4f6d-925b-6dd66c4aa4fe",
     "children": [
-        
+        "bf5dae30-96f0-4db3-9c7b-f0fdf5745644",
+        "0fc35a8a-bb9b-4ab6-8e99-160247c9b1d6"
     ],
     "filterType": "GMObject",
-    "folderName": "Helpers",
+    "folderName": "Helper",
     "isDefaultView": false,
     "localisedFolderName": ""
 }

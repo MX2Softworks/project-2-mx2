@@ -163,6 +163,6 @@ prev_sprite = sprite_index;
 	}
 	
 // Make sure the sprite is facing the direction of movement.
-	if (previous_hspd != 0) {
-		image_xscale = sign(previous_hspd);
+	if (current_hspd != 0) {
+		image_xscale = sign(current_hspd);
 	}
