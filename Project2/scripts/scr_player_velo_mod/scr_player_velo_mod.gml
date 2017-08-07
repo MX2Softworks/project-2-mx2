@@ -121,7 +121,7 @@
 	}
 
 // Player jumped so set current vspd to jump speed.
-	if (up && on_ground) {
+	if (up && on_ground && !rolling && !sliding && !down_held) {
 		current_vspd = -450;
 		wall_slide = false
 	}

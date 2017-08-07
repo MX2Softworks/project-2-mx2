@@ -15,8 +15,8 @@
 	if (((!(place_meeting(previous_x+1, previous_y, obj_solid) && place_meeting(current_x+1, current_y, obj_solid)) 
 	&& !(place_meeting(previous_x-1, previous_y, obj_solid) && place_meeting(current_x-1, current_y, obj_solid)) 
 	&& (place_meeting(current_x+1, current_y, obj_solid) || place_meeting(current_x-1, current_y, obj_solid)) 
-	&& !on_ground) 
-	|| (jumppeak 
+	&& !on_ground && !dashing && jumppeak) 
+	|| (jumppeak && !dashing
 	&& (place_meeting(current_x+1, current_y, obj_solid) || place_meeting(current_x-1, current_y, obj_solid)))) 
 	&& start_slide) {
 		current_vspd = 0;

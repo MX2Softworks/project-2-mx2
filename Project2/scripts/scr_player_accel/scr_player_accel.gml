@@ -43,7 +43,7 @@
 		}
 		
 		// Player is sliding or rolling.
-		if (on_ground && direction_horizontal != 0 && down_held) {
+		if (on_ground && (direction_horizontal != 0 && ((down_held && !gamepad_is_connected(gp_id)) || ((diag_dl_held || diag_dr_held) && gamepad_is_connected(gp_id))))) {
 			if (sign(current_hspd) == 1 && !rolling) {
 				// Sliding.
 				sliding = true;

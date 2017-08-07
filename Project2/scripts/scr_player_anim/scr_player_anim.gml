@@ -157,6 +157,11 @@ prev_sprite = sprite_index;
 		}
 	}
 
+// Mark a transition as ended.
+	if (anim_transition && (image_index == image_number-1)) {
+		anim_transition = false;
+	}
+	
 // Make sure the sprite is facing the direction of movement.
 	if (previous_hspd != 0) {
 		image_xscale = sign(previous_hspd);
