@@ -1,6 +1,10 @@
 # Project #2 Change Log
 All changes to this game since moving to GMS2 will be documented in this file.
 
+## [0.1.0] - 2017-08-07
+### Changed
+- Refactored the full project. Almost every file has been changed in some fashion.
+
 ## [0.0.1] - 2017-05-18
 ### Added
 - Executible file in the root directory.

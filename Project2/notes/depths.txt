@@ -1,0 +1,16 @@
+/// The different depths of layers in our game (0-10000).
+
+// Invisible Objects Layers (0-999)
+// Debug UI Layers (1000-1999)
+// Player Layers (2000-2999)
+// Enemy Layers (3000-4999)
+// Environment Layers (8000-8999)
+// Background Layers (9000-9999)
+
+// Depth, Name, Objects
+
+500		Invisible		- obj_delta_tracker
+1000	Debug			- obj_debugtext
+2000	Player			- obj_player
+8500	Environment		- obj_solid
+9500	Background		- bg_test_forest
