@@ -12,5 +12,6 @@
 500		Invisible		- obj_delta_tracker
 1000	Debug			- obj_debugtext
 2000	Player			- obj_player
+3000	Chasing_AI		- obj_generic_chaser
 8500	Environment		- obj_solid
 9500	Background		- bg_test_forest

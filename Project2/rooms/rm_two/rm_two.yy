@@ -322,7 +322,8 @@
         "b8a370fa-aeca-4367-88c2-15655e1edcad",
         "46056827-95a8-431b-ba5c-7187e875e0e1",
         "2a351e84-3631-4683-a936-e972a1208767",
-        "74bce9ee-54c7-423d-a026-bb0981e4e3db"
+        "74bce9ee-54c7-423d-a026-bb0981e4e3db",
+        "c04ddd3f-0ed6-4bf0-b056-c17ff2fa4fa5"
     ],
     "layers": [
         {
@@ -368,6 +369,55 @@
                     "inheritCode": false,
                     "name_with_no_file_rename": "inst_DF231A3",
                     "objId": "89f5ea2a-2712-4df5-9111-fa6384b85321",
+                    "rotation": 0,
+                    "scaleX": 1,
+                    "scaleY": 1
+                }
+            ]
+        },
+        {
+            "__type": "GMRInstanceLayer_Model:#YoYoStudio.MVCFormat",
+            "id": "9e78419a-71d2-44e0-8755-71898a80e47a",
+            "modelName": "GMRInstanceLayer",
+            "mvc": "1.0",
+            "depth": 3000,
+            "grid_x": 32,
+            "grid_y": 32,
+            "hierarchyFrozen": false,
+            "hierarchyVisible": true,
+            "inheritLayerDepth": false,
+            "inheritLayerSettings": false,
+            "inheritSubLayers": false,
+            "inheritVisibility": false,
+            "layers": [
+                
+            ],
+            "m_parentID": "00000000-0000-0000-0000-000000000000",
+            "m_serialiseFrozen": false,
+            "name": "Chasing_AI",
+            "userdefined_depth": true,
+            "visible": true,
+            "instances": [
+                {
+                    "id": "c04ddd3f-0ed6-4bf0-b056-c17ff2fa4fa5",
+                    "modelName": "GMRInstance",
+                    "mvc": "1.0",
+                    "ignore": false,
+                    "inheritItemSettings": false,
+                    "m_originalParentID": "00000000-0000-0000-0000-000000000000",
+                    "m_serialiseFrozen": false,
+                    "name": "inst_1573CE36",
+                    "x": 96,
+                    "y": 1024,
+                    "IsDnD": false,
+                    "colour": {
+                        "Value": 4294967295
+                    },
+                    "creationCodeFile": "",
+                    "creationCodeType": "",
+                    "inheritCode": false,
+                    "name_with_no_file_rename": "inst_1573CE36",
+                    "objId": "16493c55-b6ba-410f-b0b8-f769a56ea7d3",
                     "rotation": 0,
                     "scaleX": 1,
                     "scaleY": 1
