@@ -22,6 +22,7 @@ draw_set_color(c_red);
         }
     }
 
+if (keyboard_check(ord("O"))) {
 // Text drawn to screen. 
 	draw_text(10, 12, string_hash_to_newline("fps: "+string_format(fps_avg2, 2, 2)));
     
@@ -63,6 +64,15 @@ draw_set_color(c_red);
 	draw_text(10, 452, string_hash_to_newline("frame_time: "+string_format(delta_time/1000000, 6, 6)));
 	draw_text(10, 464, string_hash_to_newline("down_held: "+string_format(obj_player.down_held, 6, 6)));
 	draw_text(10, 476, string_hash_to_newline("image_index: "+string_format(obj_player.image_index, 6, 6)));
+	
+	draw_text(10, 488, string_hash_to_newline("accessible_nodes: "+string_format(ds_list_size(obj_generic_chaser.accessible_nodes), 6, 6)));
+	
+	//for (var i = 0; i < ds_list_size(obj_generic_chaser.accessible_nodes); i++) {
+	//	var temp_list = obj_generic_chaser.accessible_nodes[| i];
+	//	for (var j = 0; j < ds_list_size(temp_list); j++) {
+	//		draw_text(200 + (i*150), 100 + (j*30), string_format(temp_list[| j], 4, 2));
+	//	}
+	//}
 
 
 // Dash Charge
@@ -97,4 +107,4 @@ draw_set_color(c_red);
     draw_rectangle(window_get_width()-80, 20,  window_get_width()-79, 60, false);
     draw_rectangle(window_get_width()-60, 20,  window_get_width()-59, 60, false);
     draw_rectangle(window_get_width()-40, 20,  window_get_width()-39, 60, false);
-
+}

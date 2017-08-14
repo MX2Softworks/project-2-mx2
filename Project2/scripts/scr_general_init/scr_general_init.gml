@@ -22,4 +22,4 @@
 // Collisions.
 	collision_x = false;
 	collision_y = false;
-
+	full_check = true;
