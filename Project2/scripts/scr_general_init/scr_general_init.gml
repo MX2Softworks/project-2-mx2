@@ -16,10 +16,12 @@
     xrem = 0;
     yrem = 0;
 
+// State.
+	on_ground = true;
+
 // Time step.
 	accumulator = 0;
 
 // Collisions.
 	collision_x = false;
 	collision_y = false;
-

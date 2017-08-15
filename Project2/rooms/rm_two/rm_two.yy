@@ -376,6 +376,32 @@
         },
         {
             "__type": "GMRInstanceLayer_Model:#YoYoStudio.MVCFormat",
+            "id": "9e78419a-71d2-44e0-8755-71898a80e47a",
+            "modelName": "GMRInstanceLayer",
+            "mvc": "1.0",
+            "depth": 3000,
+            "grid_x": 32,
+            "grid_y": 32,
+            "hierarchyFrozen": false,
+            "hierarchyVisible": true,
+            "inheritLayerDepth": false,
+            "inheritLayerSettings": false,
+            "inheritSubLayers": false,
+            "inheritVisibility": false,
+            "layers": [
+                
+            ],
+            "m_parentID": "00000000-0000-0000-0000-000000000000",
+            "m_serialiseFrozen": false,
+            "name": "Chasing_AI",
+            "userdefined_depth": true,
+            "visible": true,
+            "instances": [
+                
+            ]
+        },
+        {
+            "__type": "GMRInstanceLayer_Model:#YoYoStudio.MVCFormat",
             "id": "6347a4ef-c7f3-409b-95b1-ac01b5eb1144",
             "modelName": "GMRInstanceLayer",
             "mvc": "1.0",
