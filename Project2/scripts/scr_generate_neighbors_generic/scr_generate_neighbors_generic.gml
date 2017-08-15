@@ -22,6 +22,11 @@ previous_yacc = 0;
 full_check = false;
 
 if (previous_state == "state_idle") {
+	// Set accelerations and speeds to 0.
+	ds_list_set(current_node, 2, 0);
+	ds_list_set(current_node, 3, 0);
+	ds_list_set(current_node, 4, 0);
+	ds_list_set(current_node, 5, 0);
 	// Jumped.
 	new_state = "state_jump";
 	script_execute(scr_create_neighbor_node);
@@ -47,32 +52,104 @@ if (previous_state == "state_idle") {
 	script_execute(scr_create_neighbor_node);
 	
 } else if (previous_state == "state_jump_right") {
+	// Not at the jump peak, moving right.
+	new_state = "state_not_peak_accel_right";
+	script_execute(scr_create_neighbor_node);
+	// Just hit the jump peak, slowing right.
+	new_state = "state_peak_decel_right";
+	script_execute(scr_create_neighbor_node);
 	
 } else if (previous_state == "state_jump_left") {
+	// Not at the jump peak, moving left.
+	new_state = "state_not_peak_accel_left";
+	script_execute(scr_create_neighbor_node);
+	// Just hit the jump peak, slowing left.
+	new_state = "state_peak_decel_left";
+	script_execute(scr_create_neighbor_node);
 
 } else if (previous_state == "state_accel_right") {
 
 } else if (previous_state == "state_accel_left") {
 
 } else if (previous_state == "state_not_peak") {
-
+	// Not at the jump peak.
+	if (current_node[| 3] <= 0) {
+		new_state = "state_not_peak";
+		script_execute(scr_create_neighbor_node);
+	}
+	// Just hit the jump peak.
+	new_state = "state_peak";
+	script_execute(scr_create_neighbor_node);
+	
 } else if (previous_state == "state_peak") {
-
+	script_execute(scr_on_ground_check, current_node[| 0], current_node[| 1]);
+	if (on_ground) {
+		// On ground.
+		new_state = "state_idle";
+		script_execute(scr_create_neighbor_node);
+	} else {
+		// Past jump peak.
+		new_state = "state_peak";
+		script_execute(scr_create_neighbor_node);
+	}
+	
 } else if (previous_state == "state_not_peak_accel_right") {
-
-} else if (previous_state == "state_peak_accel_right") {
-
-} else if (previous_state == "state_not_peak_decel_right") {
-
+	// Not at the jump peak.
+	if (current_node[| 3] <= 0) {
+		new_state = "state_not_peak_accel_right";
+		script_execute(scr_create_neighbor_node);
+	}
+	// Just hit the jump peak.
+	new_state = "state_peak_decel_right";
+	script_execute(scr_create_neighbor_node);
+	
 } else if (previous_state == "state_peak_decel_right") {
+	script_execute(scr_on_ground_check, current_node[| 0], current_node[| 1]);
+	if (on_ground) {
+		// On ground.
+		new_state = "state_idle";
+		script_execute(scr_create_neighbor_node);
+	} else {
+		if (current_node[| 2] <= 0) {
+			// Stopped. Set speed to 0. Switch state.
+			ds_list_set(current_node, 2, 0);
+			new_state = "state_peak";
+			script_execute(scr_create_neighbor_node);
+		} else {
+			// Past jump peak.
+			new_state = "state_peak_decel_right";
+			script_execute(scr_create_neighbor_node);
+		}
+	}
 
 } else if (previous_state == "state_not_peak_accel_left") {
-
-} else if (previous_state == "state_peak_accel_left") {
-
-} else if (previous_state == "state_not_peak_decel_left") {
+	// Not at the jump peak.
+	if (current_node[| 3] <= 0) {
+		new_state = "state_not_peak_accel_left";
+		script_execute(scr_create_neighbor_node);
+	}
+	// Just hit the jump peak.
+	new_state = "state_peak_decel_left";
+	script_execute(scr_create_neighbor_node);
 
 } else if (previous_state == "state_peak_decel_left") {
+	script_execute(scr_on_ground_check, current_node[| 0], current_node[| 1]);
+	if (on_ground) {
+		// On ground.
+		new_state = "state_idle";
+		script_execute(scr_create_neighbor_node);
+	} else {
+		if (current_node[| 2] >= 0) {
+			// Stopped. Set speed to 0. Switch state.
+			ds_list_set(current_node, 2, 0);
+			new_state = "state_peak";
+			script_execute(scr_create_neighbor_node);
+		} else {
+			// Past jump peak.
+			new_state = "state_peak_decel_left";
+			script_execute(scr_create_neighbor_node);
+		}
+	}
 
 } else if (previous_state == "state_decel_right") {
 

@@ -13,8 +13,9 @@ unchecked_nodes = ds_queue_create();
 // Add the starting node to the queue.
 ds_queue_enqueue(unchecked_nodes, starting_node);
 
+var node_count = 0;
 // Find all the accessible nodes.
-while (!ds_queue_empty(unchecked_nodes)) {
+while (!ds_queue_empty(unchecked_nodes) && node_count <= 3000) {
 	// Pop the current node list.
 	current_node = ds_queue_dequeue(unchecked_nodes);
 	
@@ -47,4 +48,6 @@ while (!ds_queue_empty(unchecked_nodes)) {
 	} else {
 		ds_list_destroy(current_node);
 	}
+	
+	node_count++;
 }
