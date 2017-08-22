@@ -95,6 +95,20 @@
 		current_hspd = current_hspd * -1;
 	}
 
+// Block player from moving from outside the room.
+	if (current_x < 50) {
+		current_x = 50;
+		current_hspd = 0;
+	} else if (current_x > (room_width - 50)) {
+		current_x = room_width - 50;
+		current_hspd = 0;
+	}
+	if (current_x == 50) {
+		current_hspd = max(0, current_hspd);
+	} else if (current_x = (room_width - 50)) {
+		current_hspd = min(0, current_hspd);
+	}
+
 
 /// Vertical Speed
 // Player is on the ground. Can reset variables.
@@ -159,4 +173,18 @@
 // Bounced off the wall from a dash.
 	if ((dashing && dash_up) && place_meeting(current_x, current_y-1, obj_solid)) {
 		current_vspd = current_vspd * -1;
+	}
+
+// Block player from moving from outside the room.
+	if (current_y < 20) {
+		current_y = 20;
+		current_vspd = 0;
+	} else if (current_y > (room_height - 20)) {
+		current_y = room_height - 20;
+		current_vspd = 0;
+	}
+	if (current_y == 20) {
+		current_vspd = max(0, current_vspd);
+	} else if (current_y = (room_height - 20)) {
+		current_vspd = min(0, current_vspd);
 	}

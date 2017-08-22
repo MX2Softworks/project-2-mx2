@@ -47,6 +47,14 @@
             }
         },
         {
+            "Key": "06721ca1-4649-4260-af3b-0509a11c06cb",
+            "Value": {
+                "id": "b269672a-7b40-47b0-9446-952135e65f4a",
+                "resourcePath": "views\\06721ca1-4649-4260-af3b-0509a11c06cb.yy",
+                "resourceType": "GMFolder"
+            }
+        },
+        {
             "Key": "073f9abe-7502-4f98-92f0-0f03a28c12c4",
             "Value": {
                 "id": "3c68048c-73fb-4404-a18c-6bab89d44d5a",
@@ -127,6 +135,14 @@
             }
         },
         {
+            "Key": "197b81c7-aebe-47bf-a13a-983e9420d056",
+            "Value": {
+                "id": "13a28592-ee23-4d48-beee-a0b1339cfa89",
+                "resourcePath": "objects\\obj_navmesh_generator\\obj_navmesh_generator.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "1caf0fff-8f0c-4c22-a1ac-1a30ab1fc056",
             "Value": {
                 "id": "5f777263-5265-41d9-989b-d72d2c85a606",
@@ -156,6 +172,22 @@
                 "id": "7105aae2-9474-4e47-ab64-b95be12e62df",
                 "resourcePath": "scripts\\scr_chasing_velo\\scr_chasing_velo.yy",
                 "resourceType": "GMScript"
+            }
+        },
+        {
+            "Key": "3060dfc5-0568-458a-9670-6ba1a5ddaa1b",
+            "Value": {
+                "id": "0ebc5089-c3ce-4557-9dec-122abf5f5ece",
+                "resourcePath": "views\\3060dfc5-0568-458a-9670-6ba1a5ddaa1b.yy",
+                "resourceType": "GMFolder"
+            }
+        },
+        {
+            "Key": "30c186bb-b515-47af-830f-bfa5d8b30fb3",
+            "Value": {
+                "id": "3f7dd831-f093-4740-a373-9c096f152357",
+                "resourcePath": "sprites\\spr_pixel\\spr_pixel.yy",
+                "resourceType": "GMSprite"
             }
         },
         {
