@@ -83,6 +83,18 @@
 		}
 	}
 
+// Block player from moving from outside the room.
+	if (current_x < 50) {
+		current_xacc = 0;
+	} else if (current_x > (room_width - 50)) {
+		current_xacc = 0;
+	}
+	if (current_x == 50) {
+		current_xacc = max(0, current_xacc);
+	} else if (current_x = (room_width - 50)) {
+		current_xacc = min(0, current_xacc);
+	}
+
 
 /// Vertical Acceleration
 	if (!on_ground) {
@@ -133,4 +145,16 @@
 		if (place_meeting(current_x, current_y-1, obj_solid)) {
 			current_yacc = max(current_yacc, 0);
 		}
+	}
+
+// Block player from moving from outside the room.
+	if (current_y < 20) {
+		current_yacc = 0;
+	} else if (current_y > (room_height - 20)) {
+		current_yacc = 0;
+	}
+	if (current_y == 20) {
+		current_yacc = max(0, current_yacc);
+	} else if (current_y = (room_height - 20)) {
+		current_yacc = min(0, current_yacc);
 	}

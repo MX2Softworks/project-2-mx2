@@ -65,6 +65,9 @@ if (keyboard_check(ord("O"))) {
 	draw_text(10, 464, string_hash_to_newline("down_held: "+string_format(obj_player.down_held, 6, 6)));
 	draw_text(10, 476, string_hash_to_newline("image_index: "+string_format(obj_player.image_index, 6, 6)));
 	
+	draw_text(10, 488, string_hash_to_newline("time_passed: "+string_format(obj_navmesh_generator.time_passed / 1000, 6, 6)));
+	draw_text(10, 500, string_hash_to_newline("platform_nodes: "+string_format(ds_list_size(obj_navmesh_generator.platform_nodes), 12, 4)));
+	
 
 
 // Dash Charge
