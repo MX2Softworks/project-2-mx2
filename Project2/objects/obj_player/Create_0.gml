@@ -7,7 +7,6 @@ scr_fix_spawn(obj_all);
 script_execute(scr_general_init);
 
 // Movement.
-	on_ground = true;
 	jump_hold_stop = false;
 	fast_fall = false;
     wall_slide = false; 
