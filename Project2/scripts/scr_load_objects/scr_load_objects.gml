@@ -1,23 +1,15 @@
-/// @description  scr_load_objects();
-/// @function  scr_load_objects
+/// @description Initialize objects and layers if they don't exist.
 
-// Initialize objects if they don't exist
-    if(!instance_exists(obj_delta_tracker)){
-        instance_create(0, 0, obj_delta_tracker);
-    }
+if(!instance_exists(obj_delta_tracker)){
+	if (!layer_exists("Invisible")) {
+		layer_create(500, "Invisible");
+	}
+    instance_create_layer(0, 0, "Invisible", obj_delta_tracker);
+}
     
-    if(!instance_exists(obj_debugtext)){
-        instance_create(0, 0, obj_debugtext);
-    }
-    
-    if(!instance_exists(obj_game_mode)){
-        instance_create(0, 0, obj_game_mode); 
-    }
-    
-    if (!instance_exists(obj_sound_player)) {
-        instance_create(0, 0, obj_sound_player);
-    }
-    
-    if (!instance_exists(obj_dynamic_camera)) {
-        instance_create(0, 0, obj_dynamic_camera);
-    }
+if(!instance_exists(obj_debugtext)){
+    if (!layer_exists("Debug")) {
+		layer_create(1000, "Debug");
+	}
+	instance_create_layer(0, 0, "Debug", obj_debugtext);
+}
