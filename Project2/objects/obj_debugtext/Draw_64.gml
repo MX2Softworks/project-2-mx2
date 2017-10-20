@@ -23,6 +23,11 @@ draw_set_color(c_red);
     }
 
 if (keyboard_check(ord("O"))) {
+    debug_toggle = true	
+}
+
+
+if (debug_toggle) {
 // Text drawn to screen. 
 	draw_text(10, 12, string_hash_to_newline("fps: "+string_format(fps_avg2, 2, 2)));
     
@@ -64,11 +69,6 @@ if (keyboard_check(ord("O"))) {
 	draw_text(10, 452, string_hash_to_newline("frame_time: "+string_format(delta_time/1000000, 6, 6)));
 	draw_text(10, 464, string_hash_to_newline("down_held: "+string_format(obj_player.down_held, 6, 6)));
 	draw_text(10, 476, string_hash_to_newline("image_index: "+string_format(obj_player.image_index, 6, 6)));
-	
-	draw_text(10, 488, string_hash_to_newline("time_passed: "+string_format(obj_navmesh_generator.time_passed / 1000, 6, 6)));
-	draw_text(10, 500, string_hash_to_newline("platform_nodes: "+string_format(ds_list_size(obj_navmesh_generator.platform_nodes), 12, 4)));
-	
-
 
 // Dash Charge
     draw_set_halign(fa_left);    

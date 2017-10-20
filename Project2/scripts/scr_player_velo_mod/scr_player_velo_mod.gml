@@ -6,9 +6,9 @@
 		current_hspd = clamp(current_hspd, -100, 100);
 	} else if (!dashing) {
 		if (sprinting) {
-			current_hspd = clamp(current_hspd, -750, 750);
+			current_hspd = clamp(current_hspd, -1 * sprint_mod * max_speed, sprint_mod * max_speed);
 		} else {
-			current_hspd = clamp(current_hspd, -500, 500);
+			current_hspd = clamp(current_hspd, -1 * max_speed, max_speed);
 		}
 	}
 // Do not allow horizontal speed when colliding with a wall.
