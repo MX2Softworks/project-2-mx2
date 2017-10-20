@@ -36,7 +36,7 @@
 	}
 
 // Check to see if we are sprinting.
-	if (sprint && current_hspd != 0 && on_ground && !sliding && !rolling && !down_held) {
+	if (sprint && current_hspd != 0 && !sliding && !rolling && !down_held) {
 		sprinting = true;
 	} else {
 		sprinting = false;
@@ -77,3 +77,4 @@
 		dash_init_vspd = false;
 		script_execute(scr_dash_direction);
 	}
+	
