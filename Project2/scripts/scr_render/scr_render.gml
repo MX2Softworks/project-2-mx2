@@ -34,11 +34,3 @@ var scr_anim = argument4;
 	x = lerp(previous_x, current_x, interp_alpha);
 	y = lerp(previous_y, current_y, interp_alpha);
 
-
-// FOR TESTING
-	if (keyboard_check(ord("R"))) {
-		current_x = room_start_x;
-		previous_x = room_start_x;
-		current_y = room_start_y;
-		previous_y = room_start_y;
-	}

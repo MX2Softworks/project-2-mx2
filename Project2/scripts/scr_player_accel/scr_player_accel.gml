@@ -47,11 +47,11 @@
 			if (sign(current_hspd) == 1 && !rolling) {
 				// Sliding.
 				sliding = true;
-				current_xacc = -1400;
+				current_xacc = -700;
 			} else if (sign(current_hspd) == -1 && !rolling) {
 				// Sliding.
 				sliding = true;
-				current_xacc = 1400;
+				current_xacc = 700;
 			} else {
 				// Rolling.
 				sliding = false;
@@ -97,7 +97,7 @@
 
 
 /// Vertical Acceleration
-	if (!on_ground) {
+	if (!on_ground && !dash_up) {
 		// Directional input while in mid-air
 		if (up_released) {
 			jump_hold_stop = true;

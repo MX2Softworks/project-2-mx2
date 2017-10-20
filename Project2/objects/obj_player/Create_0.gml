@@ -6,6 +6,10 @@ scr_fix_spawn(obj_all);
 // General initialization.
 script_execute(scr_general_init);
 
+// Movement Parameters.
+	max_speed = 500;
+	sprint_mod = 1.75;
+
 // Movement.
 	jump_hold_stop = false;
 	fast_fall = false;

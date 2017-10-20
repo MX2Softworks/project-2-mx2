@@ -4,6 +4,14 @@ gp_id = 0;
 threshold = .8;
 
 if (!gamepad_is_connected(gp_id)) {
+	
+	// FOR TESTING
+	if (keyboard_check(ord("R"))) {
+		current_x = room_start_x;
+		previous_x = room_start_x;
+		current_y = room_start_y;
+		previous_y = room_start_y;
+	}
     
     right = keyboard_check_pressed(vk_right) || keyboard_check_pressed(ord("D"));
     right_held = keyboard_check(vk_right) || keyboard_check(ord("D"));
@@ -47,6 +55,14 @@ if (gamepad_is_connected(gp_id)) {
     x_axis = gamepad_axis_value(gp_id, gp_axislh);
     y_axis = gamepad_axis_value(gp_id, gp_axislv);
     
+    // FOR TESTING
+	if (gamepad_button_check_pressed(gp_id, gp_select)) {
+		current_x = room_start_x;
+		previous_x = room_start_x;
+		current_y = room_start_y;
+		previous_y = room_start_y;
+	}
+	
     // Alarm is called so reset pressed and released
     if (controller_alarm <= 0) {
             
@@ -78,7 +94,7 @@ if (gamepad_is_connected(gp_id)) {
         // Reset alarm
         controller_alarm = 1;
     }
-        
+    
     // Set inputs
     sprint = gamepad_button_check(gp_id, gp_shoulderrb);
     dash = gamepad_button_check_pressed(gp_id, gp_shoulderl);
@@ -221,3 +237,4 @@ if (gamepad_is_connected(gp_id)) {
     direction_vertical = max(down, down_held, diag_dr, diag_dr_held, diag_dl, diag_dl_held) - max(up, up_held, diag_ur, diag_ur_held, diag_ul, diag_ul_held); 
     direction_horizontal = max(right, right_held, diag_ur, diag_ur_held, diag_dr, diag_dr_held) - max(left, left_held, diag_ul, diag_ul_held, diag_dl, diag_dl_held); 
 }
+
