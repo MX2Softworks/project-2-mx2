@@ -1,0 +1,210 @@
+Converting GML script : ${project_dir}\scripts\scr_get_input\scr_get_input.gml
+Converted description : /// @description  scr_get_input()/// @function  scr_get_input
+
+Converting GML script : ${project_dir}\scripts\scr_load_objects\scr_load_objects.gml
+Converted description : /// @description  scr_load_objects();/// @function  scr_load_objects
+
+Converting GML script : ${project_dir}\scripts\scr_move\scr_move.gml
+Converted description : /// @description  scr_move(collision_object)/// @function  scr_move
+/// @param collision_object
+
+Converting GML script : ${project_dir}\scripts\scr_saw_move_right_state\scr_saw_move_right_state.gml
+Converted description : /// @description  scr_saw_move_right_state()/// @function  scr_saw_move_right_state
+
+Converting GML script : ${project_dir}\scripts\scr_projectile\scr_projectile.gml
+Converted description : /// @description If Game is Paused
+
+Converting GML script : ${project_dir}\scripts\scr_saw_move_left_state\scr_saw_move_left_state.gml
+Converted description : /// @description  scr_saw_move_left_state()/// @function  scr_saw_move_left_state
+
+Converting GML script : ${project_dir}\scripts\scr_fix_spawn\scr_fix_spawn.gml
+Converted description : /// @description  scr_fix_spawn(collision_object);/// @function  scr_fix_spawn
+/// @param collision_object
+
+Converting GML script : ${project_dir}\scripts\scr_player_move_state\scr_player_move_state.gml
+Converted description : /// @description  scr_player_move_state()/// @function  scr_player_move_state
+
+Converting GML script : ${project_dir}\objects\obj_debugtext\Create_0.gml
+Converted description : /// @description  Initialize the debugger object
+
+Converting GML script : ${project_dir}\objects\obj_debugtext\Draw_64.gml
+Converted description : /// @description  Draw debug text to screen
+
+Converting GML script : ${project_dir}\objects\obj_game_mode\Step_0.gml
+Converted description : /// @description Check Paused
+
+Converting GML script : ${project_dir}\objects\obj_pause_menu\Create_0.gml
+Converted description : /// @description Initialize variables.
+
+Converting GML script : ${project_dir}\objects\obj_pause_menu\Draw_64.gml
+Converted builtin : line 4 : view_wview -> __view_get( e__VW.WView, 0 )
+Converted builtin : line 5 : view_hview -> __view_get( e__VW.HView, 0 )
+
+Converting GML script : ${project_dir}\objects\obj_blur\Create_0.gml
+Converted builtin : line 16 : view_xview[view_current] -> __view_get( e__VW.XView, view_current )
+Converted builtin : line 17 : view_yview[view_current] -> __view_get( e__VW.YView, view_current )
+Converted builtin : line 4 : view_wview[view_current] -> __view_get( e__VW.WView, view_current )
+Converted builtin : line 5 : view_hview[view_current] -> __view_get( e__VW.HView, view_current )
+
+Converting GML script : ${project_dir}\objects\obj_blur\Step_0.gml
+Converted builtin : line 34 : view_xview[view_current] -> __view_get( e__VW.XView, view_current )
+Converted builtin : line 40 : view_xview[0] -> __view_get( e__VW.XView, 0 )
+Converted builtin : line 55 : view_xview[0] -> __view_get( e__VW.XView, 0 )
+Converted builtin : line 35 : view_yview[view_current] -> __view_get( e__VW.YView, view_current )
+Converted builtin : line 41 : view_yview[0] -> __view_get( e__VW.YView, 0 )
+Converted builtin : line 56 : view_yview[0] -> __view_get( e__VW.YView, 0 )
+Converted builtin : line 22 : view_wview[view_current] -> __view_get( e__VW.WView, view_current )
+Converted builtin : line 23 : view_hview[view_current] -> __view_get( e__VW.HView, view_current )
+Converted description : /// @description If Game is Paused
+
+Converting GML script : ${project_dir}\objects\obj_blur\Draw_0.gml
+Converted builtin : line 2 : view_xview[0] -> __view_get( e__VW.XView, 0 )
+Converted builtin : line 2 : view_yview[0] -> __view_get( e__VW.YView, 0 )
+
+Converting GML script : ${project_dir}\objects\obj_enemy_thrower\Create_0.gml
+Converted description : /// @description  Initialize the enemy thrower
+
+Converting GML script : ${project_dir}\objects\obj_enemy_thrower\Step_0.gml
+Converted description : /// @description If Game is Paused
+
+Converting GML script : ${project_dir}\objects\obj_enemy_heavy\Create_0.gml
+Converted description : /// @description  Initialize the enemy heavy
+
+Converting GML script : ${project_dir}\objects\obj_enemy_heavy\Step_0.gml
+Converted description : /// @description If Game is Paused
+
+Converting GML script : ${project_dir}\objects\obj_fireball\Create_0.gml
+Converted description : /// @description  Initialize the fireball object
+
+Converting GML script : ${project_dir}\objects\obj_fireball\Step_0.gml
+Converted description : /// @description If Game is Paused
+
+Converting GML script : ${project_dir}\objects\obj_fireball\Other_0.gml
+Converted description : /// @description If Game is Paused
+
+Converting GML script : ${project_dir}\objects\obj_enemy_patrol\Create_0.gml
+Converted description : /// @description  Initialize the enemy patrol
+
+Converting GML script : ${project_dir}\objects\obj_enemy_patrol\Step_0.gml
+Converted description : /// @description If Game is Paused
+
+Converting GML script : ${project_dir}\objects\obj_sound_player\Create_0.gml
+Converted description : /// @description  Initialize the audio emitter
+
+Converting GML script : ${project_dir}\objects\obj_sound_player\Step_0.gml
+Converted description : /// @description  Play background music
+
+Converting GML script : ${project_dir}\objects\obj_platform_solid\Step_0.gml
+Converted description : /// @description If Game is Paused
+
+Converting GML script : ${project_dir}\objects\obj_platform_solid\Draw_0.gml
+Converted description : /// @description Tile sprite across surface
+
+Converting GML script : ${project_dir}\objects\obj_dynamic_camera\Create_0.gml
+Converted description : /// @description Initialize camera variables
+
+Converting GML script : ${project_dir}\objects\obj_dynamic_camera\Step_0.gml
+Converted builtin : line 63 : view_xview -> __view_get( e__VW.XView, 0 )
+Converted builtin : line 60 : view_xview = -(view_wview/2) + x -> __view_set( e__VW.XView, 0, -(view_wview/2) + x )
+Converted builtin : line 66 : view_xview += random_range(-shake*(view_wview/500), shake*(view_wview/500) -> __view_set( e__VW.XView, 0, __view_get( e__VW.XView, 0 ) + (random_range(-shake*(view_wview/500), shake*(view_wview/500)) )
+Converted builtin : line 64 : view_yview -> __view_get( e__VW.YView, 0 )
+Converted builtin : line 61 : view_yview = -(view_hview/2) + y -> __view_set( e__VW.YView, 0, -(view_hview/2) + y )
+Converted builtin : line 67 : view_yview += random_range(-shake*(view_hview/500), shake*(view_wview/500) -> __view_set( e__VW.YView, 0, __view_get( e__VW.YView, 0 ) + (random_range(-shake*(view_hview/500), shake*(view_wview/500)) )
+Converted builtin : line 63 : view_wview -> __view_get( e__VW.WView, 0 )
+Converted builtin : line 64 : view_hview -> __view_get( e__VW.HView, 0 )
+Converted description : /// @description Controls camera movement
+Converted builtin : line 63 : view_xview = clamp(__view_get( e__VW.XView, 0 ), 0, room_width-__view_get( e__VW.WView, 0 -> __view_set( e__VW.XView, 0, clamp(__view_get( e__VW.XView, 0 ), 0, room_width-__view_get( e__VW.WView, 0 )
+Converted builtin : line 64 : view_yview = clamp(__view_get( e__VW.YView, 0 ), 0, room_height-__view_get( e__VW.HView, 0 -> __view_set( e__VW.YView, 0, clamp(__view_get( e__VW.YView, 0 ), 0, room_height-__view_get( e__VW.HView, 0 )
+Converted builtin : line 60 : view_wview -> __view_get( e__VW.WView, 0 )
+Converted builtin : line 66 : view_wview -> __view_get( e__VW.WView, 0 )
+Converted builtin : line 66 : view_wview -> __view_get( e__VW.WView, 0 )
+Converted builtin : line 67 : view_wview -> __view_get( e__VW.WView, 0 )
+Converted builtin : line 61 : view_hview -> __view_get( e__VW.HView, 0 )
+Converted builtin : line 67 : view_hview -> __view_get( e__VW.HView, 0 )
+
+Converting GML script : ${project_dir}\objects\obj_saw_test\Create_0.gml
+Converted description : /// @description If Game is Paused
+
+Converting GML script : ${project_dir}\objects\obj_saw_test\Step_0.gml
+Converted description : /// @description If Game is Paused
+
+Converting GML script : ${project_dir}\objects\obj_enemy_pathfinder\Create_0.gml
+Converted description : /// @description  Initialize the enemy pathfinder
+
+Converting GML script : ${project_dir}\objects\obj_enemy_pathfinder\Step_0.gml
+Converted description : /// @description If Game is Paused
+
+Converting GML script : ${project_dir}\objects\obj_player\Create_0.gml
+Converted description : /// @description  Initialize the player
+
+Converting GML script : ${project_dir}\objects\obj_player\Step_2.gml
+Converted builtin : line 28 : view_xview[0] -> __view_get( e__VW.XView, 0 )
+Converted builtin : line 28 : view_yview[0] -> __view_get( e__VW.YView, 0 )
+Converted description : /// @description If Game is Paused
+
+Converting GML script : ${project_dir}\objects\obj_player\Step_0.gml
+Converted description : /// @description If Game is Paused
+
+Converting GML script : ${project_dir}\objects\obj_player\Other_4.gml
+Converted description : /// @description  Spawn
+
+Converting GML script : ${project_dir}\objects\obj_player\Other_2.gml
+Converted description : /// @description  Initialize globals
+
+Converting GML script : ${project_dir}\objects\obj_player\Draw_0.gml
+Converted description : /// @description  Drawing
+
+Converting GML script : ${project_dir}\objects\obj_delta_tracker\Create_0.gml
+Converted description : /// @description  Initialize delta tracker
+
+Converting GML script : ${project_dir}\objects\obj_delta_tracker\Step_1.gml
+Converted description : /// @description  Calculate the delta value
+
+Converting GML script : ${project_dir}\objects\obj_platform\Step_0.gml
+Converted description : /// @description If Game is Paused
+
+Converting GML script : ${project_dir}\objects\obj_platform\Draw_0.gml
+Converted description : /// @description Tile sprite across surface
+
+Converting GML script : ${project_dir}\objects\obj_moving_platform\Create_0.gml
+Converted description : /// @description  Initialize the enemy patrol
+
+Converting GML script : ${project_dir}\objects\obj_moving_platform\Step_0.gml
+Converted description : /// @description If Game is Paused
+
+Converting GML script : ${project_dir}\objects\obj_moving_platform\Draw_0.gml
+Converted description : /// @description Tile sprite across surface
+
+Converting GML script : ${project_dir}\rooms\rm_one\RoomCreationCode.gml
+Converted description : /// @description  Execute object initialization script
+
+Converting GML script : ${project_dir}\rooms\rm_three\RoomCreationCode.gml
+Converted description : /// @description  Execute object initialization script
+
+Converting GML script : ${project_dir}\rooms\rm_four\RoomCreationCode.gml
+Converted description : /// @description  Execute object initialization script
+
+Converting GML script : ${project_dir}\objects\obj_spawn_fireballs\Step_0.gml
+Converted description : /// @description If Game is Paused
+
+Converting GML script : ${project_dir}\objects\obj_random_fireball\Create_0.gml
+Converted description : /// @description  Initialize the fireball object
+
+Converting GML script : ${project_dir}\objects\obj_random_fireball\Step_0.gml
+Converted description : /// @description If Game is Paused
+
+Converting GML script : ${project_dir}\rooms\rm_two\RoomCreationCode.gml
+Converted description : /// @description  Execute object initialization script
+
+macOS icon ${options_dir}\mac\icons\icon512.png written out as 32-bit.
+game speed set to 60
+added compatibility script d3d/d3d_set_fog.gml
+added compatibility script instance/instance_create.gml
+added compatibility script object/object_get_depth.gml
+added compatibility script view/__view_get.gml
+added compatibility script view/__view_set.gml
+added compatibility script view/__view_set_internal.gml
+added compatibility script d3d/__init_d3d.gml
+added compatibility script view/__init_view.gml
+added compatibility script __init_global.gml
+added compatibility script __global_object_depths.gml
