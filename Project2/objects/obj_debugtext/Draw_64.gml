@@ -22,10 +22,6 @@ draw_set_color(c_red);
         }
     }
 
-if (keyboard_check(ord("O"))) {
-    debug_toggle = true	
-}
-
 
 if (debug_toggle) {
 // Text drawn to screen. 

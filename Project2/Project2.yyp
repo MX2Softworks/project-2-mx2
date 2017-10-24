@@ -239,6 +239,14 @@
             }
         },
         {
+            "Key": "53e6d3b6-4095-4d1b-8701-b81f68138bdf",
+            "Value": {
+                "id": "b176be3f-40cb-4912-a5a4-b9f684dc7954",
+                "resourcePath": "scripts\\scr_navigable_terrain\\scr_navigable_terrain.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "54f3c77e-d8db-4858-8807-1a5f23d32fa8",
             "Value": {
                 "id": "beb42c2b-03c8-4456-ace1-6388b2590b39",
@@ -363,6 +371,14 @@
             "Value": {
                 "id": "01ddf7f1-e3b9-4669-aede-83731cbe902f",
                 "resourcePath": "objects\\obj_player\\obj_player.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
+            "Key": "8ef5c867-5d4d-490e-85a7-bf47e9ada113",
+            "Value": {
+                "id": "a5a4972e-db4f-4378-aeee-b9d11bb43e97",
+                "resourcePath": "objects\\obj_traversable\\obj_traversable.yy",
                 "resourceType": "GMObject"
             }
         },
@@ -755,7 +771,8 @@
         "7ba5d4af-9a8c-4932-8a56-72a938314034",
         "0df52161-f417-48ab-829e-fb348a5ea4ba",
         "25662da1-f9ec-475f-913b-8263b63d42de",
-        "9e495996-0631-4a8a-9c75-9fb4b0ea758b"
+        "9e495996-0631-4a8a-9c75-9fb4b0ea758b",
+        "53e6d3b6-4095-4d1b-8701-b81f68138bdf"
     ],
     "tutorial": ""
 }
