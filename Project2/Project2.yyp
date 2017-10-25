@@ -183,6 +183,14 @@
             }
         },
         {
+            "Key": "31c95a20-aca8-4bd3-8e40-a8a1b1b12c92",
+            "Value": {
+                "id": "de151809-bc8d-43ec-9ca3-5b85461e5de4",
+                "resourcePath": "objects\\obj_simple_chaser_test\\obj_simple_chaser_test.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "3498f935-afb4-4748-84e8-9c6024311652",
             "Value": {
                 "id": "a8c6e74b-a8f0-42c7-9ff7-279e7130c9f9",
