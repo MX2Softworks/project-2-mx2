@@ -591,6 +591,14 @@
             }
         },
         {
+            "Key": "d7970640-30ec-4ab5-b8a5-d9909cb9ed33",
+            "Value": {
+                "id": "7e147567-e1ee-4da9-a4a1-431ec9f9d724",
+                "resourcePath": "sprites\\spr_death_temp\\spr_death_temp.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "d9456ed1-542d-4690-9644-bab790566fdf",
             "Value": {
                 "id": "d930b242-8d7c-402e-a03d-b73bda5cadf4",
