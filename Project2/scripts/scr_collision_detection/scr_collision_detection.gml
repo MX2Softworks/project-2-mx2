@@ -31,9 +31,10 @@ while (abs(increment) < abs(movedis_x)) {
 		increment += mask_width * sign(movedis_x);
 	}
 	if (place_meeting(previous_x+increment, previous_y, collision)) {
+		var step = sign(increment); 
 		// If the path is not free, walk the increment back until it is.
 		while (place_meeting(previous_x+increment, previous_y, collision)) {
-			increment = increment - sign(increment);
+			increment = increment - step;
 		}
 		// Moving by increment will no longer collide. Set new movedis_x.
 		movedis_x = increment;
@@ -69,8 +70,9 @@ while (abs(increment) < abs(movedis_y)) {
 	}
 	if (place_meeting(current_x, previous_y+increment, collision)) {
 		// If the path is not free, walk the increment back until it is.
+		var step = sign(increment); 
 		while (place_meeting(current_x, previous_y+increment, collision)) {
-			increment = increment - sign(increment);
+			increment = increment - step;
 		}
 		// Moving by increment will no longer collide. Set new movedis_y.
 		movedis_y = increment;
