@@ -391,14 +391,6 @@
             }
         },
         {
-            "Key": "8ef5c867-5d4d-490e-85a7-bf47e9ada113",
-            "Value": {
-                "id": "a5a4972e-db4f-4378-aeee-b9d11bb43e97",
-                "resourcePath": "objects\\obj_traversable\\obj_traversable.yy",
-                "resourceType": "GMObject"
-            }
-        },
-        {
             "Key": "8f3e0f9d-f0ab-4e33-81d0-c36e117f4af5",
             "Value": {
                 "id": "d1acf349-98b6-41e7-97d0-3cb87db6033a",
