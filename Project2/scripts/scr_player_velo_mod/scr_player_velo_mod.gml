@@ -18,9 +18,9 @@
 				current_hspd = clamp(current_hspd, 0, 100);
 			} else {
 				if (sprinting) {
-					current_hspd = clamp(current_hspd, 0, 750);
+					current_hspd = clamp(current_hspd, 0, sprint_mod * max_speed);
 				} else {
-					current_hspd = clamp(current_hspd, 0, 500);
+					current_hspd = clamp(current_hspd, 0, max_speed);
 				}
 			}
 		}
@@ -29,9 +29,9 @@
 				current_hspd = clamp(current_hspd, -100, 0);
 			} else {
 				if (sprinting) {
-					current_hspd = clamp(current_hspd, -750, 0);
+					current_hspd = clamp(current_hspd, -1 * sprint_mod * max_speed, 0);
 				} else {
-					current_hspd = clamp(current_hspd, -500, 0);
+					current_hspd = clamp(current_hspd, -1 * max_speed, 0);
 				}
 			}
 		}
@@ -135,9 +135,11 @@
 	}
 
 // Player jumped so set current vspd to jump speed.
-	if (up && on_ground && !rolling && !sliding && !down_held) {
+	if (up && on_ground) {
 		current_vspd = -450;
 		wall_slide = false
+		sliding = false
+		rolling = false
 	}
 
 // Player wall jumped.
