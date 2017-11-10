@@ -16,4 +16,5 @@ else
 {
 	play_audio = 0;
 	image_index = 0;
+	pushed = 0;
 }
