@@ -13,3 +13,10 @@ if(!instance_exists(obj_debugtext)){
 	}
 	instance_create_layer(0, 0, "Debug", obj_debugtext);
 }
+
+if(!instance_exists(obj_navmesh)){
+    if (!layer_exists("Navmesh")) {
+		layer_create(-1000, "Navmesh");
+	}
+	instance_create_layer(0, 0, "Navmesh", obj_navmesh);
+}
