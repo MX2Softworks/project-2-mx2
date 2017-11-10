@@ -2,7 +2,7 @@
     "id": "ef0ceb3a-bd45-4214-8014-74c6683996d2",
     "modelName": "GMObject",
     "mvc": "1.0",
-    "name": "obj_switch_emitter",
+    "name": "obj_soundeffect_emitter",
     "eventList": [
         {
             "id": "aecdfb69-3766-4caf-9937-e9539faa134d",
