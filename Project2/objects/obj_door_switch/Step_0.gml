@@ -8,7 +8,7 @@ if(place_meeting(x, y, obj_player))
 	
 	if(play_audio == 0)
 	{
-		audio_play_sound_on(obj_switch_emitter.switch_emitter, snd_switch, false, 1);
+		audio_play_sound_on(obj_soundeffect_emitter.switch_emitter, snd_switch, false, 1);
 		play_audio = 1;
 	}
 }
@@ -16,4 +16,5 @@ else
 {
 	play_audio = 0;
 	image_index = 0;
+	pushed = 0;
 }
