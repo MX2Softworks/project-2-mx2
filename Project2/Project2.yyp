@@ -295,6 +295,14 @@
             }
         },
         {
+            "Key": "60b92c90-311b-42fb-89e9-a68351b25e1d",
+            "Value": {
+                "id": "46490d9c-42f4-48c0-99cb-911cac83c2ff",
+                "resourcePath": "scripts\\scr_reset_room\\scr_reset_room.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "62053805-6574-4c75-a9d3-c8a5d6d97aed",
             "Value": {
                 "id": "4af85f69-f85c-4d32-9964-a58e61634e34",
@@ -754,7 +762,7 @@
             "Key": "ef0ceb3a-bd45-4214-8014-74c6683996d2",
             "Value": {
                 "id": "a32580d4-dbb6-4061-a4a4-a82ead9c57b5",
-                "resourcePath": "objects\\obj_switch_emitter\\obj_switch_emitter.yy",
+                "resourcePath": "objects\\obj_soundeffect_emitter\\obj_soundeffect_emitter.yy",
                 "resourceType": "GMObject"
             }
         },
@@ -862,6 +870,7 @@
         "68961094-3d97-4dc3-9eff-01cd684e1a52",
         "0f5dac7c-1c0c-490d-8219-2570c8f185f1",
         "76030d7d-442d-4324-bb47-2832cf907baf",
+        "60b92c90-311b-42fb-89e9-a68351b25e1d",
         "c496979e-f1c5-4338-a8c9-da750774b927",
         "9b9225d0-f0ba-4a66-813b-ac0a7edd9fdd",
         "00ccdfa6-3af4-4714-8d85-850974e617c5",
