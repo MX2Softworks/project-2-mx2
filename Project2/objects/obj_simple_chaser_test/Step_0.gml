@@ -129,7 +129,7 @@ if(obj_player && (keyboard_check_pressed(ord("U")) || continuing > 0)){
 			ds_list_add(path_to_goal, [chaser_chunk_x, chaser_chunk_y, 1]);
 		}
 			//If we are taking too long, end prematurely.
-		if((get_timer() - timestamp)/1000000 > global.frame_time){
+		if((get_timer() - timestamp)/1000000 > global.frame_time * 3/5){
 			continuing = 2;
 			return; 
 		}
@@ -155,7 +155,7 @@ if(obj_player && (keyboard_check_pressed(ord("U")) || continuing > 0)){
 		ds_list_add(open_list, [chaser_chunk_x, chaser_chunk_y]); 
 	
 		//If we are taking too long, end prematurely. 
-		if((get_timer() - timestamp)/1000000 > global.frame_time){
+		if((get_timer() - timestamp)/1000000 > global.frame_time * 3/5){
 			continuing = 3; 
 			return; 
 		}
@@ -175,7 +175,7 @@ if(obj_player && (keyboard_check_pressed(ord("U")) || continuing > 0)){
 				}
 			}
 			//If we are taking too long, end prematurely. 
-			if((get_timer() - timestamp)/1000000 > global.frame_time){
+			if((get_timer() - timestamp)/1000000 > global.frame_time * 3/5){
 				continuing = 4; 
 				return; 
 			}
@@ -210,7 +210,7 @@ if(obj_player && (keyboard_check_pressed(ord("U")) || continuing > 0)){
 				}
 			}
 			//If we are taking too long, end prematurely. 
-			if((get_timer() - timestamp)/1000000 > global.frame_time){
+			if((get_timer() - timestamp)/1000000 > global.frame_time * 3/5){
 				continuing = 5; 
 				return; 
 			}
@@ -219,8 +219,10 @@ if(obj_player && (keyboard_check_pressed(ord("U")) || continuing > 0)){
 //Segment 6: for each neighbor, pick unvisited neighbor with best f_score to update data structures.
 		if(continuing < 6){
 			//for each neighbor of current: 
-			for(var x_index = -1+current[0]; x_index < 2+current[0]; x_index++){
-				for(var y_index = -1+current[1]; y_index < 2+current[1]; y_index++){
+			x_index = -1+current[0];
+			for(x_index = x_index; x_index < 2+current[0]; x_index++){
+				y_index = -1+current[1];
+				for(y_index = y_index; y_index < 2+current[1]; y_index++){
 					//if not traversable, go to next neighbor. 
 					var traversable = (x_index > -1 && y_index > -1 && level_map[x_index, y_index] == 1);
 					if(! traversable){ 
@@ -265,7 +267,7 @@ if(obj_player && (keyboard_check_pressed(ord("U")) || continuing > 0)){
 			}
 		
 			//If we are taking too long, end prematurely. 
-			if((get_timer() - timestamp)/1000000 > global.frame_time){
+			if((get_timer() - timestamp)/1000000 > global.frame_time * 3/5){
 				continuing = 3;
 				return; 
 			}
