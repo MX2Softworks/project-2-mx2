@@ -25,7 +25,4 @@ max_value = 2000000000
 
 current = -1;
 
-x_index = -1;
-y_index = -1;
-
 scr_navigable_terrain()
