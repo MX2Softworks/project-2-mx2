@@ -45,6 +45,10 @@ enum PNF{
 //DebugProgress  = false;
 //DebugFoundPath  = false;
 
+on_ground_list = "";
+at_ceiling_list = "";
+search_check = false;
+
 selected = false; 
 highlight_path = false;
 regen_graph = false;
@@ -57,8 +61,8 @@ start_x = -1;
 start_y = -1; 
 max_value = 2000000000
 
-character_height = 32;
-max_character_jump_height = floor(96 / chunk_size)
+character_height = floor( 32/ chunk_size);
+max_character_jump_height = floor(32 * 4 / chunk_size)
 
 nodes = ""; //a list of a (list of nodes) in our graph. 
 touched_locations = ""; //places we've modified, used in optimizations.

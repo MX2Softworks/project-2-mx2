@@ -134,6 +134,17 @@ if(regen_graph){
 		ds_priority_destroy(open_list);
 	}
 	open_list = ds_priority_create(); //have to stack locations and compare their priorities. open list is a priority queue that compares based off of F value
+	
+	if(on_ground_list != ""){
+		ds_list_clear(on_ground_list);
+		ds_list_destroy(on_ground_list);
+		on_ground_list = "";
+	}
+	if(at_ceiling_list != ""){
+		ds_list_clear(at_ceiling_list);
+		ds_list_destroy(at_ceiling_list);
+		at_ceiling_list = "";
+	}
 }
 
 //Moves the chaser if it is selected.
@@ -146,7 +157,16 @@ if(selected){
 
 if(keyboard_check_pressed(ord("U"))){
 	
-	highlight_path = false;
+	//initialize list of on_ground and at_ceiling nodes if not already.
+	//these lists are only used for debug purposes. 
+	if(on_ground_list == ""){
+		on_ground_list = ds_list_create();
+	}
+	if(at_ceiling_list == ""){
+		at_ceiling_list = ds_list_create();
+	}
+	
+	highlight_path = false; //used to draw path.
 	start_x = floor(x / chunk_size);
 	start_y = floor(y /chunk_size);
 	end_x = 7
@@ -154,11 +174,6 @@ if(keyboard_check_pressed(ord("U"))){
 	if(obj_player){ 
 		end_x = floor(obj_player.x / chunk_size);
 		end_y = floor(obj_player.y / chunk_size);
-	}
-	
-	if(start_x == end_x && start_y == end_y)
-	{
-		break_point = true;
 	}
 	
 	//go through every node in touched locations and reset it.
@@ -181,9 +196,10 @@ if(keyboard_check_pressed(ord("U"))){
 	closed_node_counter = 0;
 	is_open += 2; 
 	is_closed += 2;
-
+	search_limit = 3000;
+	
 	//make a new location
-	location = [0,0]
+	location = [-1,-1]
 	location[L.xy] = start_y * grid_x_dim + start_x
 	location[L.z] = 0
 	end_location_xy = end_y * grid_x_dim + end_x
@@ -197,10 +213,13 @@ if(keyboard_check_pressed(ord("U"))){
 	first_node[PNF.PZ] = 0;
 	first_node[PNF.status] = is_open;
 
-	//if the first_node is a ground node (aka there is an obj_solid directly underneath.
-	if(start_y-1 > -1 && grid[start_x, start_y-1] == 0){
+	//if the first_node is a ground node (aka there is an obj_solid directly underneath) then set its jump value to 0.
+	if(start_y + 1 <= grid_y_dim && grid[start_x, start_y + 1] == 0){
 		first_node[PNF.jump_length] = 0;
+		var elem = [start_x, start_y]
+		ds_list_add(on_ground_list, elem);
 	}
+	//otherwise, use a falling value for the jump value.
 	else {
 		first_node[PNF.jump_length] = (max_character_jump_height * 2);
 	}
@@ -221,9 +240,9 @@ if(keyboard_check_pressed(ord("U"))){
 		//Is it in closed list? means this node was already processed
 		node_list = nodes[|location[L.xy]]
 		node = node_list[|location[L.z]]
-		if(! is_array(node) ){
+		if(! is_array(node)  ){
 			break_point = true;
-			exit
+			continue;
 		}
 		
 		if (node[PNF.status] == is_closed)
@@ -244,6 +263,7 @@ if(keyboard_check_pressed(ord("U"))){
 			
 		}
 		
+		//if we hit our search limit, terminate.
 		if (!found && closed_node_counter > search_limit){
 			stopped = true; 
 			exit;
@@ -253,27 +273,57 @@ if(keyboard_check_pressed(ord("U"))){
 			
 			if(found) break;
 			
-			dir = direction_vector[i];
+			var dir = direction_vector[i];
 			new_location_x = location_x + dir[0];
 			new_location_y = location_y + dir[1];
 			
-			if(new_location_x < 0 || new_location_x >= grid_x_dim || new_location_y < 0 || new_location_y >= grid_y_dim)
+			//if out of bounds, continue.
+			if(new_location_x < 0 || new_location_x >= grid_x_dim || new_location_y < 0 || new_location_y >= grid_y_dim || grid[new_location_x, new_location_y] == 0)
 			{
 				continue;
 			}
-			
 			new_location_xy  = new_location_y * grid_x_dim + new_location_x;
+			
+			//determine if node is on ground.
 			var on_ground = false; 
 			var at_ceiling = false;
-
-			//skip children that are blocked or cannot be traversed. 
-			if(new_location_y - 1 > -1 && grid[new_location_x, new_location_y-1] == 0) on_ground = true;
-			if(location_y + (character_height / chunk_size) >= grid_y_dim || grid[location_x, location_y + character_height/chunk_size] == 0) at_ceiling = true;
+			if(new_location_y + 1 < grid_y_dim && grid[new_location_x, new_location_y + 1] == 0) { 
+				on_ground = true; 
+				var elem = [new_location_x, new_location_y];
+				var dont_add = false;
+				for(var index = 0; index < ds_list_size(on_ground_list); index++){
+					var comp = on_ground_list[|index];
+					if(comp[0] == elem[0] && comp[1] == elem[1]){
+						dont_add = true;
+						break;
+					}
+				}
+				if(!dont_add){
+					ds_list_add(on_ground_list, elem);
+				}
+			}
+			//determine if node is on ceiling.
+			if(new_location_y - character_height < 0 || grid[new_location_x, new_location_y - character_height] == 0) { 
+				at_ceiling = true;
+				var elem = [new_location_x, new_location_y];
+				var dont_add = false;
+				for(var index = 0; index < ds_list_size(at_ceiling_list); index++){
+					var comp = at_ceiling_list[|index];
+					if(comp[0] == elem[0] && comp[1] == elem[1]){
+						dont_add = true;
+						break;
+					}
+				}
+				if(!dont_add){
+					ds_list_add(at_ceiling_list, elem);
+				}
+				
+			}
 			
 			//calculate a proper jump_length value for the successor
 			node_list = nodes[|location[L.xy]];
-			node = node_list[|location[L.z]];
-			var jump_length = node[PNF.jump_length];
+			var old_loc_node = node_list[|location[L.z]];
+			var jump_length = old_loc_node[PNF.jump_length];
 			var new_jump_length = jump_length;
 			
 			if (at_ceiling)
@@ -284,14 +334,16 @@ if(keyboard_check_pressed(ord("U"))){
 			else if (on_ground){
 				new_jump_length = 0;
 			}
-			else if (new_location_y > location_y){ // if new location is above the previous
+			//we are jumping up.
+			else if (new_location_y < location_y){ // if new location is above the previous
 				
 				//first jump is always two block up instead of one up and optionally one to either right or left
 				if (jump_length < 2)			new_jump_length = 3;
 				else if (jump_length % 2 == 0)	new_jump_length = jump_length + 2;
 				else							new_jump_length = jump_length + 1;
 			}
-			else if (new_location_y < location_y){
+			//we are falling.
+			else if (new_location_y > location_y){
 				if (jump_length % 2 == 0)	new_jump_length = max(max_character_jump_height * 2, jump_length + 2);
 				else						new_jump_length = max(max_character_jump_height * 2, jump_length + 1);
 			}
@@ -302,7 +354,7 @@ if(keyboard_check_pressed(ord("U"))){
 				continue;
 			
 			//if we're falling and succeor's height is bigger than ours, skip that successor
-			if (jump_length >= max_character_jump_height * 2 && new_location_y > location_y)
+			if (jump_length >= max_character_jump_height * 2 && new_location_y < location_y)
 				continue;
 
 			//TODO: determine where the value of '6' comes from here. 
@@ -375,57 +427,63 @@ if(keyboard_check_pressed(ord("U"))){
 		closed_node_counter++;
 	}	
 	if (found){
+		
+		//we will store the path in the closed list.
 		ds_list_clear(closed_list);
 		var pos_x = end_x;
 		var pos_y = end_y;
 		
-		var prev_node_temp = [-1,-1,-1,-1,-1,-1,-1];
-		node_list = nodes[|end_location_xy];
+		var prev_node_temp = [-1,-1,-1,-1,-1,-1,-1]; //pathfinder node.
+		node_list = nodes[|end_location_xy]; //pathfinder node.
 		var node_temp = node_list[|0];
 		
 		var temp_loc = [end_x, end_y];
 		var prev_node = [end_x, end_y];
 
-		var loc_xy = node_temp[PNF.PY] * grid_x_dim + node_temp[PNF.PX];
+		var loc_xy = node_temp[PNF.PY] * grid_x_dim + node_temp[PNF.PX]; //loc_xy is the XY position of the node to be processed next. 
 		
+		//keep going until you hit the start node. 
 		while (temp_loc[0] != node_temp[PNF.PX] || temp_loc[1] != node_temp[PNF.PY]){
-			node_list = nodes[|loc_xy];
-			var next_node_temp = node_list[|node_temp[PNF.PZ]];
-
-			var closed_list_last = -1;
-			var closed_list_last_x = -1;
-			var closed_list_last_y = -1;
-			if(ds_list_size(closed_list) -1 > -1){
-				closed_list_last= closed_list[| ds_list_size(closed_list) - 1];
-				closed_list_last_x = closed_list_last[0];
-				closed_list_last_y = closed_list_last[1];
-			}
 			
-			var adjacent_on_ground = false
-			if((temp_loc[0] -1 > -1 && temp_loc[1] - 1 > -1 && grid[temp_loc[0] - 1, temp_loc[1] -1] == 0) || (temp_loc[0] +1 <= grid_x_dim && temp_loc[1] - 1 > -1 && grid[temp_loc[0] - 1, temp_loc[1] -1] == 0))
-				{ adjacent_on_ground = true; }
-				
-			if (ds_list_size(closed_list) == 0
-				/*|| (mMap.IsOneWayPlatform(temp_loc[0], temp_loc[1] - 1))*/
-				/*|| (mGrid[temp_loc[0], temp_loc[1] - 1] == 0 && mMap.IsOneWayPlatform(prev_node.x, prev_node.y - 1)) //potentially use this when one_way platforms are integrated */
-				|| (node_temp[PNF.jump_length] == 3)
+			//get the next pathfinder node
+			node_list = nodes[|loc_xy];
+			var next_node_temp = node_list[|node_temp[PNF.PZ]]; 
+
+			//initalize some values used in the if conditional.
+			/*
+				var closed_list_last = -1;
+				var closed_list_last_x = -1;
+				var closed_list_last_y = -1;
+				if(ds_list_size(closed_list) -1 > -1){
+					closed_list_last= closed_list[| ds_list_size(closed_list) - 1];
+					closed_list_last_x = closed_list_last[0];
+					closed_list_last_y = closed_list_last[1];
+				}
+			
+				//checks if left neighbor or right neighbor are on ground.
+				var adjacent_on_ground = false
+				if((temp_loc[0] -1 > -1 && temp_loc[1] + 1 < grid_y_dim && grid[temp_loc[0] - 1, temp_loc[1] + 1] == 0) || (temp_loc[0] +1 < grid_x_dim && temp_loc[1] + 1 <= grid_y_dim && grid[temp_loc[0] - 1, temp_loc[1] + 1] == 0))
+					{ adjacent_on_ground = true; }
+			
+			*/
+			//Now let's start the filtering process. The start node will get added to the list at the very end, after all other items have been dealt with. 
+			//Since we're going from the end node, let's be sure to include that one in our final path:
+			
+			/*if (ds_list_size(closed_list) == 0 //add the ending node.
+				|| (node_temp[PNF.jump_length] == 3)  
 				|| (next_node_temp[PNF.jump_length] != 0 && node_temp[PNF.jump_length] == 0)   //mark jumps starts
 				|| (node_temp[PNF.jump_length] == 0 && prev_node_temp[PNF.jump_length] != 0)          //mark landings
 				|| (temp_loc[1] > closed_list_last_y && temp_loc[1] > node_temp[PNF.PY])
 				|| (temp_loc[1] < closed_list_last_y && temp_loc[1] < node_temp[PNF.PY])
 				|| (adjacent_on_ground == true && temp_loc[1] != closed_list_last_y && temp_loc[0] != closed_list_last_x))
-				{ ds_list_add(closed_list, temp_loc); }
+				{ ds_list_add(closed_list, temp_loc); }*/
+			ds_list_add(closed_list, temp_loc);
 		
 			prev_node = temp_loc;
 			pos_x = node_temp[PNF.PX];
 			pos_y = node_temp[PNF.PY];
 			prev_node_temp = node_temp;
-			node_temp = next_node_temp;
-			
-			if( !is_array(next_node_temp) ){
-				break_point = true; 
-			}
-			
+			node_temp = next_node_temp;	
 			loc_xy = node_temp[PNF.PY] * grid_x_dim + node_temp[PNF.PX];
 			temp_loc = [pos_x, pos_y];
 		}
@@ -433,11 +491,11 @@ if(keyboard_check_pressed(ord("U"))){
 		ds_list_add(closed_list, temp_loc);
 		stopped = true;
 		highlight_path = true;
+		search_check = true;
 		exit;
 	}
 		
 	stopped = true;
-	break_point = true;
 	exit;
 }
 
