@@ -47,6 +47,7 @@ enum PNF{
 
 on_ground_list = "";
 at_ceiling_list = "";
+wall_jump_list = "";
 search_check = false;
 
 selected = false; 
@@ -69,10 +70,10 @@ touched_locations = ""; //places we've modified, used in optimizations.
 open_list = "";
 closed_list = "";
 stop = false;
-stopped = true;
+stopped = false;
 formula = "man";
 H_estimate = 2;
-search_limit  = 2000;
+search_limit  = 1500;
 is_open = 1;
 is_closed= 2;
 	
@@ -95,16 +96,15 @@ grid[0, 0]				= 0;
 grid_x_dim = floor(room_width/chunk_size);
 grid_y_dim = floor(room_height/chunk_size);
 
-
-
-
 //Go through the level and mark any chunk that does not have a solid present as a valid chunk. 
 counter = 0;
 for(var x_index = 0; x_index < grid_x_dim; x_index++){
 	for(var y_index = 0; y_index < grid_y_dim; y_index++){
 		
-		var solid_at_grid = instance_position(x_index*chunk_size, y_index*chunk_size, obj_solid)
-		if(solid_at_grid != noone){
+		var solid_at_grid = (  instance_position(x_index*chunk_size, y_index*chunk_size, obj_solid) 
+		                    || instance_position(x_index*chunk_size + chunk_size/2,  y_index*chunk_size + chunk_size/2, obj_solid) 
+							|| instance_position(x_index*chunk_size + chunk_size -1, y_index*chunk_size + chunk_size-1, obj_solid)); 
+		if(solid_at_grid){
 			grid[x_index, y_index] = 0;
 		}
 		else{
@@ -153,7 +153,7 @@ if (nodes == "" || ds_list_size(nodes) != (grid_x_dim * grid_y_dim))
 for (var i = 0; i < ds_list_size(nodes); ++i){
 	ds_list_clear(nodes[|i]);
 }
-//TODO: figure out how to make this work. 
+
 if(open_list != ""){
 
 	while(ds_priority_size(open_list) > 0){
