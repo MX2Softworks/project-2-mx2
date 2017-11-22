@@ -207,6 +207,14 @@
             }
         },
         {
+            "Key": "3223b4d4-ddba-455d-84fb-b187713b7c0e",
+            "Value": {
+                "id": "d09e1cac-5f10-40e3-bc26-3c0527c383bd",
+                "resourcePath": "objects\\obj_jumping_chaser\\obj_jumping_chaser.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "348bdb9d-c80b-4e63-8a25-a4f2b0bc7ac2",
             "Value": {
                 "id": "cd5685ff-51cd-45ed-8aa3-9609bee92b21",
