@@ -11,5 +11,5 @@ script_execute(scr_render, obj_solid, scr_player_accel, scr_player_velo_mod, scr
 
 if(place_meeting(x,y, obj_death)){
 
-	room_restart(); 
+	script_execute(scr_reset_room); 
 }
