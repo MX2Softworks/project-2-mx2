@@ -12,28 +12,28 @@ if(debug_toggle){
 			}
 		}
 	}
-}
+	if(ds_stack_size(touched_locations) > 0){
 
-if(ds_stack_size(touched_locations) > 0){
-
-	var temp_list = ds_list_create();
-	var max_index = ds_stack_size(touched_locations)
-	for(var index = 0; index < max_index; index++){
-		var loc_xy = ds_stack_pop(touched_locations);
-		var loc_x = floor(loc_xy % grid_x_dim);
-		var loc_y = floor(loc_xy / grid_x_dim);
-		draw_rectangle_color(loc_x * chunk_size, loc_y *chunk_size, loc_x *chunk_size + chunk_size, loc_y *chunk_size + chunk_size, c_yellow, c_yellow, c_yellow, c_yellow, true);
-		ds_list_add(temp_list, loc_xy);
-	}
+		var temp_list = ds_list_create();
+		var max_index = ds_stack_size(touched_locations)
+		for(var index = 0; index < max_index; index++){
+			var loc_xy = ds_stack_pop(touched_locations);
+			var loc_x = floor(loc_xy % grid_x_dim);
+			var loc_y = floor(loc_xy / grid_x_dim);
+			draw_rectangle_color(loc_x * chunk_size, loc_y *chunk_size, loc_x *chunk_size + chunk_size, loc_y *chunk_size + chunk_size, c_yellow, c_yellow, c_yellow, c_yellow, true);
+			ds_list_add(temp_list, loc_xy);
+		}
 	
-	for(var index = ds_list_size(temp_list) - 1; index > -1; index--){
-		var loc_xy = temp_list[|index];
-		ds_stack_push(touched_locations, loc_xy);
+		for(var index = ds_list_size(temp_list) - 1; index > -1; index--){
+			var loc_xy = temp_list[|index];
+			ds_stack_push(touched_locations, loc_xy);
+		}
+		ds_list_clear(temp_list);
+		ds_list_destroy(temp_list);
+		draw_once = false;
 	}
-	ds_list_clear(temp_list);
-	ds_list_destroy(temp_list);
-	draw_once = false;
 }
+
 
 if(on_ground_list != "" && ds_list_size(on_ground_list) > 0){
 	for(var index = 0; index < ds_list_size(on_ground_list); index++){
