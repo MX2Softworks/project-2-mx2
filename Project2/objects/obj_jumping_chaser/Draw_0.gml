@@ -1,7 +1,3 @@
-
-
-
-
 old_depth = depth
 depth = -10
 
@@ -46,9 +42,6 @@ if(on_ground_list != "" && ds_list_size(on_ground_list) > 0){
 		var loc_y = elem[1];
 		draw_rectangle_color(loc_x * chunk_size, loc_y *chunk_size, loc_x *chunk_size + chunk_size, loc_y *chunk_size + chunk_size, c_orange, c_orange, c_orange, c_orange, false);
 	}
-	//ds_list_clear(on_ground_list);
-	//ds_list_destroy(on_ground_list);
-	//on_ground_list = "";
 }
 
 if(at_ceiling_list != "" && ds_list_size(at_ceiling_list) > 0){
@@ -58,14 +51,17 @@ if(at_ceiling_list != "" && ds_list_size(at_ceiling_list) > 0){
 		var loc_y = elem[1];
 		draw_rectangle_color(loc_x * chunk_size, loc_y *chunk_size, loc_x *chunk_size + chunk_size, loc_y *chunk_size + chunk_size, c_navy, c_navy, c_navy, c_navy, false);
 	}
-	//ds_list_clear(at_ceiling_list);
-	//ds_list_destroy(at_ceiling_list);
-	//at_ceiling_list = "";
 }
 
-if(search_check = true){
-	break_point = true;
+if(wall_jump_list != "" && ds_list_size(wall_jump_list) > 0){
+	for(var index = 0; index < ds_list_size(wall_jump_list); index++){
+		var elem = wall_jump_list[|index];
+		var loc_x = elem[0];
+		var loc_y = elem[1];
+		draw_rectangle_color(loc_x * chunk_size, loc_y *chunk_size, loc_x *chunk_size + chunk_size, loc_y *chunk_size + chunk_size, c_lime, c_lime, c_lime, c_lime, false);
+	}
 }
+
 
 if(highlight_path){
 	
@@ -73,7 +69,6 @@ if(highlight_path){
 		var node = closed_list[|index];
 		draw_rectangle_color(node[0] * chunk_size, node[1]*chunk_size, node[0]*chunk_size + chunk_size, node[1]*chunk_size + chunk_size, c_red, c_red, c_red, c_red, true);
 	}
-	search_check = false;
 }
 
 
