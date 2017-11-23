@@ -13,3 +13,10 @@ if(place_meeting(x,y, obj_death)){
 
 	script_execute(scr_reset_room); 
 }
+
+//DEBUG: fullscreen support because Fahad has a high res laptop
+if(keyboard_check_pressed(vk_f1)){
+	fullscreen = !fullscreen;
+	window_set_fullscreen(fullscreen);
+}
+
