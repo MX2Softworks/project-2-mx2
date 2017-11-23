@@ -89,7 +89,6 @@ script_execute(scr_general_init);
     y_axis = 0;
 
 // Temp.
-	fullscreen = 0;
 // Reset.
 	room_start_x = x;
 	room_start_y = y;
