@@ -183,6 +183,14 @@
             }
         },
         {
+            "Key": "24af0afd-dc21-4bd2-97a4-358a58874ca4",
+            "Value": {
+                "id": "d99eb955-e6b9-49a0-b8b7-1ed2473bed89",
+                "resourcePath": "scripts\\scr_pathfinder_find_path\\scr_pathfinder_find_path.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "25662da1-f9ec-475f-913b-8263b63d42de",
             "Value": {
                 "id": "7105aae2-9474-4e47-ab64-b95be12e62df",
@@ -252,6 +260,14 @@
                 "id": "cd575830-0def-4156-8500-5c64d9102092",
                 "resourcePath": "views\\3af1647d-6995-4c9b-bdfa-f9dc26d22971.yy",
                 "resourceType": "GMFolder"
+            }
+        },
+        {
+            "Key": "3bcc000f-597b-4603-a8b2-1bcdc94fec93",
+            "Value": {
+                "id": "8286cefa-4a5e-4d20-8ec9-7b149c4ea0a2",
+                "resourcePath": "scripts\\scr_pathfinder_init\\scr_pathfinder_init.yy",
+                "resourceType": "GMScript"
             }
         },
         {
@@ -479,6 +495,14 @@
             }
         },
         {
+            "Key": "8d2eea16-7dfa-4743-935d-a01898625f82",
+            "Value": {
+                "id": "4cdb2965-6012-418e-8510-9323ab3fb9a5",
+                "resourcePath": "views\\8d2eea16-7dfa-4743-935d-a01898625f82.yy",
+                "resourceType": "GMFolder"
+            }
+        },
+        {
             "Key": "8f3e0f9d-f0ab-4e33-81d0-c36e117f4af5",
             "Value": {
                 "id": "d1acf349-98b6-41e7-97d0-3cb87db6033a",
@@ -499,6 +523,14 @@
             "Value": {
                 "id": "164f31ea-0e7c-4621-a533-7217cb616b87",
                 "resourcePath": "scripts\\scr_collision_detection\\scr_collision_detection.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
+            "Key": "977ce33c-ba20-429a-97e8-2992bc87c2a3",
+            "Value": {
+                "id": "47408e65-1aff-413f-819b-4088c55d476f",
+                "resourcePath": "scripts\\scr_pathfinder_reconstruct_path\\scr_pathfinder_reconstruct_path.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -950,7 +982,10 @@
         "0df52161-f417-48ab-829e-fb348a5ea4ba",
         "25662da1-f9ec-475f-913b-8263b63d42de",
         "9e495996-0631-4a8a-9c75-9fb4b0ea758b",
-        "f6cf8849-5757-4b98-ae62-1f22a5a0b1f0"
+        "f6cf8849-5757-4b98-ae62-1f22a5a0b1f0",
+        "3bcc000f-597b-4603-a8b2-1bcdc94fec93",
+        "24af0afd-dc21-4bd2-97a4-358a58874ca4",
+        "977ce33c-ba20-429a-97e8-2992bc87c2a3"
     ],
     "tutorial": ""
 }

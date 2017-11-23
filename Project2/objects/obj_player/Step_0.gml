@@ -13,3 +13,8 @@ if(place_meeting(x,y, obj_death)){
 
 	script_execute(scr_reset_room); 
 }
+
+if(keyboard_check_pressed(vk_f1)){
+	fullscreen = !fullscreen;
+	window_set_fullscreen(fullscreen);
+}
