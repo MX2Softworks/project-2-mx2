@@ -8,12 +8,7 @@ if (!gamepad_is_connected(gp_id)) {
 	// FOR TESTING
 	if (keyboard_check(ord("R"))) {
 		
-		room_restart();
-		current_x = room_start_x;
-		previous_x = room_start_x;
-		current_y = room_start_y;
-		previous_y = room_start_y;
-		
+		script_execute(scr_reset_room);
 	}
     
     right = keyboard_check_pressed(vk_right) || keyboard_check_pressed(ord("D"));
