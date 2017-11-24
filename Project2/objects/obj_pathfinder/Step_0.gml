@@ -30,9 +30,6 @@ if(selected){
 	return;
 }
 
-if(global.re_grid){
-	break_point = true;
-}
 
 //Regenerates the graph the chunk size changes. 
 if(regen_graph || global.re_grid){

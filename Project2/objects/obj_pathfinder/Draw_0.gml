@@ -62,8 +62,9 @@ if(self.debug_toggle){
 }
 
 if(highlight_path){
-	for(var index = 0; index < ds_list_size(closed_list); index++){
+	for(var index = ds_list_size(closed_list) - 1; index > 0; index--){
 		var node = closed_list[|index];
-		draw_rectangle_color(node[0] * chunk_size, node[1]*chunk_size, node[0]*chunk_size + chunk_size, node[1]*chunk_size + chunk_size, c_red, c_red, c_red, c_red, false);
+		draw_rectangle_color(node[0] * chunk_size, node[1]*chunk_size, node[0]*chunk_size + chunk_size, node[1]*chunk_size + chunk_size, c_red, c_red, c_red, c_red, true);
+		draw_text_color(node[0]*chunk_size +1, node[1]*chunk_size + 1, string(ds_list_size(closed_list) - index), c_black, c_black, c_black, c_black, 1);
 	}
 }

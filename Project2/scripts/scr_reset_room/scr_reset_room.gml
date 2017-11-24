@@ -10,3 +10,6 @@ script_execute(scr_general_init);
 // Resets all deactivated instances
 instance_activate_object(obj_door);
 
+//tells the AI to regenerate their grids. 
+global.re_grid = true;
+

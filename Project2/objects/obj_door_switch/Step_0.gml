@@ -1,4 +1,4 @@
-/// @description Insert description here
+
 
 if(place_meeting(x, y, obj_player)) 
 {	
@@ -18,9 +18,10 @@ if(place_meeting(x, y, obj_player))
 		if(door.col = obj_door_switch.col)
 		{
 			instance_deactivate_object(door.id);
+			global.re_grid = true;
 		}
 	}
-	global.re_grid = true;
+	
 }
 
 else
