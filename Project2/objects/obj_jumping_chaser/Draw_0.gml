@@ -32,38 +32,38 @@ if(self.debug_toggle){
 		ds_list_destroy(temp_list);
 		draw_once = false;
 	}
-}
 
-if(on_ground_list != "" && ds_list_size(on_ground_list) > 0){
-	for(var index = 0; index < ds_list_size(on_ground_list); index++){
-		var elem = on_ground_list[|index];
-		var loc_x = elem[0];
-		var loc_y = elem[1];
-		draw_rectangle_color(loc_x * chunk_size, loc_y *chunk_size, loc_x *chunk_size + chunk_size, loc_y *chunk_size + chunk_size, c_orange, c_orange, c_orange, c_orange, false);
+	if(on_ground_list != "" && ds_list_size(on_ground_list) > 0){
+		for(var index = 0; index < ds_list_size(on_ground_list); index++){
+			var elem = on_ground_list[|index];
+			var loc_x = elem[0];
+			var loc_y = elem[1];
+			draw_rectangle_color(loc_x * chunk_size, loc_y *chunk_size, loc_x *chunk_size + chunk_size, loc_y *chunk_size + chunk_size, c_orange, c_orange, c_orange, c_orange, false);
+		}
 	}
-}
 
-if(at_ceiling_list != "" && ds_list_size(at_ceiling_list) > 0){
-	for(var index = 0; index < ds_list_size(at_ceiling_list); index++){
-		var elem = at_ceiling_list[|index];
-		var loc_x = elem[0];
-		var loc_y = elem[1];
-		draw_rectangle_color(loc_x * chunk_size, loc_y *chunk_size, loc_x *chunk_size + chunk_size, loc_y *chunk_size + chunk_size, c_navy, c_navy, c_navy, c_navy, false);
+	if(at_ceiling_list != "" && ds_list_size(at_ceiling_list) > 0){
+		for(var index = 0; index < ds_list_size(at_ceiling_list); index++){
+			var elem = at_ceiling_list[|index];
+			var loc_x = elem[0];
+			var loc_y = elem[1];
+			draw_rectangle_color(loc_x * chunk_size, loc_y *chunk_size, loc_x *chunk_size + chunk_size, loc_y *chunk_size + chunk_size, c_navy, c_navy, c_navy, c_navy, false);
+		}
 	}
-}
 
-if(wall_jump_list != "" && ds_list_size(wall_jump_list) > 0){
-	for(var index = 0; index < ds_list_size(wall_jump_list); index++){
-		var elem = wall_jump_list[|index];
-		var loc_x = elem[0];
-		var loc_y = elem[1];
-		draw_rectangle_color(loc_x * chunk_size, loc_y *chunk_size, loc_x *chunk_size + chunk_size, loc_y *chunk_size + chunk_size, c_lime, c_lime, c_lime, c_lime, false);
+	if(wall_jump_list != "" && ds_list_size(wall_jump_list) > 0){
+		for(var index = 0; index < ds_list_size(wall_jump_list); index++){
+			var elem = wall_jump_list[|index];
+			var loc_x = elem[0];
+			var loc_y = elem[1];
+			draw_rectangle_color(loc_x * chunk_size, loc_y *chunk_size, loc_x *chunk_size + chunk_size, loc_y *chunk_size + chunk_size, c_lime, c_lime, c_lime, c_lime, false);
+		}
 	}
 }
 
 if(highlight_path){
 	for(var index = 0; index < ds_list_size(closed_list); index++){
 		var node = closed_list[|index];
-		draw_rectangle_color(node[0] * chunk_size, node[1]*chunk_size, node[0]*chunk_size + chunk_size, node[1]*chunk_size + chunk_size, c_red, c_red, c_red, c_red, true);
+		draw_rectangle_color(node[0] * chunk_size, node[1]*chunk_size, node[0]*chunk_size + chunk_size, node[1]*chunk_size + chunk_size, c_red, c_red, c_red, c_red, false);
 	}
 }

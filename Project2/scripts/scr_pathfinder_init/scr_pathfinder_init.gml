@@ -45,7 +45,7 @@ start_y = -1;
 max_value = 2000000000
 
 
-max_character_jump_height = character_height * 4;
+max_character_jump_height = character_height * 3;
 
 nodes = ""; //a list of a (list of nodes) in our graph. 
 touched_locations = ""; //places we've modified, used in optimizations.
