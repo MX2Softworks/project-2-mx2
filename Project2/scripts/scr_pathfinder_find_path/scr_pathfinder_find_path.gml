@@ -155,7 +155,7 @@
 			var at_ceiling = false;
 			var wall_jump = false;
 			
-			//determine if node is on ground.
+			//determine if successor is on ground.
 			if(new_location_y + 1 < grid_y_dim && grid[new_location_x, new_location_y + 1] == 0) { 
 				on_ground = true; 
 				if(debug){
@@ -173,7 +173,7 @@
 					}
 				}
 			}
-			//determine if node is on ceiling.
+			//determine if successor is on ceiling.
 			if(new_location_y - character_height < 0 || grid[new_location_x, new_location_y - character_height] == 0) { 
 				at_ceiling = true;
 				if(debug){
@@ -191,7 +191,7 @@
 					}
 				}	
 			}
-			//determine if node is a wall_jump.
+			//determine if successor is a wall_jump.
 			if((new_location_x +1 < grid_x_dim && grid[new_location_x +1, new_location_y] == 0) || (new_location_x - 1 > -1 && grid[new_location_x -1, new_location_y] == 0)) { 
 				wall_jump = true;
 				if(debug){
@@ -213,28 +213,35 @@
 			//calculate a proper jump_length value for the successor
 			node_list = nodes[|location[L.xy]];
 			var old_loc_node = node_list[|location[L.z]];
-			var jump_length = old_loc_node[PNF.jump_length];
+			var jump_length = old_loc_node[PNF.jump_length]; //jump length of parent. 
 			var new_jump_length = jump_length;
 			
 			if (at_ceiling)
 			{
+				//we've hit the ceiing so go straight down.
 				if (new_location_x != location_x)	new_jump_length = max(max_character_jump_height * 2 + 1, jump_length + 1);
+				//we can move one cell to the left or right.
 				else								new_jump_length = max(max_character_jump_height * 2, jump_length + 2);
 			}
 			else if (on_ground){
+				//we can jump again, so reset jump value. 
 				new_jump_length = 0;
 			}
 			//we are jumping up.
 			else if (new_location_y < location_y){ // if new location is above the previous
 				
-				//first jump is always two block up instead of one up and optionally one to either right or left
+				//first jump is always two block up instead of one up and optionally one to either right or left.
 				if (jump_length < 2)					new_jump_length = 3;
+				//when moving up, increase the jump length up to the next point based on speed factor. 
 				else if (jump_length % 2 == 0)			new_jump_length = jump_length + 2;
+				//wall jumping, set the new jump length to 0.
 				else if (wall_jump && jump_length > 3)	new_jump_length = 0;
+				//moving sideways, increase the new jump length. 
 				else									new_jump_length = jump_length + 1;
 			}
 			//we are falling.
 			else if (new_location_y > location_y){
+				//increase to next point based on speed factor.
 				if (jump_length % 2 == 0)										new_jump_length = max(max_character_jump_height * 2, jump_length + 2);
 				else if (wall_jump && jump_length > max_character_jump_height)	new_jump_length = 0;
 				else															new_jump_length = max(max_character_jump_height * 2, jump_length + 1);
