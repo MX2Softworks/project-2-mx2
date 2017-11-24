@@ -49,6 +49,6 @@ if(obj_player && (search_counter > 10 || search_counter == 0)){
 //start a search if we press U or if a previous search from last frame is going. 
 if(keyboard_check_pressed(ord("U")) || !((found && stopped) || (!found && !stopped) || search_counter > 10)){
 	
-	scr_pathfinder_find_path(floor(x/chunk_size), floor(y/chunk_size), end_x, end_y, true, true);
+	scr_pathfinder_find_path(floor(x/chunk_size), floor(y/chunk_size), end_x, end_y, false, true);
 }
 

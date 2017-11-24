@@ -8,9 +8,6 @@
 	var filter_on = argument4;
 	var debug = argument5;
 	
-	//constants used in this script. 
-	var gravity_threshold = 6;
-	
 	closed_node_counter = 0;
 	//if we finished a previous search, a previous search is invalid, or we search too long. 
 	if( (found && stopped) || (!found && !stopped) || search_counter > 10){
@@ -88,7 +85,7 @@
 		}
 		//otherwise, use a falling value for the jump value.
 		if(starting_jump == false){
-			first_node[PNF.jump_length] = (max_character_jump_height * 2);
+			first_node[PNF.jump_length] = (max_character_jump_height * speed_factor);
 		}
 
 		//add the first node and its location to the open_list and touched_locations
@@ -238,11 +235,11 @@
 			if (at_ceiling)
 			{
 				//we've hit the ceiing so go straight down.
-				if (new_location_x != location_x)	new_jump_length = max(max_character_jump_height * 2 + 1, jump_length + 1);
+				if (new_location_x != location_x)	new_jump_length = max(max_character_jump_height * speed_factor + 1, jump_length + 1);
 				//we can move one cell to the left or right.
-				else								new_jump_length = max(max_character_jump_height * 2, jump_length + 2);
+				else								new_jump_length = max(max_character_jump_height * speed_factor, jump_length + speed_factor);
 			}
-			else if (on_ground || (wall_jump && jump_length > 3)){
+			else if (on_ground || (wall_jump && jump_length > speed_factor+1)){
 				//we can jump again, so reset jump value. 
 				new_jump_length = 0;
 			}
@@ -250,35 +247,35 @@
 			else if (new_location_y < location_y){ // if new location is above the previous
 				
 				//first jump is always two block up instead of one up and optionally one to either right or left.
-				if (jump_length < 2)		new_jump_length = 3;
+				if (jump_length < speed_factor)				new_jump_length = speed_factor+1;
 				//If we are at a speed factor interval, we must move up. 
-				else if (jump_length % 2 == 0)			new_jump_length = jump_length + 2;
+				else if (jump_length % speed_factor == 0)	new_jump_length = jump_length + speed_factor;
 				//moving sideways, increase the new jump length. 
-				else									new_jump_length = jump_length + 1;
+				else										new_jump_length = jump_length + 1;
 			}
 			//we are falling.
 			else if (new_location_y > location_y){
 				//if we are at a speed factor interval, we must move down.
-				if (jump_length % 2 == 0)											new_jump_length = max(max_character_jump_height * 2, jump_length + 2);
+				if (jump_length % speed_factor == 0)								new_jump_length = max(max_character_jump_height * speed_factor, jump_length + speed_factor);
 				//we can move sideways. 
-				else																new_jump_length = max(max_character_jump_height * 2, jump_length + 1);
+				else																new_jump_length = max(max_character_jump_height * speed_factor, jump_length + 1);
 			}
 			//this node is a sideways movement in the air. 
 			else if (!on_ground && new_location_x != location_x)	new_jump_length = jump_length + 1;
 			
-			//If the parent node is either to the left or right, and we move sideways when we are at the speed factor interval,
-			//skip that successor.
-			if (jump_length >= 0 && jump_length % 2 != 0 && location_x != new_location_x)	continue;
+			//If the parent node is either to the left or right, and we move sideways when we are supposed to be at the 
+			//speed factor interval, skip that successor.
+			if (jump_length >= 0 && jump_length % speed_factor == (speed_factor-1) && location_x != new_location_x)	continue;
 			
 			//if we're falling and successor's height is bigger than ours, skip that successor
-			if (jump_length >= max_character_jump_height * 2 && new_location_y < location_y)	continue;
+			if (jump_length >= max_character_jump_height * speed_factor && new_location_y < location_y)	continue;
 
 			//if the parent node was a wall jump, and the current node has the same x, skip that successor.
 			if(parent_wall_jump && new_location_x == location_x && new_location_y < location_y)	continue;
 
-			//For some reason, nodes with this x and y still get added? Why?
+			//if successor is a wall jump and the node below the successor was a wall jump, skip that successor
 			var direct_wall_ascend = false;
-			if(wall_jump && new_location_y + 2 < grid_y_dim){
+			if(new_location_y + 2 < grid_y_dim){
 				var below_xy = (new_location_y + 1) * grid_x_dim + new_location_x;
 				node_list = nodes[|below_xy];
 				
@@ -299,13 +296,15 @@
 				//If the successor's jump value is larger than the fall threshold (max * speed_factor + 6), 
 				//then we should stop allowing the direction change on every even jump value.
 				
-			if (new_jump_length >= max_character_jump_height * 2 + gravity_threshold && new_location_x != location_x && (new_jump_length - (max_character_jump_height * 2 + gravity_threshold)) % 8 != 3)
+			if (new_jump_length >= max_character_jump_height * speed_factor + gravity_threshold && new_location_x != location_x 
+			&& ((new_jump_length - (max_character_jump_height * speed_factor + gravity_threshold)) % (speed_factor * 4) > speed_factor 
+			&& ((new_jump_length - (max_character_jump_height * speed_factor + gravity_threshold)) % (speed_factor * 4) < speed_factor*2)))
 				continue;
 				
 		/*  This will prevent the algorithm giving incorrect values when the character is falling really fast, 
-			because in that case instead of 1 block to the side and 1 block down, it would need to move 1 block 
-			to the side and 2 or more blocks down. (Right now, the character can move 3 blocks to the side after it 
-			starts falling, and then we allow it to move sideways every 4 blocks traversed vertically.)    */
+			because in that case instead of (speed_factor-1) blocks to the side and 1 block down, it would need to move (speed_factor-1) blocks 
+			to the side and 2 or more blocks down. (Right now, the character can move (speed_factor +1 up to speed_factor * 2 -1) 
+			blocks to the side after it starts falling, and then we allow it to move sideways every 4 blocks traversed vertically.)  */
 				
 			node_list = nodes[|new_location_xy];
 			if (ds_list_size(node_list) > 0){
@@ -320,12 +319,12 @@
 						lowest_jump = node[PNF.jump_length];
 
 					//can jump to the side while ascending or falling.
-					if (node[PNF.jump_length] % 2 == 0 && node[PNF.jump_length] < max_character_jump_height * 2 + gravity_threshold)
+					if (node[PNF.jump_length] % speed_factor < (speed_factor - 1) && node[PNF.jump_length] < max_character_jump_height * speed_factor + gravity_threshold)
 						could_move_sideways = true;
 				}
 
 				//skip this successor if any other nodes at that location are cheaper or allow you to move sideways. 
-				if (lowest_jump <= new_jump_length && (new_jump_length % 2 != 0 || new_jump_length >= max_character_jump_height * 2 + gravity_threshold || could_move_sideways))
+				if (lowest_jump <= new_jump_length && (new_jump_length % speed_factor != 0 || new_jump_length >= max_character_jump_height * speed_factor + gravity_threshold || could_move_sideways))
 					continue;
 			}
 			
@@ -335,7 +334,7 @@
 			new_G = node[PNF.G] + grid[new_location_x, new_location_y] + new_jump_length / 4;  //we add new_jump_length / 4 to make 
 																							  //non-jumping preferable to the AI.
 																							  
-			if(wall_jump || parent_wall_jump) new_G += 4;
+			if((wall_jump) || (parent_wall_jump)) new_G += max(new_jump_length * 4, speed_factor * 3);
 			
 			//initialize H based on heuristic variables 
 			switch(formula){

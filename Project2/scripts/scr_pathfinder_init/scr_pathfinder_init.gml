@@ -44,8 +44,9 @@ start_x = -1;
 start_y = -1; 
 max_value = 2000000000
 
-
 max_character_jump_height = character_height * 3;
+gravity_threshold = 6; //used in the pathfinding algorithm to simulate the effects of gravity on jump_length
+speed_factor = 3; //a greater speed factor allows the algorithm to jump further 
 
 nodes = ""; //a list of a (list of nodes) in our graph. 
 touched_locations = ""; //places we've modified, used in optimizations.

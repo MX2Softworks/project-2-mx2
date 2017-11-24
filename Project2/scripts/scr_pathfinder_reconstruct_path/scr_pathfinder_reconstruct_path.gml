@@ -44,7 +44,7 @@ while (temp_loc[0] != node_temp[PNF.PX] || temp_loc[1] != node_temp[PNF.PY]){
 		//Now let's start the filtering process. The start node will get added to the list at the very end, after all other items have been dealt with. 
 		//Since we're going from the end node, let's be sure to include that one in our final path:
 		if (ds_list_size(closed_list) == 0 //add the ending node.
-			|| (node_temp[PNF.jump_length] == 3)  
+			|| ((node_temp[PNF.jump_length] > speed_factor) &&  (node_temp[PNF.jump_length] < speed_factor*2))
 			|| (next_node_temp[PNF.jump_length] != 0 && node_temp[PNF.jump_length] == 0)   //mark jumps starts
 			|| (node_temp[PNF.jump_length] == 0 && prev_node_temp[PNF.jump_length] != 0)   //mark landings
 			|| (temp_loc[1] > closed_list_last_y && temp_loc[1] > node_temp[PNF.PY])
