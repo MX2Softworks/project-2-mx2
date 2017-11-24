@@ -46,12 +46,12 @@ while (temp_loc[0] != node_temp[PNF.PX] || temp_loc[1] != node_temp[PNF.PY]){
 		if (ds_list_size(closed_list) == 0 //add the ending node.
 			|| (node_temp[PNF.jump_length] == 3)  
 			|| (next_node_temp[PNF.jump_length] != 0 && node_temp[PNF.jump_length] == 0)   //mark jumps starts
-			|| (node_temp[PNF.jump_length] == 0 && prev_node_temp[PNF.jump_length] != 0)          //mark landings
+			|| (node_temp[PNF.jump_length] == 0 && prev_node_temp[PNF.jump_length] != 0)   //mark landings
 			|| (temp_loc[1] > closed_list_last_y && temp_loc[1] > node_temp[PNF.PY])
 			|| (temp_loc[1] < closed_list_last_y && temp_loc[1] < node_temp[PNF.PY])
 			|| (adjacent_on_ground == true && temp_loc[1] != closed_list_last_y && temp_loc[0] != closed_list_last_x))
 			|| (wall_jump)
-			{ ds_list_add(closed_list, temp_loc);	}
+			{ds_list_add(closed_list, temp_loc);}
 	}
 	else{
 		ds_list_add(closed_list, temp_loc);

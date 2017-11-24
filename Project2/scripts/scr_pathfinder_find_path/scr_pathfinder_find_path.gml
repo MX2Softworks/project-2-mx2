@@ -250,7 +250,7 @@
 			else if (new_location_y < location_y){ // if new location is above the previous
 				
 				//first jump is always two block up instead of one up and optionally one to either right or left.
-				if (!wall_jump && jump_length < 2)		new_jump_length = 3;
+				if (jump_length < 2)		new_jump_length = 3;
 				//If we are at a speed factor interval, we must move up. 
 				else if (jump_length % 2 == 0)			new_jump_length = jump_length + 2;
 				//moving sideways, increase the new jump length. 
@@ -332,8 +332,10 @@
 			//calculate the new g
 			node_list = nodes[|location[L.xy]];
 			node = node_list[|location[L.z]];
-			new_G = node[PNF.G] + grid[new_location_x, new_location_y] + new_jump_length / 4; //we add new_jump_length / 4 to make 
+			new_G = node[PNF.G] + grid[new_location_x, new_location_y] + new_jump_length / 4;  //we add new_jump_length / 4 to make 
 																							  //non-jumping preferable to the AI.
+																							  
+			if(wall_jump || parent_wall_jump) new_G += 4;
 			
 			//initialize H based on heuristic variables 
 			switch(formula){
