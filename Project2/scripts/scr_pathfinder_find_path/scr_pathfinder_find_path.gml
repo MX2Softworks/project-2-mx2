@@ -1,6 +1,12 @@
 
-	var filter_on = argument0;
-	var debug = argument1;
+	//supplied parameters.
+	var start_x = argument0;
+	var start_y = argument1;
+	var end_x = argument2;
+	var end_y = argument3;
+	
+	var filter_on = argument4;
+	var debug = argument5;
 	
 	closed_node_counter = 0;
 	//if we finished a previous search, a previous search is invalid, or we search too long. 
@@ -20,8 +26,6 @@
 		}
 	
 		highlight_path = false; //used to draw path.
-		start_x = floor(x / chunk_size);
-		start_y = floor(y /chunk_size);
 	
 		//go through every node in touched locations and reset it.
 		while (ds_stack_empty(touched_locations) == false){
@@ -60,6 +64,7 @@
 		first_node[PNF.PZ] = 0;
 		first_node[PNF.status] = is_open;
 		var starting_jump = false;
+		
 		//if the first_node is a ground node or we can wall slide. (aka there is an obj_solid directly underneath) then set its jump value to 0.
 		if(start_y + 1 < grid_y_dim && grid[start_x, start_y + 1] == 0){
 			first_node[PNF.jump_length] = 0;
@@ -80,7 +85,7 @@
 		}
 		//otherwise, use a falling value for the jump value.
 		if(starting_jump == false){
-			first_node[PNF.jump_length] = (max_character_jump_height * 2);
+			first_node[PNF.jump_length] = (max_character_jump_height * speed_factor);
 		}
 
 		//add the first node and its location to the open_list and touched_locations
@@ -111,6 +116,7 @@
 			continue;
 		}
 		
+		//If its in the closed list, skip it. 
 		if (node[PNF.status] == is_closed)
 			continue;
 		
@@ -135,6 +141,16 @@
 			exit;
 		}
 		
+		/*grandparent_wall_jump = false;
+		if(node[PNF.PY] + 1 < grid_y_dim && grid[node[PNF.PX], node[PNF.PX] + 1] != 0 && (node[PNF.PX] +1 < grid_x_dim && grid[node[PNF.PX] +1, node[PNF.PY]] == 0) || (node[PNF.PX] - 1 > -1 && grid[node[PNF.PX] -1, node[PNF.PY]] == 0)){
+			grandparent_wall_jump = true;
+		}*/
+		
+		parent_wall_jump = false;
+		if(location_y + 1 < grid_y_dim && grid[location_x, location_y + 1] != 0 && (location_x +1 < grid_x_dim && grid[location_x +1, new_location_y] == 0) || (location_x - 1 > -1 && grid[location_x -1, location_y] == 0)){
+			parent_wall_jump = true;
+		}
+		
 		for (var i=0; diagonal_valid ? (i < 8) : (i < 4); i++) /*if diagonals are allowed then 8 neighbors, else then 4*/ {
 			
 			if(found) break;
@@ -155,7 +171,7 @@
 			var at_ceiling = false;
 			var wall_jump = false;
 			
-			//determine if node is on ground.
+			//determine if successor is on ground.
 			if(new_location_y + 1 < grid_y_dim && grid[new_location_x, new_location_y + 1] == 0) { 
 				on_ground = true; 
 				if(debug){
@@ -173,7 +189,7 @@
 					}
 				}
 			}
-			//determine if node is on ceiling.
+			//determine if successor is on ceiling.
 			if(new_location_y - character_height < 0 || grid[new_location_x, new_location_y - character_height] == 0) { 
 				at_ceiling = true;
 				if(debug){
@@ -191,8 +207,8 @@
 					}
 				}	
 			}
-			//determine if node is a wall_jump.
-			if((new_location_x +1 < grid_x_dim && grid[new_location_x +1, new_location_y] == 0) || (new_location_x - 1 > -1 && grid[new_location_x -1, new_location_y] == 0)) { 
+			//determine if successor is a wall_jump.
+			if(!on_ground && ((new_location_x +1 < grid_x_dim && grid[new_location_x +1, new_location_y] == 0) || (new_location_x - 1 > -1 && grid[new_location_x -1, new_location_y] == 0))) { 
 				wall_jump = true;
 				if(debug){
 					var elem = [new_location_x, new_location_y];
@@ -213,52 +229,86 @@
 			//calculate a proper jump_length value for the successor
 			node_list = nodes[|location[L.xy]];
 			var old_loc_node = node_list[|location[L.z]];
-			var jump_length = old_loc_node[PNF.jump_length];
+			var jump_length = old_loc_node[PNF.jump_length]; //jump length of parent. 
 			var new_jump_length = jump_length;
 			
 			if (at_ceiling)
 			{
-				if (new_location_x != location_x)	new_jump_length = max(max_character_jump_height * 2 + 1, jump_length + 1);
-				else								new_jump_length = max(max_character_jump_height * 2, jump_length + 2);
+				//we've hit the ceiing so go straight down.
+				if (new_location_x != location_x)	new_jump_length = max(max_character_jump_height * speed_factor + 1, jump_length + 1);
+				//we can move one cell to the left or right.
+				else								new_jump_length = max(max_character_jump_height * speed_factor, jump_length + speed_factor);
 			}
 			else if (on_ground){
+				//we can jump again, so reset jump value. 
 				new_jump_length = 0;
+			}
+			else if (wall_jump && jump_length > speed_factor + 1){
+				new_jump_length = speed_factor;
 			}
 			//we are jumping up.
 			else if (new_location_y < location_y){ // if new location is above the previous
 				
-				//first jump is always two block up instead of one up and optionally one to either right or left
-				if (jump_length < 2)					new_jump_length = 3;
-				else if (jump_length % 2 == 0)			new_jump_length = jump_length + 2;
-				else if (wall_jump && jump_length > 3)	new_jump_length = 0;
-				else									new_jump_length = jump_length + 1;
+				//first jump is always two block up instead of one up and optionally one to either right or left.
+				if (jump_length < speed_factor)				new_jump_length = speed_factor+1;
+				//If we are at a speed factor interval, we must move up. 
+				else if (jump_length % speed_factor == 0)	new_jump_length = jump_length + speed_factor;
+				//moving sideways, increase the new jump length. 
+				else										new_jump_length = jump_length + 1;
 			}
 			//we are falling.
 			else if (new_location_y > location_y){
-				if (jump_length % 2 == 0)										new_jump_length = max(max_character_jump_height * 2, jump_length + 2);
-				else if (wall_jump && jump_length > max_character_jump_height)	new_jump_length = 0;
-				else															new_jump_length = max(max_character_jump_height * 2, jump_length + 1);
+				//if we are at a speed factor interval, we must move down.
+				if (jump_length % speed_factor == 0)								new_jump_length = max(max_character_jump_height * speed_factor, jump_length + speed_factor);
+				//we can move sideways. 
+				else																new_jump_length = max(max_character_jump_height * speed_factor, jump_length + 1);
 			}
+			//this node is a sideways movement in the air. 
 			else if (!on_ground && new_location_x != location_x)	new_jump_length = jump_length + 1;
-			//this is based off of the way jump lengths are calculated
-			if (jump_length >= 0 && jump_length % 2 != 0 && location_x != new_location_x)
-				continue;
 			
-			//if we're falling and succeor's height is bigger than ours, skip that successor
-			if (jump_length >= max_character_jump_height * 2 && new_location_y < location_y)
-				continue;
+			//If the parent node is either to the left or right, and we move sideways when we are supposed to be at the 
+			//speed factor interval, skip that successor.
+			if (jump_length >= 0 && jump_length % speed_factor == (speed_factor-1) && location_x != new_location_x)	continue;
+			
+			//if we're falling and successor's height is bigger than ours, skip that successor
+			if (jump_length >= max_character_jump_height * speed_factor && new_location_y < location_y)	continue;
 
-			//TODO: determine where the value of '6' comes from here. 
-			//TODO: determine where the value of '8' and '3' come from here. 
-			if (new_jump_length >= max_character_jump_height * 2 + 6 && new_location_x != location_x && (new_jump_length - (max_character_jump_height * 2 + 6)) % 8 != 3)
+			//if the parent node was a wall jump, and the current node has the same x, skip that successor.
+			//if(parent_wall_jump && new_location_x == location_x && new_location_y < location_y)	continue;
+
+			//if successor is a wall jump and the node below the successor was a wall jump, skip that successor
+			var direct_wall_ascend = false;
+			if(new_location_y + 2 < grid_y_dim){
+				var below_xy = (new_location_y + 1) * grid_x_dim + new_location_x;
+				node_list = nodes[|below_xy];
+				
+				for(var j = 0; j < ds_list_size(node_list); j++){
+					node = node_list[|j]
+					if(!is_undefined(node) 
+					&& (grid[new_location_x, new_location_y + 2] != 0) //check if node below is not a ground node
+					&& ((new_location_x +1 < grid_x_dim && grid[new_location_x +1, new_location_y + 1] == 0) || (new_location_x - 1 > -1 && grid[new_location_x -1, new_location_y + 1] == 0))
+					&& node[PNF.jump_length] == 0) { 
+						direct_wall_ascend = true;
+						break;
+					}
+				}
+			}
+			//if(direct_wall_ascend)	continue;
+			
+			//If the character is falling and the successor node is above the parent, skip that successor.
+				//If the successor's jump value is larger than the fall threshold (max * speed_factor + 6), 
+				//then we should stop allowing the direction change on every even jump value.
+				
+			if (new_jump_length >= max_character_jump_height * speed_factor + gravity_threshold && new_location_x != location_x 
+			&& ((new_jump_length - (max_character_jump_height * speed_factor + gravity_threshold)) % (speed_factor * 4) > speed_factor 
+			&& ((new_jump_length - (max_character_jump_height * speed_factor + gravity_threshold)) % (speed_factor * 4) < speed_factor*2)))
 				continue;
-			
-			//calculate the new g
-			node_list = nodes[|location[L.xy]];
-			node = node_list[|location[L.z]];
-			new_G = node[PNF.G] + grid[new_location_x, new_location_y] + new_jump_length / 4;
-			
-			
+				
+		/*  This will prevent the algorithm giving incorrect values when the character is falling really fast, 
+			because in that case instead of (speed_factor-1) blocks to the side and 1 block down, it would need to move (speed_factor-1) blocks 
+			to the side and 2 or more blocks down. (Right now, the character can move (speed_factor +1 up to speed_factor * 2 -1) 
+			blocks to the side after it starts falling, and then we allow it to move sideways every 4 blocks traversed vertically.)  */
+				
 			node_list = nodes[|new_location_xy];
 			if (ds_list_size(node_list) > 0){
 				var lowest_jump = max_value;
@@ -267,18 +317,27 @@
 				for (var j = 0; j < ds_list_size(node_list); ++j)
 				{
 					node = node_list[|j]
-					//take new node if the jump length is better 
+					//take new node if the jump length is better.
 					if (node[PNF.jump_length] < lowest_jump)
 						lowest_jump = node[PNF.jump_length];
 
-					//can jump to the side
-					if (node[PNF.jump_length] % 2 == 0 && node[PNF.jump_length] < max_character_jump_height * 2 + 6)
+					//can jump to the side while ascending or falling.
+					if (node[PNF.jump_length] % speed_factor < (speed_factor - 1) && node[PNF.jump_length] < max_character_jump_height * speed_factor + gravity_threshold)
 						could_move_sideways = true;
 				}
 
-				if (lowest_jump <= new_jump_length && (new_jump_length % 2 != 0 || new_jump_length >= max_character_jump_height * 2 + 6 || could_move_sideways))
+				//skip this successor if any other nodes at that location are cheaper or allow you to move sideways. 
+				if (lowest_jump <= new_jump_length && (new_jump_length % speed_factor != 0 || new_jump_length >= max_character_jump_height * speed_factor + gravity_threshold || could_move_sideways))
 					continue;
 			}
+			
+			//calculate the new g
+			node_list = nodes[|location[L.xy]];
+			node = node_list[|location[L.z]];
+			new_G = node[PNF.G] + grid[new_location_x, new_location_y] + new_jump_length / 4;  //we add new_jump_length / 4 to make 
+																							  //non-jumping preferable to the AI.
+																							  
+			if((wall_jump) || (parent_wall_jump)) new_G += max(new_jump_length * 4, speed_factor * 3);
 			
 			//initialize H based on heuristic variables 
 			switch(formula){
@@ -310,6 +369,8 @@
 			ds_priority_add(open_list, temp_location, new_node[PNF.F]);
 		}
 		
+		//finished searching through all the neighbors. 
+		//mark this node as in the closed list.
 		node_list = nodes[|location[L.xy]];
 		node = node_list[|location[L.z]];
 		node[PNF.status] = is_closed;
