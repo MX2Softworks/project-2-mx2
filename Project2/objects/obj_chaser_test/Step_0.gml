@@ -5,7 +5,7 @@ curr_chunk_x = floor((x)/pathfinder.chunk_size);
 curr_chunk_y = floor((y+sprite_height-1)/pathfinder.chunk_size);
 
 //if we finished a search, reset path.
-if(pathfinder.found == true && path_updated = false){
+if(pathfinder.found == true && path_updated = false && keyboard_check_pressed(ord("U"))){
 
 	ds_list_clear(path);
 	ds_list_copy(path, pathfinder.closed_list);
