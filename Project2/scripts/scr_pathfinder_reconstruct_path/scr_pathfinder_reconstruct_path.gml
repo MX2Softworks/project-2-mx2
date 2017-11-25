@@ -47,7 +47,7 @@ while (temp_loc[0] != node_temp[PNF.PX] || temp_loc[1] != node_temp[PNF.PY]){
 			|| ((node_temp[PNF.jump_length] > speed_factor) &&  (node_temp[PNF.jump_length] < speed_factor*2) && next_node_temp[PNF.jump_length] % speed_factor == 0)
 			|| (next_node_temp[PNF.jump_length] != 0 && node_temp[PNF.jump_length] == 0)   //mark jumps starts
 			|| (node_temp[PNF.jump_length] == 0 && prev_node_temp[PNF.jump_length] != 0)   //mark landings
-			|| (temp_loc[1] > closed_list_last_y && temp_loc[1] > node_temp[PNF.PY])
+			|| (temp_loc[1] > closed_list_last_y && temp_loc[1] > node_temp[PNF.PY])	//go around obstacles
 			|| (temp_loc[1] < closed_list_last_y && temp_loc[1] < node_temp[PNF.PY]) //mark jump peaks
 			|| (adjacent_on_ground == true && temp_loc[1] != closed_list_last_y && temp_loc[0] != closed_list_last_x)
 			|| (wall_jump))

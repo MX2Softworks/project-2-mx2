@@ -148,7 +148,7 @@
 		
 		parent_wall_jump = false;
 		if(location_y + 1 < grid_y_dim && grid[location_x, location_y + 1] != 0 && (location_x +1 < grid_x_dim && grid[location_x +1, new_location_y] == 0) || (location_x - 1 > -1 && grid[location_x -1, location_y] == 0)){
-			parent_wall_jump = true;
+			//parent_wall_jump = true;
 		}
 		
 		for (var i=0; diagonal_valid ? (i < 8) : (i < 4); i++) /*if diagonals are allowed then 8 neighbors, else then 4*/ {

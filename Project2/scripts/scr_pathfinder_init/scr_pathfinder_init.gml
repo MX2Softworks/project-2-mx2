@@ -26,6 +26,7 @@ at_ceiling_list = "";
 wall_jump_list = "";
 search_counter = 0;
 
+find_path = false;
 highlight_path = false;
 regen_graph = false;
 
