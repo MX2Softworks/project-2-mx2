@@ -14,21 +14,12 @@ enum PNF{
 
 }
 
-//this will determine how far away from a solid block is considered navigable. 
-// -move_distance is used to keep the navigable region relatively constant. 
-//h_move_distance = 128;
-//v_move_distance = 96; 
-
-//var h_max_distance = ceil(1.0 * h_move_distance/chunk_size);
-//var v_max_distance = ceil(1.0 * v_move_distance/chunk_size);
-
+ 
 //Diagonals = true;
 //mPunishChangeDirection  = false;
 //mTieBreaker = false;
 //mHeavyDiagonals  = false;
 //completed_time  = 0;
-//DebugProgress  = false;
-//DebugFoundPath  = false;
 
 on_ground_list = "";
 at_ceiling_list = "";

@@ -239,9 +239,12 @@
 				//we can move one cell to the left or right.
 				else								new_jump_length = max(max_character_jump_height * speed_factor, jump_length + speed_factor);
 			}
-			else if (on_ground || (wall_jump && jump_length > speed_factor+1)){
+			else if (on_ground){
 				//we can jump again, so reset jump value. 
 				new_jump_length = 0;
+			}
+			else if (wall_jump && jump_length > speed_factor + 1){
+				new_jump_length = speed_factor;
 			}
 			//we are jumping up.
 			else if (new_location_y < location_y){ // if new location is above the previous
@@ -271,7 +274,7 @@
 			if (jump_length >= max_character_jump_height * speed_factor && new_location_y < location_y)	continue;
 
 			//if the parent node was a wall jump, and the current node has the same x, skip that successor.
-			if(parent_wall_jump && new_location_x == location_x && new_location_y < location_y)	continue;
+			//if(parent_wall_jump && new_location_x == location_x && new_location_y < location_y)	continue;
 
 			//if successor is a wall jump and the node below the successor was a wall jump, skip that successor
 			var direct_wall_ascend = false;
@@ -290,7 +293,7 @@
 					}
 				}
 			}
-			if(direct_wall_ascend)	continue;
+			//if(direct_wall_ascend)	continue;
 			
 			//If the character is falling and the successor node is above the parent, skip that successor.
 				//If the successor's jump value is larger than the fall threshold (max * speed_factor + 6), 

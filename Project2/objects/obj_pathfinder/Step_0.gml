@@ -1,3 +1,10 @@
+if(my_agent != "")
+{
+
+	x = my_agent.x;
+	y = my_agent.y;
+}
+
 //This allows us to click and place the chaser to different places on the map. 
 if(mouse_check_button_pressed(mb_left) && instance_position(mouse_x, mouse_y, self)){
 
@@ -49,6 +56,6 @@ if(obj_player && (search_counter > 10 || search_counter == 0)){
 //start a search if we press U or if a previous search from last frame is going. 
 if(keyboard_check_pressed(ord("U")) || !((found && stopped) || (!found && !stopped) || search_counter > 10)){
 	
-	scr_pathfinder_find_path(floor(x/chunk_size), floor(y/chunk_size), end_x, end_y, false, true);
+	scr_pathfinder_find_path(floor(x/chunk_size), floor(y/chunk_size), end_x, end_y, true, true);
 }
 
