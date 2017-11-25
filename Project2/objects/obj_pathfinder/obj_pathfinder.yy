@@ -2,7 +2,7 @@
     "id": "3223b4d4-ddba-455d-84fb-b187713b7c0e",
     "modelName": "GMObject",
     "mvc": "1.0",
-    "name": "obj_jumping_chaser",
+    "name": "obj_pathfinder",
     "eventList": [
         {
             "id": "46570fe5-92a8-4656-a6ae-45a6374632b5",
@@ -61,6 +61,6 @@
     "physicsShapePoints": null,
     "physicsStartAwake": true,
     "solid": false,
-    "spriteId": "0db456ee-7316-46f1-9cf6-b54836d620a4",
+    "spriteId": "00000000-0000-0000-0000-000000000000",
     "visible": true
 }
