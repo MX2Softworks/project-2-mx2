@@ -2,6 +2,11 @@
 
 if(place_meeting(x, y, obj_player)) 
 {	
+	collided = true;
+}
+
+
+if(collided){
 	image_index = 1;
 	
 	if(play_audio == 0)
@@ -21,7 +26,7 @@ if(place_meeting(x, y, obj_player))
 			global.re_grid = true;
 		}
 	}
-	
+	collided = false;
 }
 
 else

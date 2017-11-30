@@ -6,7 +6,7 @@
 	if (place_meeting(current_x+1, current_y, obj_solid)) current_hspd = clamp(current_hspd, -1 * max_speed, 0);
 	
 	//testing whether getting rid of acceleration would help out. 
-	if(direction_horizontal == 0){
+	if(direction_horizontal == 0 /*|| (sign(direction_horizontal) != sign(previous_hspd) && previous_hspd != 0)*/){
 		current_xacc = 0;
 		current_hspd = 0;
 		xrem = 0;

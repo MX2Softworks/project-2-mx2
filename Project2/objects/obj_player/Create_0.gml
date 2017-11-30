@@ -1,10 +1,13 @@
 /// Initialize the player.
 
 // Move the player out of all objects, if any, when they are spawned.
-scr_fix_spawn(obj_all);
+	scr_fix_spawn(obj_all);
+
+	//used for pathfinding.
+	last_on_ground = [x,y]
 
 // General initialization.
-script_execute(scr_general_init);
+	script_execute(scr_general_init);
 
 // Movement Parameters.
 	max_speed = 500;
