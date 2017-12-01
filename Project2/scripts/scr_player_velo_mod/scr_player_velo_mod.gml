@@ -136,7 +136,7 @@
 
 // Player jumped so set current vspd to jump speed.
 	if (up && on_ground) {
-		current_vspd = -450;
+		current_vspd = -500;
 		wall_slide = false
 		sliding = false
 		rolling = false
@@ -150,7 +150,7 @@
 		wall_slide = false;
 		jumppeak = false;
 		jump_hold_stop = false;
-		current_vspd = -450;
+		current_vspd = -515;
 	}
 
 // Player dashed.

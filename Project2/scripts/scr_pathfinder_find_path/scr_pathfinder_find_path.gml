@@ -35,11 +35,11 @@
 			nodes[|pop] = node_list;
 	
 			if (grid[end_x, end_y] == 0)
-				return null;
+				return noone;
 		}
 	
 		//if end goal is untraversable or blocked, return null
-		if(grid[end_x, end_y] == 0){ return null; }
+		if(grid[end_x, end_y] == 0){ return noone; }
 	
 		found = false; 
 		stop = false; 
@@ -141,6 +141,11 @@
 			exit;
 		}
 		
+		if(get_timer() - timer > global.frame_time * .5){
+			stopped = true; 
+			exit;
+		}
+		
 		/*grandparent_wall_jump = false;
 		if(node[PNF.PY] + 1 < grid_y_dim && grid[node[PNF.PX], node[PNF.PX] + 1] != 0 && (node[PNF.PX] +1 < grid_x_dim && grid[node[PNF.PX] +1, node[PNF.PY]] == 0) || (node[PNF.PX] - 1 > -1 && grid[node[PNF.PX] -1, node[PNF.PY]] == 0)){
 			grandparent_wall_jump = true;
@@ -151,7 +156,9 @@
 			//parent_wall_jump = true;
 		}
 		
-		for (var i=0; diagonal_valid ? (i < 8) : (i < 4); i++) /*if diagonals are allowed then 8 neighbors, else then 4*/ {
+		var lim = 4;
+		if(diagonal_valid)	lim = 8;
+		for (var i=0; i < lim; i++) /*if diagonals are allowed then 8 neighbors, else then 4*/ {
 			
 			if(found) break;
 			
@@ -244,7 +251,7 @@
 				new_jump_length = 0;
 			}
 			else if (wall_jump && jump_length > speed_factor + 1){
-				new_jump_length = speed_factor;
+				new_jump_length = floor(speed_factor);
 			}
 			//we are jumping up.
 			else if (new_location_y < location_y){ // if new location is above the previous
@@ -274,7 +281,7 @@
 			if (jump_length >= max_character_jump_height * speed_factor && new_location_y < location_y)	continue;
 
 			//if the parent node was a wall jump, and the current node has the same x, skip that successor.
-			//if(parent_wall_jump && new_location_x == location_x && new_location_y < location_y)	continue;
+			if(parent_wall_jump && new_location_x == location_x && new_location_y < location_y)	continue;
 
 			//if successor is a wall jump and the node below the successor was a wall jump, skip that successor
 			var direct_wall_ascend = false;
@@ -287,13 +294,13 @@
 					if(!is_undefined(node) 
 					&& (grid[new_location_x, new_location_y + 2] != 0) //check if node below is not a ground node
 					&& ((new_location_x +1 < grid_x_dim && grid[new_location_x +1, new_location_y + 1] == 0) || (new_location_x - 1 > -1 && grid[new_location_x -1, new_location_y + 1] == 0))
-					&& node[PNF.jump_length] == 0) { 
+					&& node[PNF.jump_length] == speed_factor) { 
 						direct_wall_ascend = true;
 						break;
 					}
 				}
 			}
-			//if(direct_wall_ascend)	continue;
+			if(direct_wall_ascend)	continue;
 			
 			//If the character is falling and the successor node is above the parent, skip that successor.
 				//If the successor's jump value is larger than the fall threshold (max * speed_factor + 6), 
@@ -337,7 +344,7 @@
 			new_G = node[PNF.G] + grid[new_location_x, new_location_y] + new_jump_length / 4;  //we add new_jump_length / 4 to make 
 																							  //non-jumping preferable to the AI.
 																							  
-			if((wall_jump) || (parent_wall_jump)) new_G += max(new_jump_length * 4, speed_factor * 3);
+			if((wall_jump) || (parent_wall_jump)) new_G += (max_character_jump_height * speed_factor * 3);
 			
 			//initialize H based on heuristic variables 
 			switch(formula){

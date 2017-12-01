@@ -14,6 +14,7 @@ script_execute(scr_general_init);
 	next_node = "";
 	prev_node = "";
 	path = ds_list_create();
+	full_path = ds_list_create();
 	path_updated = false;
 	//create a pathfinder object for itself.
 	pathfinder = instance_create_depth(self.x, self.y, self.depth, obj_pathfinder)

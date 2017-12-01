@@ -1,5 +1,9 @@
 var filter_on = argument0;
 
+if(!is_undefined(my_agent) && my_agent != ""){
+	ds_list_clear(my_agent.full_path);
+}
+
 //we will store the path in the closed list.
 ds_list_clear(closed_list);
 var pos_x = end_x;
@@ -40,18 +44,25 @@ while (temp_loc[0] != node_temp[PNF.PX] || temp_loc[1] != node_temp[PNF.PY]){
 			//check if node is a wall_jump.
 			var wall_jump = false;
 			if((temp_loc[0] +1 < grid_x_dim && grid[temp_loc[0] +1, temp_loc[1]] == 0) || (temp_loc[0] - 1 > -1 && grid[temp_loc[0] -1, temp_loc[1]] == 0)) wall_jump = true;
-				
+			var p_x = node_temp[PNF.PX];
+			var p_y = node_temp[PNF.PY];
+			var parent_wall_jump = scr_pathfinder_is_wall_jump(self, p_x, p_y);
+			
 		//Now let's start the filtering process. The start node will get added to the list at the very end, after all other items have been dealt with. 
 		//Since we're going from the end node, let's be sure to include that one in our final path:
 		if (ds_list_size(closed_list) == 0 //add the ending node.
-			|| ((node_temp[PNF.jump_length] > speed_factor) &&  (node_temp[PNF.jump_length] < speed_factor*2) && next_node_temp[PNF.jump_length] % speed_factor == 0)
-			|| (next_node_temp[PNF.jump_length] != 0 && node_temp[PNF.jump_length] == 0)   //mark jumps starts
-			|| (node_temp[PNF.jump_length] == 0 && prev_node_temp[PNF.jump_length] != 0)   //mark landings
-			|| (temp_loc[1] > closed_list_last_y && temp_loc[1] > node_temp[PNF.PY])	//go around obstacles
-			|| (temp_loc[1] < closed_list_last_y && temp_loc[1] < node_temp[PNF.PY]) //mark jump peaks
-			|| (adjacent_on_ground == true && temp_loc[1] != closed_list_last_y && temp_loc[0] != closed_list_last_x)
+			|| (!parent_wall_jump && (node_temp[PNF.jump_length] > speed_factor) &&  (node_temp[PNF.jump_length] < speed_factor*2) && next_node_temp[PNF.jump_length] % speed_factor == 0)
+			|| (!parent_wall_jump && next_node_temp[PNF.jump_length] != 0 && node_temp[PNF.jump_length] == 0)   //mark jumps starts
+			|| (!parent_wall_jump && node_temp[PNF.jump_length] == 0 && prev_node_temp[PNF.jump_length] != 0)   //mark landings
+			|| (!parent_wall_jump && temp_loc[1] > closed_list_last_y && temp_loc[1] > node_temp[PNF.PY])	//go around obstacles
+			|| (!parent_wall_jump && temp_loc[1] < closed_list_last_y && temp_loc[1] < node_temp[PNF.PY]) //mark jump peaks
+			//|| (!parent_wall_jump && adjacent_on_ground == true && temp_loc[1] != closed_list_last_y && temp_loc[0] != closed_list_last_x)
 			|| (wall_jump))
 			{ds_list_add(closed_list, temp_loc);}
+			
+		if(!is_undefined(my_agent) && my_agent != ""){
+			ds_list_add(my_agent.full_path, temp_loc);
+		}
 	}
 	else{
 		ds_list_add(closed_list, temp_loc);
