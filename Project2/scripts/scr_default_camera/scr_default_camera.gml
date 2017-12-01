@@ -15,7 +15,7 @@ window_set_rectangle((display_get_width() - view_wport[0]) * 0.5, (display_get_h
 surface_resize(application_surface, view_wport[0], view_hport[0]);
 
 // Create the camera.
-default_cam = camera_create_view(0, 0, 1024, 576, 0, obj_player, -1, -1, 720, 540);
+default_cam = camera_create_view(0, 0, room_width, room_height, 0, obj_player, -1, -1, 720, 540);
 
 // Assign the created camera to the view.
 view_set_camera(0, default_cam);

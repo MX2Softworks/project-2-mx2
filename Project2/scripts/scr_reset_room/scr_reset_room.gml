@@ -10,6 +10,8 @@ if(obj_chaser_test){
 	
 		chaser = instance_find(obj_chaser_test, j);
 		with(chaser){
+			ds_priority_destroy(pathfinder.open_list);
+			ds_list_destroy(pathfinder.closed_list);
 			instance_destroy(pathfinder);
 			self.x = self.room_start_x;
 			self.y = self.room_start_y;
@@ -19,6 +21,7 @@ if(obj_chaser_test){
 		script_execute(scr_general_init);
 
 		// Pathfinding
+			timer = 0;
 			wait_for_wall_jump = false;
 			prev_node_wall_jump = false;
 			direction_to_next = [0,0];
@@ -27,6 +30,7 @@ if(obj_chaser_test){
 			next_node = "";
 			prev_node = "";
 			path = ds_list_create();
+			full_path = ds_list_create();
 			path_updated = false;
 			//create a pathfinder object for itself.
 			pathfinder = instance_create_depth(self.x, self.y, self.depth, obj_pathfinder)

@@ -1,5 +1,10 @@
 /// Executed each timestep.
 
+if(keyboard_check_pressed(vk_tab)){
+	if(room == rm_1_1)	room_goto(rm_1_2);
+	else room_goto(rm_1_1);
+}
+
 // Move the player out of any walls, if they are stuck in them.
 scr_fix_spawn(obj_solid);
 
@@ -17,4 +22,8 @@ if(place_meeting(x,y, obj_death)){
 if(keyboard_check_pressed(vk_f1)){
 	fullscreen = !fullscreen;
 	window_set_fullscreen(fullscreen);
+}
+
+if(on_ground){
+	last_on_ground = [x,y];
 }

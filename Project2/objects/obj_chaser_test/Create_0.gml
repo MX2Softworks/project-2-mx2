@@ -5,6 +5,7 @@ scr_fix_spawn(obj_all);
 script_execute(scr_general_init);
 
 // Pathfinding
+	timer = 0;
 	wait_for_wall_jump = false;
 	prev_node_wall_jump = false;
 	direction_to_next = [0,0];
@@ -13,6 +14,7 @@ script_execute(scr_general_init);
 	next_node = "";
 	prev_node = "";
 	path = ds_list_create();
+	full_path = ds_list_create();
 	path_updated = false;
 	//create a pathfinder object for itself.
 	pathfinder = instance_create_depth(self.x, self.y, self.depth, obj_pathfinder)
@@ -20,6 +22,7 @@ script_execute(scr_general_init);
 	with(pathfinder){
 		self.my_agent = agent_id;
 		self.max_character_jump_height = self.character_height * 2;
+		self.speed_factor = 3;
 	}
 	curr_chunk_x = floor(x/pathfinder.chunk_size);
 	curr_chunk_y = floor(y/pathfinder.chunk_size);
