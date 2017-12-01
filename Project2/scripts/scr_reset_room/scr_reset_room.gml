@@ -19,6 +19,7 @@ if(obj_chaser_test){
 		script_execute(scr_general_init);
 
 		// Pathfinding
+			timer = 0;
 			wait_for_wall_jump = false;
 			prev_node_wall_jump = false;
 			direction_to_next = [0,0];

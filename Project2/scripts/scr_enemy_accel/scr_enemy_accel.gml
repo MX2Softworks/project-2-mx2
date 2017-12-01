@@ -1,5 +1,5 @@
 //ACCELERATION: horizontal acceleration
-	current_xacc = previous_xacc + (115200 * global.dt) * direction_horizontal;
+	current_xacc = 2800 * direction_horizontal;
 
 	// Limit acceleration when running normally.
 	current_xacc = clamp(current_xacc, -2800, 2800);
